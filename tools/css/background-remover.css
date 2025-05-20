@@ -1,0 +1,448 @@
+/* Upload Container Styles */
+.upload-container {
+    width: 100%;
+    min-height: 400px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.upload-area {
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+    border: 2px dashed var(--bs-border-color);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: all 0.3s ease;
+    background: var(--bs-body-bg);
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.upload-area::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bs-primary);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+.upload-area:hover::before,
+.upload-area.drag-over::before {
+    opacity: 0.05;
+}
+
+.upload-area:hover,
+.upload-area.drag-over {
+    border-color: var(--bs-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(var(--bs-primary-rgb), 0.15);
+}
+
+.upload-content {
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+.upload-area:hover .upload-content {
+    transform: scale(1.02);
+}
+
+.upload-content i {
+    font-size: 4rem;
+    color: var(--bs-primary);
+    margin-bottom: 1rem;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+}
+
+.upload-area:hover .upload-content i {
+    transform: translateY(-5px);
+    opacity: 1;
+}
+
+.upload-content h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--bs-heading-color);
+}
+
+.upload-content p {
+    color: var(--bs-text-muted);
+    margin-bottom: 1rem;
+}
+
+.supported-formats {
+    display: inline-flex;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: rgba(var(--bs-primary-rgb), 0.1);
+    border-radius: 8px;
+    margin-top: 1rem;
+}
+
+.supported-formats .badge {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.supported-formats .badge:hover {
+    transform: translateY(-2px);
+}
+
+/* Loading State */
+.preview-image.loading {
+    opacity: 0.5;
+}
+
+.preview-image.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--bs-border-color);
+    border-top-color: var(--bs-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Preview Container Improvements */
+.preview-container {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+}
+
+.preview-container.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.file-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Preview Styles */
+.preview-container {
+    width: 100%;
+    min-height: 400px;
+}
+
+.preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.preview-wrapper {
+    width: 100%;
+    height: 300px;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--bs-secondary-bg);
+}
+
+.preview-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: all 0.3s ease;
+}
+
+.preview-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.preview-wrapper:hover .preview-overlay {
+    opacity: 1;
+}
+
+.preview-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.preview-actions button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.preview-actions button:hover {
+    transform: scale(1.1);
+}
+
+/* Settings Styles */
+.settings-section {
+    padding: 0.5rem;
+}
+
+.form-range {
+    height: 6px;
+    border-radius: 3px;
+    background: var(--border-color);
+}
+
+.form-range::-webkit-slider-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--primary);
+    border: none;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+}
+
+.form-range::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+.form-range::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--primary);
+    border: none;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+}
+
+.form-range::-moz-range-thumb:hover {
+    transform: scale(1.2);
+}
+
+/* Result Styles */
+.result-container {
+    width: 100%;
+}
+
+.result-preview {
+    width: 100%;
+    height: 200px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--bs-secondary-bg);
+    position: relative;
+}
+
+.result-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.result-info {
+    margin: 1rem 0;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.result-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+/* History Styles */
+.history-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    padding: 1rem 0;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.history-item {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    aspect-ratio: 1;
+    background: var(--surface-variant);
+}
+
+.history-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all var(--transition-normal);
+}
+
+.history-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all var(--transition-normal);
+}
+
+.history-item:hover .history-overlay {
+    opacity: 1;
+}
+
+.history-item:hover .history-image {
+    transform: scale(1.1);
+}
+
+.history-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.history-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: none;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-normal);
+}
+
+.history-btn:hover {
+    transform: scale(1.1);
+    background: var(--primary);
+    color: white;
+}
+
+.history-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-muted);
+}
+
+.history-empty i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+/* Processing States */
+.processing .btn-text {
+    opacity: 0;
+}
+
+.processing .spinner-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.preview-container {
+    animation: fadeIn 0.3s ease-out;
+}
+
+.result-container {
+    animation: slideUp 0.3s ease-out;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .upload-area {
+        min-height: 300px;
+    }
+
+    .upload-content i {
+        font-size: 3rem;
+    }
+
+    .upload-content h3 {
+        font-size: 1.25rem;
+    }
+
+    .preview-wrapper {
+        height: 250px;
+    }
+
+    .history-container {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .upload-area {
+        min-height: 200px;
+    }
+
+    .preview-wrapper {
+        height: 200px;
+    }
+
+    .history-container {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+} 

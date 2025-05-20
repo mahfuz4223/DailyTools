@@ -1,0 +1,716 @@
+/* QR Generator Specific Styles */
+
+/* Tool Header */
+.tool-header .badge {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+/* Glass Card */
+.glass-card {
+    background: rgba(255, 255, 255, 0.05);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* Color Picker Styles */
+.color-picker-wrapper {
+    position: relative;
+    width: 100%;
+    height: 38px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.color-picker {
+    width: 100% !important;
+    height: 100% !important;
+    cursor: pointer;
+}
+
+.color-picker .pcr-button {
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    padding: 0;
+}
+
+.pcr-app {
+    background: var(--surface) !important;
+    border: 1px solid var(--border) !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2) !important;
+}
+
+.pcr-app .pcr-interaction input {
+    color: var(--text-primary) !important;
+    background: var(--surface-variant) !important;
+    border: 1px solid var(--border) !important;
+}
+
+.pcr-app .pcr-interaction .pcr-save {
+    background: var(--primary) !important;
+}
+
+.pcr-app .pcr-interaction .pcr-cancel {
+    background: var(--surface-variant) !important;
+}
+
+/* Style Options */
+.style-options .accordion-button {
+    background: var(--surface-variant);
+    color: var(--text-primary);
+    border: none;
+}
+
+.style-options .accordion-button:not(.collapsed) {
+    background: var(--surface-variant);
+    color: var(--primary);
+    box-shadow: none;
+}
+
+.style-options .accordion-body {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+}
+
+/* Form Controls in Style Section */
+.style-options .form-control,
+.style-options .form-select {
+    background: var(--surface-variant);
+    border-color: var(--border);
+    color: var(--text-primary);
+}
+
+.style-options .form-control:focus,
+.style-options .form-select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 0.25rem rgba(var(--primary-rgb), 0.25);
+}
+
+.style-options .form-check-input:checked {
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+
+/* QR Preview */
+.qr-preview-wrapper {
+    padding: 1.5rem;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+}
+
+#qrPreview {
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#qrPreview img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Frame Selector */
+.frame-selector {
+    overflow-x: auto;
+    padding: 0.5rem;
+}
+
+.frame-option {
+    cursor: pointer;
+    padding: 0.5rem;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+
+.frame-option:hover {
+    border-color: var(--bs-primary);
+}
+
+.frame-option.active {
+    border-color: var(--bs-primary);
+    background: rgba(var(--bs-primary-rgb), 0.1);
+}
+
+/* Logo Library */
+.logo-option {
+    cursor: pointer;
+    padding: 1rem;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    transition: all 0.3s;
+    text-align: center;
+}
+
+.logo-option:hover {
+    border-color: var(--bs-primary);
+}
+
+.logo-option img {
+    max-width: 64px;
+    height: auto;
+    margin-bottom: 0.5rem;
+}
+
+/* Scanner */
+#scanner-container {
+    min-height: 300px;
+    background: #000;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Pro Features Banner */
+.pro-features-banner .card {
+    background: linear-gradient(45deg, rgba(var(--bs-primary-rgb), 0.1), rgba(var(--bs-info-rgb), 0.1));
+    border: none;
+}
+
+.btn-gradient-primary {
+    background: linear-gradient(45deg, var(--bs-primary), var(--bs-info));
+    border: none;
+    color: white;
+}
+
+.btn-gradient-primary:hover {
+    background: linear-gradient(45deg, var(--bs-primary), var(--bs-info));
+    opacity: 0.9;
+    color: white;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .btn-group {
+        flex-wrap: wrap;
+    }
+    
+    .btn-group .btn {
+        flex: 1 1 calc(33.333% - 4px);
+        margin: 2px;
+    }
+}
+
+/* Dark Theme Adjustments */
+[data-theme="dark"] .glass-card {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .qr-preview-wrapper {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+/* Animations */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.btn-gradient-primary:hover {
+    animation: pulse 1s infinite;
+}
+
+/* Loading States */
+.loading {
+    position: relative;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(var(--bs-dark-rgb), 0.5);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: inherit;
+}
+
+.loading::before {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--bs-primary);
+    border-top-color: transparent;
+    border-radius: 50%;
+    z-index: 1;
+    animation: spin 1s linear infinite;
+    top: calc(50% - 12px);
+    left: calc(50% - 12px);
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Tooltips */
+[data-tooltip] {
+    position: relative;
+}
+
+[data-tooltip]::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.5rem;
+    background: rgba(var(--bs-dark-rgb), 0.9);
+    color: white;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+}
+
+[data-tooltip]:hover::before {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* QR Code Generator Specific Styles */
+
+/* Content Type Selector */
+.content-type-selector {
+    margin-bottom: 2rem;
+}
+
+.type-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 1rem;
+}
+
+.type-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: var(--surface-variant);
+    border-radius: 1rem;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.type-option i {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary);
+    transition: all 0.3s ease;
+}
+
+.type-option span {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    transition: all 0.3s ease;
+}
+
+.btn-check:checked + .type-option {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(var(--primary-rgb), 0.3);
+}
+
+.btn-check:checked + .type-option i,
+.btn-check:checked + .type-option span {
+    color: white;
+}
+
+/* QR Preview */
+.qr-preview-wrapper {
+    padding: 1.5rem;
+    border-radius: 1rem;
+    background: var(--surface-variant);
+}
+
+.preview-container {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.preview-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+}
+
+/* Action Buttons */
+.action-buttons {
+    margin-top: 1.5rem;
+}
+
+.download-options {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.download-options button {
+    flex: 1;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.download-options button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(var(--primary-rgb), 0.2);
+}
+
+.download-options button.btn-success,
+.download-options button.btn-danger {
+    color: white;
+}
+
+/* Logo Upload */
+.logo-upload-wrapper {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.logo-preview {
+    width: 100px;
+    height: 100px;
+    border-radius: 0.5rem;
+    background: var(--surface-variant);
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.logo-preview img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* Logo Library */
+.logo-library {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.logo-item {
+    aspect-ratio: 1;
+    border-radius: 0.5rem;
+    background: var(--surface-variant);
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.logo-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(var(--primary-rgb), 0.2);
+}
+
+.logo-item.active {
+    border: 2px solid var(--primary);
+}
+
+.logo-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Range Inputs */
+.form-range {
+    height: 1.5rem;
+    padding: 0;
+    background: transparent;
+    appearance: none;
+}
+
+.form-range::-webkit-slider-thumb {
+    appearance: none;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background: var(--primary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.form-range::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+.form-range::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 0.25rem;
+    background: var(--surface-variant);
+    border-radius: 0.25rem;
+    cursor: pointer;
+}
+
+/* Scanner */
+.scanner-container {
+    aspect-ratio: 4/3;
+    background: var(--surface-variant);
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.scan-result {
+    height: 100%;
+    min-height: 200px;
+}
+
+.placeholder-content {
+    color: var(--text-secondary);
+}
+
+/* Share Modal */
+.share-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.share-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: var(--surface-variant);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.share-btn:hover {
+    transform: translateY(-2px);
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    box-shadow: 0 4px 15px rgba(var(--primary-rgb), 0.3);
+}
+
+.share-btn.btn-success {
+    background: var(--success);
+    color: white;
+    border-color: var(--success);
+}
+
+.share-btn i {
+    font-size: 1.5rem;
+}
+
+.share-btn span {
+    font-size: 0.875rem;
+    text-align: center;
+}
+
+/* Action Buttons */
+.action-buttons {
+    margin-top: 1.5rem;
+}
+
+.action-buttons .btn-group {
+    gap: 0.5rem;
+}
+
+.action-buttons .btn {
+    border-radius: 0.5rem !important;
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+}
+
+.action-buttons .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(var(--primary-rgb), 0.2);
+}
+
+.action-buttons .btn i {
+    transition: all 0.3s ease;
+}
+
+.action-buttons .btn:hover i {
+    transform: scale(1.1);
+}
+
+/* Dark Theme Adjustments */
+[data-theme="dark"] .share-btn {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .share-btn:hover {
+    background: var(--primary);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .share-options {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .action-buttons .btn-group {
+        flex-direction: column;
+    }
+
+    .action-buttons .btn {
+        width: 100%;
+        margin-right: 0 !important;
+        margin-bottom: 0.5rem;
+    }
+
+    .download-options {
+        flex-direction: column;
+    }
+}
+
+/* Generate Button Styles */
+.generate-btn-wrapper {
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid var(--border);
+    margin: 0 -1rem;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+}
+
+.bg-surface {
+    background: rgba(var(--surface-rgb), 0.95) !important;
+}
+
+#generateQRBtn {
+    min-height: 3.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: none;
+    box-shadow: 0 4px 15px rgba(var(--primary-rgb), 0.2);
+}
+
+#generateQRBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(var(--primary-rgb), 0.3);
+}
+
+#generateQRBtn:active {
+    transform: translateY(0);
+}
+
+#generateQRBtn .btn-content {
+    transition: all 0.3s ease;
+}
+
+#generateQRBtn .btn-feedback {
+    background: var(--success);
+    transform: translateY(100%);
+    transition: all 0.3s ease;
+    opacity: 0;
+}
+
+#generateQRBtn.btn-success .btn-content {
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+#generateQRBtn.btn-success .btn-feedback {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+#generateQRBtn.btn-danger {
+    background: var(--danger) !important;
+    animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes shake {
+    10%, 90% { transform: translate3d(-1px, 0, 0); }
+    20%, 80% { transform: translate3d(2px, 0, 0); }
+    30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+    40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
+/* Loading State */
+#generateQRBtn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+#generateQRBtn .spinner-border-sm {
+    width: 1.2rem;
+    height: 1.2rem;
+    border-width: 0.15em;
+}
+
+/* Success/Error Animation */
+@keyframes successPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.btn-success {
+    animation: successPulse 0.5s ease;
+}
+
+/* Dark Theme Adjustments */
+[data-theme="dark"] .generate-btn-wrapper {
+    background: rgba(0, 0, 0, 0.95);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .generate-btn-wrapper {
+        margin: 0 -0.5rem;
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+    }
+
+    #generateQRBtn {
+        min-height: 3rem;
+        font-size: 1rem;
+    }
+} 
+} 

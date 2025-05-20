@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Complete PDF toolkit with merge, split, compress, convert and other essential PDF operations">
+    <title>PDF Tools - DarkTools</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Toastify CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" rel="stylesheet">
+    
+    <!-- Dropzone CSS -->
+    <link href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" rel="stylesheet">
+    
+    <!-- PDF.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    
+    <!-- Sortable.js -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    
+    <!-- Dark Tools Core CSS -->
+    <link href="../css/dark-tools.css" rel="stylesheet">
+    
+    <!-- PDF Tools Specific CSS -->
+    <link href="css/pdf-tools.css" rel="stylesheet">
+    <link href="css/pdf-tools-enhanced.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <div class="theme-toggle-wrapper">
+        <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark/light mode">
+            <i class="fas fa-sun sun-icon"></i>
+            <i class="fas fa-moon moon-icon"></i>
+        </button>
+    </div>
+
+    <!-- Header -->
+    <header id="header"></header>
+
+    <!-- Tool Content -->
+    <main class="container py-5">
+        <!-- Title Section -->
+        <div class="row mb-5">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="mb-3">PDF Tools</h1>
+                <p class="lead text-muted">
+                    Merge, split, compress, convert and edit PDFs with professional quality tools
+                </p>
+            </div>
+        </div>
+        
+        <!-- Tool Tabs -->
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <ul class="nav nav-tabs mb-4" id="pdfTools" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="merge-tab" data-bs-toggle="tab" data-bs-target="#merge-content" 
+                                type="button" role="tab" aria-controls="merge-content" aria-selected="true">
+                            <i class="fas fa-object-group me-2"></i>Merge PDF
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="split-tab" data-bs-toggle="tab" data-bs-target="#split-content" 
+                                type="button" role="tab" aria-controls="split-content" aria-selected="false">
+                            <i class="fas fa-cut me-2"></i>Split PDF
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="compress-tab" data-bs-toggle="tab" data-bs-target="#compress-content" 
+                                type="button" role="tab" aria-controls="compress-content" aria-selected="false">
+                            <i class="fas fa-compress-arrows-alt me-2"></i>Compress PDF
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="convert-tab" data-bs-toggle="tab" data-bs-target="#convert-content" 
+                                type="button" role="tab" aria-controls="convert-content" aria-selected="false">
+                            <i class="fas fa-exchange-alt me-2"></i>Convert PDF
+                        </button>
+                    </li>
+                </ul>
+                
+                <div class="tab-content glass-card p-4" id="pdfToolsContent">
+                    <!-- Merge PDFs Tab -->
+                    <div class="tab-pane fade show active" id="merge-content" role="tabpanel" aria-labelledby="merge-tab">
+                        <div class="row">
+                            <div class="col-lg-7">
+                                <h3 class="mb-3">Upload PDF Files</h3>
+                                
+                                <div class="pdf-upload-container mb-4" id="mergePdfUpload">
+                                    <div class="dropzone-wrapper">
+                                        <div id="mergeDropzone" class="dropzone">
+                                            <div class="dz-message needsclick">
+                                                <div class="upload-icon mb-3">
+                                                    <i class="fas fa-file-pdf"></i>
+                                                </div>
+                                                <h4 class="mb-2">Drop PDF files here</h4>
+                                                <p class="text-muted">or click to browse files</p>
+                                                <p class="small text-muted mt-2">Upload multiple PDF files to merge them</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="glass-card p-3 mb-4" id="pdfFilesList">
+                                    <h4 class="mb-3">PDF Files <span id="pdfCount" class="badge bg-primary ms-2">0</span></h4>
+                                    <div class="pdf-file-list" id="mergeFileList">
+                                        <div class="text-center text-muted py-5">
+                                            <i class="fas fa-file-pdf fs-1 mb-3 d-block"></i>
+                                            <p>Uploaded PDF files will appear here</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-5">
+                                <h3 class="mb-3">Merge Settings</h3>
+                                <div class="glass-card p-3 mb-4">
+                                    <div class="mb-3">
+                                        <label for="outputFileName" class="form-label">Output File Name</label>
+                                        <input type="text" class="form-control" id="outputFileName" placeholder="merged_document.pdf">
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label class="form-label">Page Order</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="pageOrder" id="orderAsc" checked>
+                                            <label class="form-check-label" for="orderAsc">
+                                                Ascending order (Default)
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="pageOrder" id="orderDesc">
+                                            <label class="form-check-label" for="orderDesc">
+                                                Descending order
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <hr>
+                                    
+                                    <div class="mb-3">
+                                        <label class="form-label">PDF Security</label>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="addPassword">
+                                            <label class="form-check-label" for="addPassword">
+                                                Add password protection
+                                            </label>
+                                        </div>
+                                        
+                                        <div class="mt-2 password-container d-none" id="passwordContainer">
+                                            <input type="password" class="form-control mb-2" id="pdfPassword" placeholder="Enter password">
+                                            <div class="form-text text-muted small">
+                                                The password will be applied to the merged PDF
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <button id="mergePdfs" class="btn btn-primary w-100 py-2" disabled data-bs-toggle="tooltip" data-bs-placement="top" title="Combine multiple PDF files into one document">
+                                        <i class="fas fa-object-group me-2"></i>Merge PDF Files
+                                    </button>
+                                </div>
+                                
+                                <div class="glass-card p-3 mb-4" id="mergeResult">
+                                    <h4 class="mb-3">
+                                        <i class="fas fa-file-pdf me-2"></i>Output PDF
+                                        <div class="spinner-border spinner-border-sm text-primary ms-2 d-none" id="mergeSpinner" role="status">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </div>
+                                    </h4>
+                                    <div id="mergeStatus" class="text-center text-muted mb-3">
+                                        PDF files will be merged here
+                                    </div>
+                                    <div class="pdf-preview d-none" id="mergePreview">
+                                        <canvas id="pdfPreviewCanvas" class="pdf-preview-canvas mb-3"></canvas>
+                                        <div class="text-center text-muted small">
+                                            Preview of first page
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-between mt-3">
+                                        <button id="downloadMergedPdf" class="btn btn-success" disabled>
+                                            <i class="fas fa-download me-2"></i>Download PDF
+                                        </button>
+                                        <button id="clearMerge" class="btn btn-outline-danger">
+                                            <i class="fas fa-trash me-2"></i>Clear All
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Split PDF Tab -->
+                    <div class="tab-pane fade" id="split-content" role="tabpanel" aria-labelledby="split-tab">
+                        <div class="row">
+                            <div class="col-lg-7">
+                                <h3 class="mb-3">Upload a PDF File</h3>
+                                
+                                <div class="pdf-upload-container mb-4">
+                                    <div class="dropzone-wrapper">
+                                        <div id="splitDropzone" class="dropzone">
+                                            <div class="dz-message needsclick">
+                                                <div class="upload-icon mb-3">
+                                                    <i class="fas fa-file-pdf"></i>
+                                                </div>
+                                                <h4 class="mb-2">Drop a PDF file here</h4>
+                                                <p class="text-muted">or click to browse files</p>
+                                                <p class="small text-muted mt-2">Upload a single PDF file to split</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="pdf-preview-container d-none" id="splitPreviewContainer">
+                                    <h4 class="mb-3">PDF Preview</h4>
+                                    <div class="glass-card p-3 mb-3">
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <div>
+                                                <span class="badge bg-primary me-2" id="splitPageInfo">Page 1 of 10</span>
+                                                <span class="text-muted small" id="splitPdfInfo">filename.pdf</span>
+                                            </div>
+                                            <div class="pdf-navigation">
+                                                <button class="btn btn-sm btn-outline-primary me-2" id="prevPage" disabled aria-label="Previous page" data-bs-toggle="tooltip" title="Previous page">
+                                                    <i class="fas fa-chevron-left"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-outline-primary" id="nextPage" aria-label="Next page" data-bs-toggle="tooltip" title="Next page">
+                                                    <i class="fas fa-chevron-right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <canvas id="splitPreviewCanvas" class="pdf-preview-canvas"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-5">
+                                <h3 class="mb-3">Split Options</h3>
+                                <div class="glass-card p-3 mb-4">
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold">Split Method</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="splitMethod" id="splitRange" checked>
+                                            <label class="form-check-label" for="splitRange">
+                                                Split by page range
+                                            </label>
+                                            <small class="form-text text-muted d-block">Extract specific pages or ranges</small>
+                                        </div>
+                                        <div class="mt-2 mb-3">
+                                            <label for="pageRanges" class="form-label">Page Ranges</label>
+                                            <input type="text" class="form-control" id="pageRanges" placeholder="e.g. 1-3, 5, 7-9">
+                                            <small class="form-text text-muted">Separate ranges with commas</small>
+                                        </div>
+                                        
+                                        <div class="form-check mt-3">
+                                            <input class="form-check-input" type="radio" name="splitMethod" id="splitEach">
+                                            <label class="form-check-label" for="splitEach">
+                                                Extract each page
+                                            </label>
+                                            <small class="form-text text-muted d-block">Create a separate PDF for each page</small>
+                                        </div>
+                                        
+                                        <div class="form-check mt-3">
+                                            <input class="form-check-input" type="radio" name="splitMethod" id="splitEvery">
+                                            <label class="form-check-label" for="splitEvery">
+                                                Split every N pages
+                                            </label>
+                                            <small class="form-text text-muted d-block">Create a new PDF every N pages</small>
+                                        </div>
+                                        <div class="mt-2">
+                                            <label for="splitNPages" class="form-label">Pages per PDF</label>
+                                            <input type="number" class="form-control" id="splitNPages" min="1" value="1" disabled>
+                                        </div>
+                                    </div>
+                                    
+                                    <hr>
+                                    
+                                    <div class="mb-3">
+                                        <label for="splitFilePrefix" class="form-label">Output File Prefix</label>
+                                        <input type="text" class="form-control" id="splitFilePrefix" placeholder="e.g. split_">
+                                        <small class="form-text text-muted">Will be added before each output filename</small>
+                                    </div>
+                                    
+                                    <button id="splitPdf" class="btn btn-primary w-100 py-2" disabled data-bs-toggle="tooltip" data-bs-placement="top" title="Extract pages or split PDF into multiple files">
+                                        <i class="fas fa-cut me-2"></i>Split PDF
+                                    </button>
+                                </div>
+                                
+                                <div class="glass-card p-3 mb-4" id="splitResult">
+                                    <h4 class="mb-3">
+                                        <i class="fas fa-tasks me-2"></i>Split Results
+                                        <div class="spinner-border spinner-border-sm text-primary ms-2 d-none" id="splitSpinner" role="status">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </div>
+                                    </h4>
+                                    <div id="splitStatus" class="text-center text-muted">
+                                        Split PDFs will appear here
+                                    </div>
+                                    <div class="split-files-list d-none" id="splitFilesList">
+                                        <!-- Split files will be listed here -->
+                                    </div>
+                                    <div class="d-flex justify-content-between mt-3">
+                                        <button id="downloadAllSplit" class="btn btn-success" disabled>
+                                            <i class="fas fa-download me-2"></i>Download All (ZIP)
+                                        </button>
+                                        <button id="clearSplit" class="btn btn-outline-danger">
+                                            <i class="fas fa-trash me-2"></i>Clear All
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Compress PDF Tab -->
+                    <div class="tab-pane fade" id="compress-content" role="tabpanel" aria-labelledby="compress-tab">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <h3 class="mb-3">Upload a PDF</h3>
+                                
+                                <div class="pdf-upload-container mb-3">
+                                    <div class="dropzone-wrapper">
+                                        <div id="compressPdfDropzone" class="dropzone">
+                                            <div class="dz-message needsclick">
+                                                <div class="upload-icon mb-3">
+                                                    <i class="fas fa-file-pdf"></i>
+                                                </div>
+                                                <h4 class="mb-2">Drop your PDF here</h4>
+                                                <p class="text-muted">or click to browse files</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="glass-card p-3 mb-4">
+                                    <h4 class="mb-3">Compression Level</h4>
+                                    <div class="compression-selector">
+                                        <div class="compression-option active" data-level="low" data-bs-toggle="tooltip" title="Minimal compression, best quality">
+                                            <i class="fas fa-feather"></i>
+                                            <span>Low</span>
+                                            <small>Best quality</small>
+                                            <div class="quality-indicator mt-2">
+                                                <div class="progress" style="height: 4px;">
+                                                    <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="compression-option" data-level="medium" data-bs-toggle="tooltip" title="Balanced compression for most documents">
+                                            <i class="fas fa-balance-scale"></i>
+                                            <span>Medium</span>
+                                            <small>Balanced</small>
+                                            <div class="quality-indicator mt-2">
+                                                <div class="progress" style="height: 4px;">
+                                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="compression-option" data-level="high" data-bs-toggle="tooltip" title="Maximum compression, smaller file size">
+                                            <i class="fas fa-compress-arrows-alt"></i>
+                                            <span>High</span>
+                                            <small>Smallest size</small>
+                                            <div class="quality-indicator mt-2">
+                                                <div class="progress" style="height: 4px;">
+                                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mt-4">
+                                        <label for="compressionOptions" class="form-label">Advanced Options</label>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="compressImages" checked>
+                                            <label class="form-check-label" for="compressImages">
+                                                Compress images in document
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="removeMetadata" checked>
+                                            <label class="form-check-label" for="removeMetadata">
+                                                Remove metadata
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="removeFonts">
+                                            <label class="form-check-label" for="removeFonts">
+                                                Remove embedded fonts
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mt-4">
+                                        <button id="compressPdf" class="btn btn-primary w-100 py-2" disabled data-bs-toggle="tooltip" data-bs-placement="top" title="Reduce PDF file size while maintaining quality">
+                                            <i class="fas fa-compress me-2"></i>Compress PDF
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="glass-card p-3">
+                                    <h4 class="mb-3">Compression Tips</h4>
+                                    <div class="compression-tips">
+                                        <ul class="list-unstyled">
+                                            <li><i class="fas fa-check-circle text-success me-2"></i>Compress PDFs before uploading them online</li>
+                                            <li><i class="fas fa-check-circle text-success me-2"></i>High compression may reduce text quality</li>
+                                            <li><i class="fas fa-check-circle text-success me-2"></i>Medium is best for most documents</li>
+                                            <li><i class="fas fa-check-circle text-success me-2"></i>Remove metadata for additional size reduction</li>
+                                            <li><i class="fas fa-check-circle text-success me-2"></i>Best results for PDFs with many images</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6">
+                                <h3 class="mb-3">Compression Results</h3>
+                                
+                                <div class="compression-results d-none" id="compressionResults">
+                                    <div class="glass-card p-3 mb-4">
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <h5>Original PDF</h5>
+                                                <div class="pdf-info-container">
+                                                    <div class="pdf-preview">
+                                                        <canvas id="originalPdfPreview" class="pdf-preview-canvas"></canvas>
+                                                    </div>
+                                                    <div class="pdf-stats" id="originalPdfStats">
+                                                        <!-- Original PDF stats will be displayed here -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <h5>Compressed PDF</h5>
+                                                <div class="pdf-info-container">
+                                                    <div class="pdf-preview">
+                                                        <canvas id="compressedPdfPreview" class="pdf-preview-canvas"></canvas>
+                                                    </div>
+                                                    <div class="pdf-stats" id="compressedPdfStats">
+                                                        <!-- Compressed PDF stats will be displayed here -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <hr>
+                                        
+                                        <div class="compression-summary glass-card p-3 mb-3">
+                                            <div class="row text-center">
+                                                <div class="col-md-4 mb-2">
+                                                    <div class="summary-item">
+                                                        <div class="summary-label">Size Reduction</div>
+                                                        <div class="summary-value" id="sizeReduction">--</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 mb-2">
+                                                    <div class="summary-item">
+                                                        <div class="summary-label">Compression Ratio</div>
+                                                        <div class="summary-value" id="compressionRatio">--</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 mb-2">
+                                                    <div class="summary-item">
+                                                        <div class="summary-label">Space Saved</div>
+                                                        <div class="summary-value" id="spaceSaved">--</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="d-flex gap-2">
+                                            <button id="downloadCompressed" class="btn btn-success flex-grow-1">
+                                                <i class="fas fa-download me-2"></i>Download
+                                            </button>
+                                            <button id="tryAgainCompress" class="btn btn-outline-primary">
+                                                <i class="fas fa-redo me-2"></i>Try Again
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="no-compression-results" id="noCompressionResults">
+                                    <div class="glass-card p-4 text-center text-muted">
+                                        <i class="fas fa-file-pdf fs-1 mb-3 d-block"></i>
+                                        <h5>No PDF Compressed Yet</h5>
+                                        <p>Upload a PDF and set compression options to see results</p>
+                                        <div class="spinner-border spinner-border-sm text-primary d-none mt-3" id="compressionSpinner" role="status">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Convert PDF Tab -->
+                    <div class="tab-pane fade" id="convert-content" role="tabpanel" aria-labelledby="convert-tab">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <h3 class="mb-3">Convert PDF</h3>
+                                
+                                <div class="glass-card p-3 mb-4">
+                                    <div class="pdf-upload-container mb-3">
+                                        <div class="dropzone-wrapper">
+                                            <div id="convertPdfDropzone" class="dropzone">
+                                                <div class="dz-message needsclick">
+                                                    <div class="upload-icon mb-3">
+                                                        <i class="fas fa-file-pdf"></i>
+                                                    </div>
+                                                    <h4 class="mb-2">Drop your PDF here</h4>
+                                                    <p class="text-muted">or click to browse files</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <h4 class="mb-3 mt-4">Conversion Options</h4>
+                                    
+                                    <div class="mb-3">
+                                        <label class="form-label">Convert PDF to:</label>
+                                        <div class="conversion-options">
+                                            <div class="conversion-option active" data-format="png" data-bs-toggle="tooltip" title="Best for graphics with transparency">
+                                                <i class="fas fa-file-image"></i>
+                                                <span>PNG</span>
+                                                <div class="format-badge">Lossless</div>
+                                            </div>
+                                            <div class="conversion-option" data-format="jpg" data-bs-toggle="tooltip" title="Best for photographs and smaller file sizes">
+                                                <i class="fas fa-file-image"></i>
+                                                <span>JPG</span>
+                                                <div class="format-badge">Compressed</div>
+                                            </div>
+                                            <div class="conversion-option" data-format="svg" data-bs-toggle="tooltip" title="Vector format, best for scalable graphics">
+                                                <i class="fas fa-file-image"></i>
+                                                <span>SVG</span>
+                                                <div class="format-badge">Vector</div>
+                                            </div>
+                                            <div class="conversion-option" data-format="text" data-bs-toggle="tooltip" title="Extract all text from PDF">
+                                                <i class="fas fa-file-alt"></i>
+                                                <span>Text</span>
+                                                <div class="format-badge">Content</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="checkbox" id="convertAllPages" checked>
+                                        <label class="form-check-label" for="convertAllPages">
+                                            Convert all pages
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="mb-3 page-range-container d-none" id="pageRangeContainer">
+                                        <label for="convertPageRange" class="form-label">Page Range</label>
+                                        <input type="text" class="form-control" id="convertPageRange" placeholder="e.g. 1-3, 5">
+                                        <small class="form-text text-muted">Separate ranges with commas</small>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="imageQuality" class="form-label">Image Quality</label>
+                                        <div class="d-flex align-items-center">
+                                            <input type="range" class="form-range flex-grow-1 me-2" id="imageQuality" min="1" max="100" value="90">
+                                            <span id="qualityValue" class="badge bg-primary">90%</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <button id="convertPdf" class="btn btn-primary w-100 py-2" disabled data-bs-toggle="tooltip" data-bs-placement="top" title="Convert your PDF to images or text">
+                                        <i class="fas fa-exchange-alt me-2"></i>Convert PDF
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6">
+                                <h3 class="mb-3">Conversion Results</h3>
+                                
+                                <div class="d-none" id="conversionResults">
+                                    <div class="glass-card p-3 mb-4">
+                                        <h4 class="mb-3">
+                                            <i class="fas fa-tasks me-2"></i>Conversion Status
+                                            <div class="spinner-border spinner-border-sm text-primary ms-2 d-none" id="convertSpinner" role="status">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
+                                        </h4>
+                                        
+                                        <div class="progress mb-3">
+                                            <div class="progress-bar" id="convertProgress" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                                        </div>
+                                        
+                                        <div id="convertStatus" class="text-center text-muted mb-3">
+                                            Processing...
+                                        </div>
+                                        
+                                        <div class="conversion-preview" id="conversionPreview">
+                                            <!-- Conversion previews will be added here -->
+                                        </div>
+                                        
+                                        <div class="d-flex justify-content-between mt-3">
+                                            <button id="downloadConverted" class="btn btn-success" disabled>
+                                                <i class="fas fa-download me-2"></i>Download All (ZIP)
+                                            </button>
+                                            <button id="clearConversion" class="btn btn-outline-danger">
+                                                <i class="fas fa-trash me-2"></i>Clear All
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div id="noConversionResults">
+                                    <div class="glass-card p-4 text-center text-muted">
+                                        <i class="fas fa-exchange-alt fs-1 mb-3 d-block"></i>
+                                        <h5>No Conversion Yet</h5>
+                                        <p>Upload a PDF and select conversion options to see results</p>
+                                    </div>
+                                    
+                                    <div class="glass-card p-3 mt-4">
+                                        <h4 class="mb-3">About Conversions</h4>
+                                        <ul class="list-unstyled feature-list">
+                                            <li class="mb-2">
+                                                <i class="fas fa-check-circle text-success me-2"></i>
+                                                <strong>PNG:</strong> Best for graphics, screenshots and transparent images
+                                            </li>
+                                            <li class="mb-2">
+                                                <i class="fas fa-check-circle text-success me-2"></i>
+                                                <strong>JPG:</strong> Ideal for photographs and color-rich documents
+                                            </li>
+                                            <li class="mb-2">
+                                                <i class="fas fa-check-circle text-success me-2"></i>
+                                                <strong>SVG:</strong> Perfect for graphics that need to be scaled
+                                            </li>
+                                            <li class="mb-2">
+                                                <i class="fas fa-check-circle text-success me-2"></i>
+                                                <strong>Text:</strong> Extract all text content from your PDF
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer"></footer>
+
+    <!-- Required Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/toastify-js"></script>
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+    
+    <!-- Component Loader -->
+    <script src="../js/componentLoader.js"></script>
+    
+    <!-- Theme Management -->
+    <script src="../js/dark-tools.js"></script>
+    
+    <!-- PDF Tools Specific JS -->
+    <script src="js/pdf-tools.js"></script>
+
+    <!-- Immediate component loading -->
+    <script>
+        // Ensure components are loaded immediately if using file protocol
+        if (window.location.protocol === 'file:') {
+            document.addEventListener('DOMContentLoaded', function() {
+                // Call component creation functions if they exist
+                if (typeof createHeader === 'function') {
+                    createHeader();
+                }
+                if (typeof createFooter === 'function') {
+                    createFooter();
+                }
+                
+                // Hide any loading notices
+                setTimeout(function() {
+                    const notices = document.querySelectorAll('.cors-notice');
+                    notices.forEach(function(notice) {
+                        notice.style.display = 'none';
+                    });
+                }, 500);
+            });
+        }
+    </script>
+
+    <!-- Floating Help Button -->
+    <div class="floating-help-button">
+        <button class="btn btn-primary rounded-circle" id="helpButton" aria-label="Show help" data-bs-toggle="tooltip" title="Show help and tips">
+            <i class="fas fa-question"></i>
+        </button>
+    </div>
+
+    <!-- Help Modal -->
+    <div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content glass-card">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="helpModalLabel">PDF Tools Help & Tips</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6 class="mb-3">Keyboard Shortcuts</h6>
+                    <div class="shortcuts-list">
+                        <div class="shortcut-item d-flex align-items-center mb-2">
+                            <div class="shortcut-keys me-3">
+                                <kbd>Ctrl</kbd> + <kbd>O</kbd>
+                            </div>
+                            <div class="shortcut-description">
+                                Open file selector
+                            </div>
+                        </div>
+                        <div class="shortcut-item d-flex align-items-center mb-2">
+                            <div class="shortcut-keys me-3">
+                                <kbd>Tab</kbd>
+                            </div>
+                            <div class="shortcut-description">
+                                Navigate between options
+                            </div>
+                        </div>
+                        <div class="shortcut-item d-flex align-items-center mb-2">
+                            <div class="shortcut-keys me-3">
+                                <kbd>←</kbd> <kbd>→</kbd>
+                            </div>
+                            <div class="shortcut-description">
+                                Navigate PDF pages
+                            </div>
+                        </div>
+                        <div class="shortcut-item d-flex align-items-center mb-2">
+                            <div class="shortcut-keys me-3">
+                                <kbd>Esc</kbd>
+                            </div>
+                            <div class="shortcut-description">
+                                Cancel current operation
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h6 class="mb-3 mt-4">Tips</h6>
+                    <ul class="tips-list">
+                        <li class="tip-item mb-2">
+                            <i class="fas fa-lightbulb text-warning me-2"></i>
+                            Drag and drop files directly onto the upload areas
+                        </li>
+                        <li class="tip-item mb-2">
+                            <i class="fas fa-lightbulb text-warning me-2"></i>
+                            When merging PDFs, you can reorder files by dragging them
+                        </li>
+                        <li class="tip-item mb-2">
+                            <i class="fas fa-lightbulb text-warning me-2"></i>
+                            Medium compression offers the best balance of quality and file size
+                        </li>
+                        <li class="tip-item mb-2">
+                            <i class="fas fa-lightbulb text-warning me-2"></i>
+                            Use PNG format when you need transparency in converted images
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Got it!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add notification about using a server -->
+    <div class="cors-notice position-fixed top-0 start-50 translate-middle-x" style="z-index: 9999; display: none;">
+        <div class="alert alert-info alert-dismissible fade show mt-3 shadow-sm" role="alert">
+            <i class="fas fa-info-circle me-2"></i>
+            <strong>Loading components...</strong> Please wait while the page initializes.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+
+    <!-- Server Info Modal -->
+    <div class="modal fade" id="serverInfoModal" tabindex="-1" aria-labelledby="serverInfoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content glass-card">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="serverInfoModalLabel">PDF Tools</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Processing your PDF files securely in your browser with no server uploads needed.</p>
+                    <h6 class="mt-3">Key Features:</h6>
+                    <ul>
+                        <li>Fast processing with client-side rendering</li>
+                        <li>100% private - files never leave your device</li>
+                        <li>Works offline after initial load</li>
+                        <li>Handles large PDF files efficiently</li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Got it!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add fallback content for header and footer when CORS blocks component loading -->
+    <script>
+        // Show notification if CORS error occurs
+        window.addEventListener('error', function(e) {
+            if (e.message && (e.message.includes('CORS') || e.message.includes('Failed to fetch'))) {
+                document.querySelector('.cors-notice').style.display = 'block';
+            }
+        }, true);
+
+        // Add fallback content if components fail to load due to CORS
+        setTimeout(function() {
+            if (!document.getElementById('header').innerHTML) {
+                document.getElementById('header').innerHTML = `
+                    <nav class="navbar navbar-expand-lg navbar-dark">
+                        <div class="container">
+                            <a class="navbar-brand" href="../index.html">
+                                <i class="fas fa-tools me-2"></i>DarkTools
+                            </a>
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarNav">
+                                <ul class="navbar-nav ms-auto">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="../index.html">Home</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="../tools.html">Tools</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="../about.html">About</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                `;
+            }
+            
+            if (!document.getElementById('footer').innerHTML) {
+                document.getElementById('footer').innerHTML = `
+                    <div class="container py-4">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p>&copy; 2023 DarkTools. All rights reserved.</p>
+                            </div>
+                            <div class="col-md-6 text-md-end">
+                                <a href="#" class="text-decoration-none me-3">Privacy Policy</a>
+                                <a href="#" class="text-decoration-none">Terms of Service</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        }, 1000);
+    </script>
+
+    <!-- Service Worker Registration -->
+    <script>
+        // Completely silent mode for service worker
+        if ('serviceWorker' in navigator && (window.location.protocol === 'http:' || window.location.protocol === 'https:')) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js', { scope: './' })
+                    .then(registration => {
+                        // Silent success
+                    })
+                    .catch(error => {
+                        // Silent error
+                    });
+            });
+        }
+        
+        // Silence console warnings when using file protocol
+        if (window.location.protocol === 'file:') {
+            // Overwrite console warnings to be silent
+            const originalConsoleWarn = console.warn;
+            console.warn = function() {
+                // Only show warnings not related to CORS
+                const message = arguments[0];
+                if (typeof message === 'string' && 
+                    (message.includes('CORS') || 
+                     message.includes('protocol') || 
+                     message.includes('file://') || 
+                     message.includes('localhost'))) {
+                    return;
+                }
+                originalConsoleWarn.apply(console, arguments);
+            };
+            
+            // Also silence certain console errors
+            const originalConsoleError = console.error;
+            console.error = function() {
+                // Only show errors not related to CORS or fetch
+                const message = arguments[0];
+                if (typeof message === 'string' && 
+                    (message.includes('CORS') || 
+                     message.includes('fetch') || 
+                     message.includes('Failed to load'))) {
+                    return;
+                }
+                originalConsoleError.apply(console, arguments);
+            };
+        }
+    </script>
+</body>
+</html> 

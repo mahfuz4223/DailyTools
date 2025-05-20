@@ -1,0 +1,452 @@
+/* Barcode Generator Specific Styles */
+
+/* Tool Header */
+.tool-header .badge {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+/* Glass Card */
+.glass-card {
+    background: rgba(255, 255, 255, 0.05);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    border-radius: 1rem;
+}
+
+/* Barcode Preview */
+.barcode-preview-wrapper {
+    padding: 1.5rem;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+}
+
+.preview-container {
+    aspect-ratio: 16/9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    padding: 1.5rem;
+    min-height: 200px;
+}
+
+.barcode-preview {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.barcode-preview canvas {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain;
+}
+
+.preview-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+}
+
+/* Content Type Selector */
+.content-type-selector {
+    margin-bottom: 2rem;
+}
+
+.type-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 1rem;
+}
+
+.type-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: var(--surface-variant);
+    border-radius: 1rem;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.type-option i {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary);
+    transition: all 0.3s ease;
+}
+
+.type-option span {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    transition: all 0.3s ease;
+}
+
+.btn-check:checked + .type-option {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(var(--primary-rgb), 0.3);
+}
+
+.btn-check:checked + .type-option i,
+.btn-check:checked + .type-option span {
+    color: white;
+}
+
+/* Color Picker Styles */
+.color-picker-wrapper {
+    position: relative;
+    width: 100%;
+    height: 38px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.color-picker {
+    width: 100% !important;
+    height: 100% !important;
+    cursor: pointer;
+}
+
+.color-picker .pcr-button {
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    padding: 0;
+}
+
+.pcr-app {
+    background: var(--surface) !important;
+    border: 1px solid var(--border) !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2) !important;
+}
+
+.pcr-app .pcr-interaction input {
+    color: var(--text-primary) !important;
+    background: var(--surface-variant) !important;
+    border: 1px solid var(--border) !important;
+}
+
+.pcr-app .pcr-interaction .pcr-save {
+    background: var(--primary) !important;
+}
+
+.pcr-app .pcr-interaction .pcr-cancel {
+    background: var(--surface-variant) !important;
+}
+
+/* Style Options */
+.style-options .accordion-button {
+    background: var(--surface-variant);
+    color: var(--text-primary);
+    border: none;
+}
+
+.style-options .accordion-button:not(.collapsed) {
+    background: var(--surface-variant);
+    color: var(--primary);
+    box-shadow: none;
+}
+
+.style-options .accordion-body {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+}
+
+/* Form Controls */
+.form-range {
+    height: 1.5rem;
+    padding: 0;
+    background: transparent;
+    appearance: none;
+}
+
+.form-range::-webkit-slider-thumb {
+    appearance: none;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background: var(--primary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.form-range::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+.form-range::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 0.25rem;
+    background: var(--surface-variant);
+    border-radius: 0.25rem;
+    cursor: pointer;
+}
+
+/* Action Buttons */
+.action-buttons {
+    margin-top: 1.5rem;
+}
+
+.action-buttons .btn-group {
+    gap: 0.5rem;
+}
+
+.action-buttons .btn {
+    border-radius: 0.5rem !important;
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+}
+
+.action-buttons .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(var(--primary-rgb), 0.2);
+}
+
+.action-buttons .btn i {
+    transition: all 0.3s ease;
+}
+
+.action-buttons .btn:hover i {
+    transform: scale(1.1);
+}
+
+/* Download Options */
+.download-options {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.download-options button {
+    flex: 1;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.download-options button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(var(--primary-rgb), 0.2);
+}
+
+.download-options button.btn-success,
+.download-options button.btn-danger {
+    color: white;
+}
+
+/* Share Modal */
+.share-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.share-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: var(--surface-variant);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.share-btn:hover {
+    transform: translateY(-2px);
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    box-shadow: 0 4px 15px rgba(var(--primary-rgb), 0.3);
+}
+
+.share-btn.btn-success {
+    background: var(--success);
+    color: white;
+    border-color: var(--success);
+}
+
+.share-btn i {
+    font-size: 1.5rem;
+}
+
+.share-btn span {
+    font-size: 0.875rem;
+    text-align: center;
+}
+
+/* Generate Button */
+.generate-btn-wrapper {
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid var(--border);
+    margin: 0 -1rem;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+}
+
+.bg-surface {
+    background: rgba(var(--surface-rgb), 0.95) !important;
+}
+
+#generateBarcodeBtn {
+    min-height: 3.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: none;
+    box-shadow: 0 4px 15px rgba(var(--primary-rgb), 0.2);
+}
+
+#generateBarcodeBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(var(--primary-rgb), 0.3);
+}
+
+#generateBarcodeBtn:active {
+    transform: translateY(0);
+}
+
+#generateBarcodeBtn .btn-content {
+    transition: all 0.3s ease;
+}
+
+#generateBarcodeBtn .btn-feedback {
+    background: var(--success);
+    transform: translateY(100%);
+    transition: all 0.3s ease;
+    opacity: 0;
+}
+
+#generateBarcodeBtn.btn-success .btn-content {
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+#generateBarcodeBtn.btn-success .btn-feedback {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+#generateBarcodeBtn.btn-danger {
+    background: var(--danger) !important;
+    animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes shake {
+    10%, 90% { transform: translate3d(-1px, 0, 0); }
+    20%, 80% { transform: translate3d(2px, 0, 0); }
+    30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+    40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
+/* Scanner */
+.scanner-container {
+    aspect-ratio: 4/3;
+    background: var(--surface-variant);
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.scan-result {
+    height: 100%;
+    min-height: 200px;
+}
+
+.placeholder-content {
+    color: var(--text-secondary);
+}
+
+/* Dark Theme Adjustments */
+[data-theme="dark"] .preview-container {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+[data-theme="dark"] .generate-btn-wrapper {
+    background: rgba(0, 0, 0, 0.95);
+}
+
+[data-theme="dark"] .share-btn {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .share-btn:hover {
+    background: var(--primary);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .glass-card {
+        padding: 1.5rem;
+    }
+
+    .type-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .share-options {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .action-buttons .btn-group {
+        flex-direction: column;
+    }
+
+    .action-buttons .btn {
+        width: 100%;
+        margin-right: 0 !important;
+        margin-bottom: 0.5rem;
+    }
+
+    .download-options {
+        flex-direction: column;
+    }
+
+    .generate-btn-wrapper {
+        margin: 0 -0.5rem;
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+    }
+
+    #generateBarcodeBtn {
+        min-height: 3rem;
+        font-size: 1rem;
+    }
+} 

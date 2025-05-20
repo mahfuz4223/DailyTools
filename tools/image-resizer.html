@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Advanced image processing tool with resizing, compression, batch operations and more">
+    <title>Image Resizer & Optimizer - DarkTools</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Toastify CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" rel="stylesheet">
+    
+    <!-- Dropzone CSS -->
+    <link href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" rel="stylesheet">
+    
+    <!-- Dark Tools Core CSS -->
+    <link href="../css/dark-tools.css" rel="stylesheet">
+    
+    <!-- Image Resizer Tool Specific CSS -->
+    <link href="css/image-resizer.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <div class="theme-toggle-wrapper">
+        <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark/light mode">
+            <i class="fas fa-sun sun-icon"></i>
+            <i class="fas fa-moon moon-icon"></i>
+        </button>
+    </div>
+
+    <!-- Header -->
+    <header id="header"></header>
+
+    <!-- Tool Content -->
+    <main class="container py-5">
+        <!-- Title Section -->
+        <div class="row mb-5">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="mb-3">Image Resizer & Optimizer</h1>
+                <p class="lead text-muted">
+                    Resize, compress, convert and optimize your images with professional quality
+                </p>
+            </div>
+        </div>
+        
+        <!-- Tool Tabs -->
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <ul class="nav nav-tabs mb-4" id="imageTools" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="single-tab" data-bs-toggle="tab" data-bs-target="#single-content" 
+                                type="button" role="tab" aria-controls="single-content" aria-selected="true">
+                            <i class="fas fa-image me-2"></i>Single Image
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="batch-tab" data-bs-toggle="tab" data-bs-target="#batch-content" 
+                                type="button" role="tab" aria-controls="batch-content" aria-selected="false">
+                            <i class="fas fa-images me-2"></i>Batch Processing
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="compress-tab" data-bs-toggle="tab" data-bs-target="#compress-content" 
+                                type="button" role="tab" aria-controls="compress-content" aria-selected="false">
+                            <i class="fas fa-file-zipper me-2"></i>Compression
+                        </button>
+                    </li>
+                </ul>
+                
+                <div class="tab-content glass-card p-4" id="imageToolsContent">
+                    <!-- Single Image Processing Tab -->
+                    <div class="tab-pane fade show active" id="single-content" role="tabpanel" aria-labelledby="single-tab">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h3 class="mb-3">Upload Image</h3>
+                                
+                                <div class="image-upload-container mb-4" id="singleImageUpload">
+                                    <div class="dropzone-wrapper">
+                                        <div id="singleDropzone" class="dropzone">
+                                            <div class="dz-message needsclick">
+                                                <div class="upload-icon mb-3">
+                                                    <i class="fas fa-cloud-upload-alt"></i>
+                                                </div>
+                                                <h4 class="mb-2">Drop your image here</h4>
+                                                <p class="text-muted">or click to browse files</p>
+                                                <p class="small text-muted mt-2">Supported formats: JPG, PNG, GIF, WebP</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="image-preview-container" id="singleImagePreview">
+                                    <h4 class="mb-3">Image Preview</h4>
+                                    <div class="preview-wrapper mb-3 d-none" id="originalPreviewWrapper">
+                                        <img id="originalPreview" src="" alt="Original image preview" class="img-fluid preview-image">
+                                        <div class="image-info" id="originalImageInfo">
+                                            <!-- Image info will be displayed here -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <h3 class="mb-3">Resize Options</h3>
+                                <div class="glass-card p-3 mb-4">
+                                    <div class="resize-type-selector mb-3">
+                                        <div class="resize-type-option active" data-type="dimensions">
+                                            <i class="fas fa-arrows-alt"></i>
+                                            <span>Dimensions</span>
+                                        </div>
+                                        <div class="resize-type-option" data-type="percentage">
+                                            <i class="fas fa-percentage"></i>
+                                            <span>Percentage</span>
+                                        </div>
+                                        <div class="resize-type-option" data-type="preset">
+                                            <i class="fas fa-th-large"></i>
+                                            <span>Presets</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Dimensions Resize -->
+                                    <div class="resize-options" id="dimensionsOptions">
+                                        <div class="row mb-3">
+                                            <div class="col-6">
+                                                <label for="width" class="form-label">Width (px)</label>
+                                                <input type="number" class="form-control" id="width" placeholder="Width">
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="height" class="form-label">Height (px)</label>
+                                                <input type="number" class="form-control" id="height" placeholder="Height">
+                                            </div>
+                                        </div>
+                                        <div class="form-check mb-3">
+                                            <input class="form-check-input" type="checkbox" id="maintainAspectRatio" checked>
+                                            <label class="form-check-label" for="maintainAspectRatio">
+                                                Maintain aspect ratio
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Percentage Resize -->
+                                    <div class="resize-options d-none" id="percentageOptions">
+                                        <div class="mb-3">
+                                            <label for="scalePercentage" class="form-label">Scale (%)</label>
+                                            <div class="d-flex align-items-center">
+                                                <input type="range" class="form-range flex-grow-1 me-2" id="scalePercentage" min="1" max="200" value="100">
+                                                <span id="scaleValue" class="badge bg-primary">100%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Preset Resize -->
+                                    <div class="resize-options d-none" id="presetOptions">
+                                        <div class="row mb-3">
+                                            <div class="col-12">
+                                                <label class="form-label">Common Presets</label>
+                                                <div class="preset-grid">
+                                                    <button class="preset-button" data-width="1920" data-height="1080">
+                                                        <div class="preset-size">1920×1080</div>
+                                                        <div class="preset-name">Full HD</div>
+                                                    </button>
+                                                    <button class="preset-button" data-width="1280" data-height="720">
+                                                        <div class="preset-size">1280×720</div>
+                                                        <div class="preset-name">HD</div>
+                                                    </button>
+                                                    <button class="preset-button" data-width="800" data-height="600">
+                                                        <div class="preset-size">800×600</div>
+                                                        <div class="preset-name">SVGA</div>
+                                                    </button>
+                                                    <button class="preset-button" data-width="640" data-height="480">
+                                                        <div class="preset-size">640×480</div>
+                                                        <div class="preset-name">VGA</div>
+                                                    </button>
+                                                    <button class="preset-button" data-width="1200" data-height="630">
+                                                        <div class="preset-size">1200×630</div>
+                                                        <div class="preset-name">FB Share</div>
+                                                    </button>
+                                                    <button class="preset-button" data-width="1080" data-height="1080">
+                                                        <div class="preset-size">1080×1080</div>
+                                                        <div class="preset-name">IG Post</div>
+                                                    </button>
+                                                    <button class="preset-button" data-width="1080" data-height="1920">
+                                                        <div class="preset-size">1080×1920</div>
+                                                        <div class="preset-name">IG Story</div>
+                                                    </button>
+                                                    <button class="preset-button" data-width="1500" data-height="500">
+                                                        <div class="preset-size">1500×500</div>
+                                                        <div class="preset-name">Twitter</div>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <h3 class="mb-3">Output Options</h3>
+                                <div class="glass-card p-3 mb-4">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="outputFormat" class="form-label">Format</label>
+                                            <select class="form-select" id="outputFormat">
+                                                <option value="jpeg">JPEG</option>
+                                                <option value="png">PNG</option>
+                                                <option value="webp">WebP</option>
+                                                <option value="gif">GIF</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="outputQuality" class="form-label">Quality</label>
+                                            <div class="d-flex align-items-center">
+                                                <input type="range" class="form-range flex-grow-1 me-2" id="outputQuality" min="1" max="100" value="85">
+                                                <span id="qualityValue" class="badge bg-primary">85%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="fileName" class="form-label">File Name</label>
+                                        <input type="text" class="form-control" id="fileName" placeholder="Enter file name">
+                                    </div>
+                                    
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="checkbox" id="removeMetadata" checked>
+                                        <label class="form-check-label" for="removeMetadata">
+                                            Remove metadata (EXIF, etc.)
+                                        </label>
+                                    </div>
+                                    
+                                    <button id="processImage" class="btn btn-primary w-100 py-2" disabled>
+                                        <i class="fas fa-magic me-2"></i>Process Image
+                                    </button>
+                                </div>
+                                
+                                <div class="processed-result d-none" id="processedResult">
+                                    <h4 class="mb-3">Processed Result</h4>
+                                    <div class="glass-card p-3">
+                                        <div class="preview-wrapper mb-3">
+                                            <img id="processedPreview" src="" alt="Processed image preview" class="img-fluid preview-image">
+                                            <div class="image-info" id="processedImageInfo">
+                                                <!-- Processed image info will be displayed here -->
+                                            </div>
+                                        </div>
+                                        <div class="d-flex gap-2">
+                                            <button id="downloadImage" class="btn btn-success flex-grow-1">
+                                                <i class="fas fa-download me-2"></i>Download
+                                            </button>
+                                            <button id="startOver" class="btn btn-outline-primary">
+                                                <i class="fas fa-redo me-2"></i>New Image
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Batch Processing Tab -->
+                    <div class="tab-pane fade" id="batch-content" role="tabpanel" aria-labelledby="batch-tab">
+                        <div class="row">
+                            <div class="col-lg-7">
+                                <h3 class="mb-3">Upload Multiple Images</h3>
+                                
+                                <div class="image-upload-container mb-4">
+                                    <div class="dropzone-wrapper">
+                                        <div id="batchDropzone" class="dropzone">
+                                            <div class="dz-message needsclick">
+                                                <div class="upload-icon mb-3">
+                                                    <i class="fas fa-cloud-upload-alt"></i>
+                                                </div>
+                                                <h4 class="mb-2">Drop your images here</h4>
+                                                <p class="text-muted">or click to browse files</p>
+                                                <p class="small text-muted mt-2">Upload up to 20 images at once</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="glass-card p-3 mb-4" id="batchFiles">
+                                    <h4 class="mb-3">Uploaded Files <span id="fileCount" class="badge bg-primary ms-2">0</span></h4>
+                                    <div class="batch-file-list" id="batchFileList">
+                                        <div class="text-center text-muted py-5">
+                                            <i class="fas fa-images fs-1 mb-3 d-block"></i>
+                                            <p>Uploaded images will appear here</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-5">
+                                <h3 class="mb-3">Batch Settings</h3>
+                                <div class="glass-card p-3 mb-4">
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold">Resize Method</label>
+                                        <div class="resize-method-options">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="batchResizeMethod" id="batchMaxSize" value="maxSize" checked>
+                                                <label class="form-check-label" for="batchMaxSize">
+                                                    Max Dimensions
+                                                </label>
+                                                <small class="form-text text-muted d-block">Resize images to fit within specified dimensions</small>
+                                            </div>
+                                            <div class="mt-2">
+                                                <div class="row g-2">
+                                                    <div class="col-6">
+                                                        <input type="number" class="form-control form-control-sm" id="batchMaxWidth" placeholder="Max width" value="1920">
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <input type="number" class="form-control form-control-sm" id="batchMaxHeight" placeholder="Max height" value="1080">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-check mt-3">
+                                                <input class="form-check-input" type="radio" name="batchResizeMethod" id="batchPercentage" value="percentage">
+                                                <label class="form-check-label" for="batchPercentage">
+                                                    Percentage Scale
+                                                </label>
+                                                <small class="form-text text-muted d-block">Scale all images by percentage</small>
+                                            </div>
+                                            <div class="mt-2">
+                                                <label for="batchScalePercentage" class="visually-hidden">Batch Scale Percentage</label>
+                                                <div class="d-flex align-items-center">
+                                                    <input type="range" class="form-range flex-grow-1 me-2" id="batchScalePercentage" 
+                                                          min="1" max="100" value="50" disabled 
+                                                          title="Scale percentage" aria-labelledby="batchScaleValue">
+                                                    <span id="batchScaleValue" class="badge bg-primary">50%</span>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-check mt-3">
+                                                <input class="form-check-input" type="radio" name="batchResizeMethod" id="batchExactSize" value="exactSize">
+                                                <label class="form-check-label" for="batchExactSize">
+                                                    Exact Size
+                                                </label>
+                                                <small class="form-text text-muted d-block">Force all images to exact dimensions (may stretch or crop)</small>
+                                            </div>
+                                            <div class="mt-2">
+                                                <div class="row g-2">
+                                                    <div class="col-6">
+                                                        <input type="number" class="form-control form-control-sm" id="batchExactWidth" placeholder="Width" disabled>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <input type="number" class="form-control form-control-sm" id="batchExactHeight" placeholder="Height" disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <hr>
+                                    
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold">Output Settings</label>
+                                        <div class="row g-3">
+                                            <div class="col-md-6">
+                                                <label for="batchOutputFormat" class="form-label">Format</label>
+                                                <select class="form-select" id="batchOutputFormat">
+                                                    <option value="same">Same as original</option>
+                                                    <option value="jpeg">Convert to JPEG</option>
+                                                    <option value="png">Convert to PNG</option>
+                                                    <option value="webp">Convert to WebP</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="batchQuality" class="form-label">Quality</label>
+                                                <div class="d-flex align-items-center">
+                                                    <input type="range" class="form-range flex-grow-1 me-2" id="batchQuality" min="1" max="100" value="85">
+                                                    <span id="batchQualityValue" class="badge bg-primary">85%</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="checkbox" id="batchRemoveMetadata" checked>
+                                        <label class="form-check-label" for="batchRemoveMetadata">
+                                            Remove metadata (EXIF, etc.)
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="batchFilePrefix" class="form-label">File Name Prefix</label>
+                                        <input type="text" class="form-control" id="batchFilePrefix" placeholder="e.g. resized_">
+                                    </div>
+                                    
+                                    <button id="processBatch" class="btn btn-primary w-100 py-2" disabled>
+                                        <i class="fas fa-cogs me-2"></i>Process All Images
+                                    </button>
+                                </div>
+                                
+                                <div class="glass-card p-3 mb-4" id="batchResult">
+                                    <h4 class="mb-3">
+                                        <i class="fas fa-tasks me-2"></i>Processing Status
+                                        <div class="spinner-border spinner-border-sm text-primary ms-2 d-none" id="batchSpinner" role="status">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </div>
+                                    </h4>
+                                    <div class="progress mb-3">
+                                        <div class="progress-bar" id="batchProgress" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                                    </div>
+                                    <div id="batchStatus" class="text-center text-muted">
+                                        No processing started yet
+                                    </div>
+                                    <div class="d-flex justify-content-between mt-3">
+                                        <button id="downloadAllBatch" class="btn btn-success" disabled>
+                                            <i class="fas fa-download me-2"></i>Download All (ZIP)
+                                        </button>
+                                        <button id="clearBatch" class="btn btn-outline-danger">
+                                            <i class="fas fa-trash me-2"></i>Clear All
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Compression Tab -->
+                    <div class="tab-pane fade" id="compress-content" role="tabpanel" aria-labelledby="compress-tab">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <h3 class="mb-3">Image Compression</h3>
+                                
+                                <div class="glass-card p-3 mb-4">
+                                    <div class="image-upload-container mb-3">
+                                        <div class="dropzone-wrapper">
+                                            <div id="compressDropzone" class="dropzone">
+                                                <div class="dz-message needsclick">
+                                                    <div class="upload-icon mb-3">
+                                                        <i class="fas fa-cloud-upload-alt"></i>
+                                                    </div>
+                                                    <h4 class="mb-2">Drop your image here</h4>
+                                                    <p class="text-muted">or click to browse files</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label class="form-label">Compression Level</label>
+                                        <div class="compression-selector">
+                                            <div class="compression-option active" data-level="low">
+                                                <i class="fas fa-feather"></i>
+                                                <span>Low</span>
+                                                <small>Best quality</small>
+                                            </div>
+                                            <div class="compression-option" data-level="medium">
+                                                <i class="fas fa-balance-scale"></i>
+                                                <span>Medium</span>
+                                                <small>Balanced</small>
+                                            </div>
+                                            <div class="compression-option" data-level="high">
+                                                <i class="fas fa-compress-arrows-alt"></i>
+                                                <span>High</span>
+                                                <small>Smallest size</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="customCompressionLevel" class="form-label">Custom Compression</label>
+                                        <div class="d-flex align-items-center">
+                                            <input type="range" class="form-range flex-grow-1 me-2" id="customCompressionLevel" min="1" max="100" value="75">
+                                            <span id="compressionValue" class="badge bg-primary">75%</span>
+                                        </div>
+                                        <small class="form-text text-muted">Lower values = higher compression</small>
+                                    </div>
+                                    
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="checkbox" id="compressRemoveMetadata" checked>
+                                        <label class="form-check-label" for="compressRemoveMetadata">
+                                            Remove metadata (EXIF, etc.)
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="compressOutputFormat" class="form-label">Output Format</label>
+                                        <select class="form-select" id="compressOutputFormat">
+                                            <option value="same">Same as original</option>
+                                            <option value="jpeg">JPEG</option>
+                                            <option value="png">PNG</option>
+                                            <option value="webp">WebP (best compression)</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <button id="compressImage" class="btn btn-primary w-100 py-2" disabled>
+                                        <i class="fas fa-compress me-2"></i>Compress Image
+                                    </button>
+                                </div>
+                                
+                                <div class="glass-card p-3">
+                                    <h4 class="mb-3">Compression Tips</h4>
+                                    <div class="compression-tips">
+                                        <ul class="list-unstyled">
+                                            <li><i class="fas fa-check-circle text-success me-2"></i>WebP format often provides best compression to quality ratio</li>
+                                            <li><i class="fas fa-check-circle text-success me-2"></i>Remove metadata to reduce file size further</li>
+                                            <li><i class="fas fa-check-circle text-success me-2"></i>For photographs, JPEG with 70-80% quality is often ideal</li>
+                                            <li><i class="fas fa-check-circle text-success me-2"></i>For images with transparency, use PNG or WebP</li>
+                                            <li><i class="fas fa-check-circle text-success me-2"></i>Resize large images to reduce file size dramatically</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6">
+                                <h3 class="mb-3">Compression Results</h3>
+                                
+                                <div class="compression-results d-none" id="compressionResults">
+                                    <div class="glass-card p-3 mb-4">
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <h5>Original Image</h5>
+                                                <div class="image-comparison-container">
+                                                    <img id="originalCompressPreview" src="" alt="Original image" class="img-fluid mb-2">
+                                                    <div class="image-stats" id="originalCompressStats">
+                                                        <!-- Original image stats will be displayed here -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <h5>Compressed Image</h5>
+                                                <div class="image-comparison-container">
+                                                    <img id="compressedPreview" src="" alt="Compressed image" class="img-fluid mb-2">
+                                                    <div class="image-stats" id="compressedStats">
+                                                        <!-- Compressed image stats will be displayed here -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <hr>
+                                        
+                                        <div class="compression-summary glass-card p-3 mb-3">
+                                            <div class="row text-center">
+                                                <div class="col-md-4 mb-2">
+                                                    <div class="summary-item">
+                                                        <div class="summary-label">Size Reduction</div>
+                                                        <div class="summary-value" id="sizeReduction">--</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 mb-2">
+                                                    <div class="summary-item">
+                                                        <div class="summary-label">Compression Ratio</div>
+                                                        <div class="summary-value" id="compressionRatio">--</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 mb-2">
+                                                    <div class="summary-item">
+                                                        <div class="summary-label">Space Saved</div>
+                                                        <div class="summary-value" id="spaceSaved">--</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="d-flex gap-2">
+                                            <button id="downloadCompressed" class="btn btn-success flex-grow-1">
+                                                <i class="fas fa-download me-2"></i>Download
+                                            </button>
+                                            <button id="tryAgainCompress" class="btn btn-outline-primary">
+                                                <i class="fas fa-redo me-2"></i>Try Again
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="glass-card p-3">
+                                        <h5 class="mb-3">Quality Comparison</h5>
+                                        <div class="image-quality-comparison" id="imageQualityComparison">
+                                            <div class="comparison-slider-container">
+                                                <div class="comparison-slider">
+                                                    <div class="comparison-before">
+                                                        <img id="beforeComparisonImg" src="" alt="Before compression">
+                                                        <div class="comparison-label">Original</div>
+                                                    </div>
+                                                    <div class="comparison-after">
+                                                        <img id="afterComparisonImg" src="" alt="After compression">
+                                                        <div class="comparison-label">Compressed</div>
+                                                    </div>
+                                                    <div class="comparison-handle">
+                                                        <div class="handle-line"></div>
+                                                        <div class="handle-circle">
+                                                            <i class="fas fa-chevron-left"></i>
+                                                            <i class="fas fa-chevron-right"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="text-center text-muted small mt-2">
+                                                Slide to compare original and compressed images
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="no-compression-results" id="noCompressionResults">
+                                    <div class="glass-card p-4 text-center text-muted">
+                                        <i class="fas fa-compress-alt fs-1 mb-3 d-block"></i>
+                                        <h5>No Image Compressed Yet</h5>
+                                        <p>Upload an image and set compression options to see results</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer"></footer>
+
+    <!-- Required Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/toastify-js"></script>
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/compressorjs@1.2.1/dist/compressor.min.js"></script>
+    
+    <!-- Component Loader -->
+    <script src="../js/componentLoader.js"></script>
+    
+    <!-- Theme Management -->
+    <script src="../js/dark-tools.js"></script>
+    
+    <!-- Image Resizer Tool Specific JS -->
+    <script src="js/image-resizer.js"></script>
+</body>
+</html> 

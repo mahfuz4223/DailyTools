@@ -1,0 +1,400 @@
+<footer class="footer py-5">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-4 mb-4 mb-lg-0">
+                <div class="footer-brand mb-4">
+                    <i class="fas fa-tools footer-icon"></i>
+                    <span class="footer-brand-text">DarkTools</span>
+                </div>
+                <p class="footer-description">
+                    A collection of professional tools to enhance your productivity. All processing is done locally in your browser for maximum privacy and security.
+                </p>
+            </div>
+            
+            <div class="col-lg-4 mb-4 mb-lg-0">
+                <h5 class="footer-heading">Quick Links</h5>
+                <ul class="footer-links">
+                    <li>
+                        <a href="../tools/password-generator.html" class="footer-link">
+                            <i class="fas fa-key footer-link-icon"></i>
+                            <span>Password Generator</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../tools/pdf-tools.html" class="footer-link">
+                            <i class="fas fa-file-pdf footer-link-icon"></i>
+                            <span>PDF Tools</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../tools/color-palette.html" class="footer-link">
+                            <i class="fas fa-palette footer-link-icon"></i>
+                            <span>Color Palette</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="col-lg-4">
+                <h5 class="footer-heading">Connect</h5>
+                <div class="social-links mb-4">
+                    <a href="https://github.com/yourusername/darktools" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="DarkTools on GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://twitter.com/yourusername" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="DarkTools on Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="mailto:contact@darktools.dev" class="social-link" aria-label="Email DarkTools">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+                
+                <div class="newsletter">
+                    <h6 class="newsletter-heading">Subscribe to Updates</h6>
+                    <form class="newsletter-form">
+                        <div class="form-group">
+                            <input type="email" class="form-control" id="newsletterEmail" placeholder="Your email address" aria-label="Email for newsletter subscription">
+                            <button type="submit" class="btn btn-subscribe" aria-label="Subscribe to newsletter">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <hr class="footer-divider">
+        
+        <div class="row align-items-center">
+            <div class="col-md-6 mb-3 mb-md-0 text-center text-md-start">
+                <p class="copyright">
+                    © 2024 DarkTools. All rights reserved.
+                </p>
+            </div>
+            <div class="col-md-6 text-center text-md-end">
+                <div class="footer-meta-links">
+                    <a href="../privacy.html" class="footer-meta-link">Privacy Policy</a>
+                    <span class="footer-meta-separator">•</span>
+                    <a href="../terms.html" class="footer-meta-link">Terms of Use</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <style>
+        /* Footer Styles with Theme Support */
+        .footer {
+            position: relative;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        [data-theme="dark"] .footer {
+            background-color: rgba(30, 32, 40, 0.95);
+            color: rgba(255, 255, 255, 0.85);
+        }
+        
+        [data-theme="light"] .footer {
+            background-color: rgba(245, 245, 250, 0.95);
+            color: rgba(30, 32, 40, 0.85);
+        }
+        
+        /* Footer brand */
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-icon {
+            font-size: 1.5rem;
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .footer-brand-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        [data-theme="dark"] .footer-brand-text {
+            color: rgba(255, 255, 255, 0.95);
+        }
+        
+        [data-theme="light"] .footer-brand-text {
+            color: rgba(30, 32, 40, 0.95);
+        }
+        
+        /* Footer description */
+        .footer-description {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+        
+        /* Footer headings */
+        .footer-heading {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-heading::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 3px;
+            border-radius: 2px;
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+        }
+        
+        /* Footer links */
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border-radius: 4px;
+            padding: 0.4rem 0.6rem;
+            margin-left: -0.6rem;
+        }
+        
+        [data-theme="dark"] .footer-link {
+            color: rgba(255, 255, 255, 0.75);
+        }
+        
+        [data-theme="light"] .footer-link {
+            color: rgba(30, 32, 40, 0.75);
+        }
+        
+        [data-theme="dark"] .footer-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 1);
+        }
+        
+        [data-theme="light"] .footer-link:hover {
+            background-color: rgba(30, 32, 40, 0.07);
+            color: rgba(30, 32, 40, 1);
+        }
+        
+        .footer-link-icon {
+            width: 20px;
+            text-align: center;
+            margin-right: 10px;
+            opacity: 0.9;
+        }
+        
+        /* Social links */
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: 1.2rem;
+        }
+        
+        [data-theme="dark"] .social-link {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.85);
+        }
+        
+        [data-theme="light"] .social-link {
+            background-color: rgba(30, 32, 40, 0.07);
+            color: rgba(30, 32, 40, 0.85);
+        }
+        
+        [data-theme="dark"] .social-link:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 1);
+            transform: translateY(-3px);
+        }
+        
+        [data-theme="light"] .social-link:hover {
+            background-color: rgba(30, 32, 40, 0.15);
+            color: rgba(30, 32, 40, 1);
+            transform: translateY(-3px);
+        }
+        
+        /* Newsletter */
+        .newsletter {
+            padding: 1.2rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        [data-theme="dark"] .newsletter {
+            background-color: rgba(40, 42, 50, 0.6);
+        }
+        
+        [data-theme="light"] .newsletter {
+            background-color: rgba(235, 235, 240, 0.7);
+        }
+        
+        .newsletter-heading {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .newsletter-form .form-group {
+            position: relative;
+            margin-bottom: 0;
+        }
+        
+        .newsletter-form .form-control {
+            padding-right: 45px;
+            height: 44px;
+            border: none;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+        
+        [data-theme="dark"] .newsletter-form .form-control {
+            background-color: rgba(50, 52, 60, 0.7);
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        [data-theme="light"] .newsletter-form .form-control {
+            background-color: rgba(245, 245, 250, 0.7);
+            color: rgba(30, 32, 40, 0.9);
+        }
+        
+        [data-theme="dark"] .newsletter-form .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        [data-theme="light"] .newsletter-form .form-control::placeholder {
+            color: rgba(30, 32, 40, 0.6);
+        }
+        
+        [data-theme="dark"] .newsletter-form .form-control:focus {
+            background-color: rgba(50, 52, 60, 0.9);
+            box-shadow: 0 0 0 0.25rem rgba(106, 17, 203, 0.25);
+        }
+        
+        [data-theme="light"] .newsletter-form .form-control:focus {
+            background-color: rgba(245, 245, 250, 0.9);
+            box-shadow: 0 0 0 0.25rem rgba(106, 17, 203, 0.15);
+        }
+        
+        .btn-subscribe {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            width: 34px;
+            height: 34px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            transition: all 0.2s ease;
+        }
+        
+        [data-theme="dark"] .btn-subscribe {
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            color: white;
+        }
+        
+        [data-theme="light"] .btn-subscribe {
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            color: white;
+        }
+        
+        .btn-subscribe:hover {
+            opacity: 0.9;
+            transform: scale(1.05);
+        }
+        
+        /* Footer divider */
+        .footer-divider {
+            margin: 2rem 0;
+            opacity: 0.1;
+        }
+        
+        /* Copyright */
+        .copyright {
+            font-size: 0.9rem;
+            margin-bottom: 0;
+        }
+        
+        [data-theme="dark"] .copyright {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        [data-theme="light"] .copyright {
+            color: rgba(30, 32, 40, 0.7);
+        }
+        
+        /* Footer meta links */
+        .footer-meta-links {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        @media (max-width: 767.98px) {
+            .footer-meta-links {
+                justify-content: center;
+                margin-top: 1rem;
+            }
+        }
+        
+        .footer-meta-link {
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        
+        [data-theme="dark"] .footer-meta-link {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        [data-theme="light"] .footer-meta-link {
+            color: rgba(30, 32, 40, 0.7);
+        }
+        
+        [data-theme="dark"] .footer-meta-link:hover {
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        [data-theme="light"] .footer-meta-link:hover {
+            color: rgba(30, 32, 40, 0.9);
+        }
+        
+        .footer-meta-separator {
+            font-size: 0.9rem;
+            opacity: 0.5;
+        }
+    </style>
+</footer> 

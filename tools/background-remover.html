@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Professional background removal tool - Remove backgrounds from images instantly with AI technology">
+    <title>Background Remover Pro - DarkTools</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Toastify CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link href="../css/dark-tools.css" rel="stylesheet">
+    <link href="./css/background-remover.css" rel="stylesheet">
+
+    <!-- Theme Color Meta Tags -->
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)">
+
+    <style>
+        .checkerboard {
+            background-image: linear-gradient(45deg, #f0f0f0 25%, transparent 25%),
+                            linear-gradient(-45deg, #f0f0f0 25%, transparent 25%),
+                            linear-gradient(45deg, transparent 75%, #f0f0f0 75%),
+                            linear-gradient(-45deg, transparent 75%, #f0f0f0 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+        }
+        
+        .drop-area {
+            border: 2px dashed #dee2e6;
+            transition: all 0.3s ease;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        .drop-area.drag-over {
+            border-color: #0d6efd;
+            background-color: rgba(13, 110, 253, 0.05);
+        }
+        
+        .bg-option {
+            width: 40px;
+            height: 40px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .bg-option.active {
+            border: 2px solid #0d6efd;
+        }
+        
+        .zoom-slider {
+            width: 100px;
+        }
+        
+        .example-image {
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+        
+        .example-image:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <div class="theme-toggle-wrapper">
+        <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+            <i class="fas fa-sun sun-icon"></i>
+            <i class="fas fa-moon moon-icon"></i>
+        </button>
+    </div>
+
+    <!-- Header Component -->
+    <div id="header"></div>
+
+    <!-- Main Content -->
+    <main class="container py-4">
+        <!-- Tool Header -->
+        <div class="text-center mb-4">
+            <h1 class="display-5 fw-bold mb-2">Background Remover Pro</h1>
+            <p class="lead text-muted">Remove backgrounds from images instantly with AI technology</p>
+        </div>
+
+        <div class="row g-4">
+            <!-- Upload Section -->
+            <div class="col-lg-8">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="upload-container" id="uploadContainer">
+                            <!-- File Drop Zone -->
+                            <div class="upload-area" id="dropZone" role="button" tabindex="0" aria-label="Drop zone for image upload">
+                                <input type="file" id="fileInput" accept="image/*" class="file-input" aria-label="Choose image file">
+                                <div class="upload-content">
+                                    <div class="upload-icon">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                    </div>
+                                    <h3>Drop your image here</h3>
+                                    <p>or click to browse files</p>
+                                    <div class="supported-formats">
+                                        <span class="badge bg-light text-dark">PNG</span>
+                                        <span class="badge bg-light text-dark">JPG</span>
+                                        <span class="badge bg-light text-dark">WEBP</span>
+                                        <span class="badge bg-light text-dark">Max 12MB</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Preview Container -->
+                            <div class="preview-container d-none" id="previewContainer">
+                                <div class="preview-header">
+                                    <h4>Preview</h4>
+                                    <button class="btn btn-link" id="removeBtn" title="Remove image">
+                                        <i class="fas fa-times"></i>
+                                        <span class="visually-hidden">Remove image</span>
+                                    </button>
+                                </div>
+                                <div class="preview-wrapper">
+                                    <img id="previewImage" src="" alt="Preview" class="preview-image">
+                                    <div class="preview-overlay">
+                                        <div class="preview-actions">
+                                            <button class="btn btn-light" id="rotateBtn" title="Rotate image">
+                                                <i class="fas fa-redo"></i>
+                                                <span class="visually-hidden">Rotate image</span>
+                                            </button>
+                                            <button class="btn btn-light" id="cropBtn" title="Crop image">
+                                                <i class="fas fa-crop"></i>
+                                                <span class="visually-hidden">Crop image</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Process Button -->
+                                <button id="processBtn" class="btn btn-primary btn-lg w-100 mt-3">
+                                    <div class="btn-content">
+                                        <i class="fas fa-magic me-2"></i>
+                                        <span class="btn-text">Remove Background</span>
+                                        <div class="spinner-wrapper">
+                                            <div class="spinner-border spinner-border-sm text-light" role="status">
+                                                <span class="visually-hidden">Processing...</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings & Result Section -->
+            <div class="col-lg-4">
+                <!-- Settings Card -->
+                <div class="card mb-4">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                        <h5 class="mb-0">Settings</h5>
+                        <button class="btn btn-sm btn-link" id="resetSettings" title="Reset to defaults">
+                            <i class="fas fa-undo"></i>
+                            <span class="visually-hidden">Reset settings to defaults</span>
+                        </button>
+                    </div>
+                    
+                    <div class="card-body">
+                        <!-- Output Quality -->
+                        <div class="mb-3">
+                            <label class="form-label d-flex justify-content-between">
+                                <span>Output Quality</span>
+                                <span class="badge bg-primary" id="qualityValue">High</span>
+                            </label>
+                            <select class="form-select" id="qualitySelect" aria-label="Select output quality">
+                                <option value="high">High (Best Quality)</option>
+                                <option value="medium">Medium (Balanced)</option>
+                                <option value="low">Low (Faster)</option>
+                            </select>
+                        </div>
+
+                        <!-- Output Format -->
+                        <div class="mb-3">
+                            <label class="form-label" for="formatGroup">Output Format</label>
+                            <div class="btn-group w-100" id="formatGroup" role="group" aria-label="Output format selection">
+                                <input type="radio" class="btn-check" name="format" id="formatPNG" value="png" checked>
+                                <label class="btn btn-outline-primary" for="formatPNG">PNG</label>
+                                
+                                <input type="radio" class="btn-check" name="format" id="formatJPG" value="jpg">
+                                <label class="btn btn-outline-primary" for="formatJPG">JPG</label>
+                                
+                                <input type="radio" class="btn-check" name="format" id="formatWEBP" value="webp">
+                                <label class="btn btn-outline-primary" for="formatWEBP">WEBP</label>
+                            </div>
+                        </div>
+
+                        <!-- Edge Refinement -->
+                        <div class="mb-3">
+                            <label class="form-label d-flex justify-content-between" for="refinementSlider">
+                                <span>Edge Refinement</span>
+                                <span class="badge bg-primary" id="refinementValue">50%</span>
+                            </label>
+                            <input type="range" 
+                                   class="form-range" 
+                                   id="refinementSlider" 
+                                   min="0" max="100" value="50" 
+                                   aria-label="Edge refinement level">
+                            <div class="d-flex justify-content-between">
+                                <small class="text-muted">Soft</small>
+                                <small class="text-muted">Sharp</small>
+                            </div>
+                        </div>
+
+                        <!-- Advanced Settings -->
+                        <div class="mb-3">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="preserveShadows" aria-label="Preserve natural shadows">
+                                <label class="form-check-label" for="preserveShadows">
+                                    Preserve Natural Shadows
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="enhanceDetails" aria-label="Enhance fine details">
+                                <label class="form-check-label" for="enhanceDetails">
+                                    Enhance Fine Details
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Result Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Result</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="resultContainer" class="result-container d-none">
+                            <div class="result-preview">
+                                <img id="resultImage" src="" alt="Result" class="result-image">
+                            </div>
+                            <div class="result-info">
+                                <div class="info-item">
+                                    <small>Size:</small>
+                                    <span id="resultSize">0 KB</span>
+                                </div>
+                                <div class="info-item">
+                                    <small>Format:</small>
+                                    <span id="resultFormat">PNG</span>
+                                </div>
+                            </div>
+                            <div class="result-actions">
+                                <button id="downloadBtn" class="btn btn-primary btn-lg w-100" title="Download processed image">
+                                    <i class="fas fa-download me-2"></i>
+                                    Download
+                                </button>
+                                <div class="btn-group w-100 mt-2">
+                                    <button id="copyBtn" class="btn btn-outline-primary" title="Copy image to clipboard">
+                                        <i class="fas fa-copy me-2"></i>
+                                        Copy
+                                    </button>
+                                    <button id="shareBtn" class="btn btn-outline-primary" title="Share image">
+                                        <i class="fas fa-share-alt me-2"></i>
+                                        Share
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="placeholderResult" class="text-center py-4">
+                            <div class="placeholder-icon">
+                                <i class="fas fa-image"></i>
+                            </div>
+                            <p class="text-muted">Processed image will appear here</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- History Section -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="glass-card">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                        <h5 class="mb-0">
+                            <i class="fas fa-history me-2"></i>
+                            Recent Images
+                        </h5>
+                        <div class="header-actions">
+                            <button id="exportHistory" class="btn btn-outline-primary btn-sm me-2">
+                                <i class="fas fa-download me-1"></i>
+                                Export
+                            </button>
+                            <button id="clearHistory" class="btn btn-outline-danger btn-sm">
+                                <i class="fas fa-trash-alt me-1"></i>
+                                Clear
+                            </button>
+                        </div>
+                    </div>
+                    <div id="historyContainer" class="history-container">
+                        <div class="history-empty">
+                            <div class="empty-icon">
+                                <i class="fas fa-images"></i>
+                            </div>
+                            <h6>No processed images yet</h6>
+                            <p class="text-muted">Your processed images will appear here</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-bolt"></i>
+                        <h5>Fast Processing</h5>
+                        <p>Remove backgrounds in seconds with AI technology</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-magic"></i>
+                        <h5>Smart Detection</h5>
+                        <p>Automatically detects and removes backgrounds</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-sliders-h"></i>
+                        <h5>Fine Control</h5>
+                        <p>Adjust settings for perfect results</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-download"></i>
+                        <h5>Multiple Formats</h5>
+                        <p>Export in PNG, JPG, or WEBP format</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Component -->
+    <div id="footer"></div>
+
+    <!-- Share Modal -->
+    <div class="modal fade" id="shareModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Share Image</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" title="Close share dialog">
+                        <span class="visually-hidden">Close</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="share-options">
+                        <button class="btn btn-outline-primary w-100 mb-2" data-platform="facebook" title="Share on Facebook">
+                            <i class="fab fa-facebook me-2"></i>
+                            Facebook
+                        </button>
+                        <button class="btn btn-outline-primary w-100 mb-2" data-platform="twitter" title="Share on Twitter">
+                            <i class="fab fa-twitter me-2"></i>
+                            Twitter
+                        </button>
+                        <button class="btn btn-outline-primary w-100 mb-2" data-platform="pinterest" title="Share on Pinterest">
+                            <i class="fab fa-pinterest me-2"></i>
+                            Pinterest
+                        </button>
+                        <button class="btn btn-outline-primary w-100 mb-3" data-platform="linkedin" title="Share on LinkedIn">
+                            <i class="fab fa-linkedin me-2"></i>
+                            LinkedIn
+                        </button>
+                    </div>
+                    <div class="mt-3">
+                        <label class="form-label" for="shareLink">Direct Link</label>
+                        <div class="input-group">
+                            <input type="text" id="shareLink" class="form-control" readonly aria-label="Share link">
+                            <button class="btn btn-outline-primary" id="copyLink" title="Copy link to clipboard">
+                                <i class="fas fa-copy"></i>
+                                <span class="visually-hidden">Copy link</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    
+    <!-- Component Loader -->
+    <script src="../js/componentLoader.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="../js/dark-tools.js"></script>
+    <script src="./js/background-remover.js"></script>
+</body>
+</html> 

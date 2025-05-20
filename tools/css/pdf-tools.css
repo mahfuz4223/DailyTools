@@ -1,0 +1,89 @@
+/* PDF Tools Base CSS */
+
+.compression-selector {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.compression-option, .conversion-option {
+    text-align: center;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.compression-options, .conversion-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.pdf-file-list {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.pdf-preview-canvas {
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+}
+
+.compression-summary {
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.summary-item {
+    text-align: center;
+}
+
+.summary-label {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-bottom: 5px;
+}
+
+.summary-value {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.pdf-upload-container {
+    margin-bottom: 20px;
+}
+
+.glass-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.feature-list li {
+    margin-bottom: 10px;
+}
+
+/* Dark theme adjustments */
+[data-theme="dark"] .glass-card {
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .pdf-preview-canvas {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Light theme adjustments */
+[data-theme="light"] .glass-card {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .pdf-preview-canvas {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+} 

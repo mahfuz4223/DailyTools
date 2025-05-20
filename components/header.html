@@ -1,0 +1,378 @@
+<header class="site-header glass-nav">
+    <nav class="navbar navbar-expand-lg navbar-glass">
+        <div class="container">
+            <!-- Logo -->
+            <a class="navbar-brand" href="../index.html">
+                <div class="logo-container">
+                    <i class="fas fa-tools brand-icon"></i>
+                    <span class="brand-text">DarkTools</span>
+                </div>
+            </a>
+
+            <!-- Mobile Menu Button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" 
+                    aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation menu"
+                    title="Toggle navigation menu">
+                <i class="fas fa-bars" aria-hidden="true"></i>
+            </button>
+
+            <!-- Navigation Menu -->
+            <div class="collapse navbar-collapse" id="navbarMain">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../tools/password-generator.html">
+                            <i class="fas fa-key nav-icon" aria-hidden="true"></i>Password Generator
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../tools/hash-generator.html">
+                            <i class="fas fa-hashtag nav-icon" aria-hidden="true"></i>Hash Generator
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../tools/pdf-tools.html">
+                            <i class="fas fa-file-pdf nav-icon" aria-hidden="true"></i>PDF Tools
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" 
+                           aria-expanded="false" aria-haspopup="true">
+                            <i class="fas fa-tools nav-icon" aria-hidden="true"></i>More Tools
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-glass">
+                            <a class="dropdown-item" href="../tools/qr-generator.html">
+                                <i class="fas fa-qrcode menu-icon" aria-hidden="true"></i>QR Generator
+                            </a>
+                            <a class="dropdown-item" href="../tools/base64.html">
+                                <i class="fas fa-exchange-alt menu-icon" aria-hidden="true"></i>Base64 Converter
+                            </a>
+                            <a class="dropdown-item" href="../tools/json-formatter.html">
+                                <i class="fas fa-code menu-icon" aria-hidden="true"></i>JSON Formatter
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="../tools/color-palette.html">
+                                <i class="fas fa-palette menu-icon" aria-hidden="true"></i>Color Palette
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+                
+                <div class="navbar-nav ms-auto">
+                    <a class="nav-link nav-social" href="https://github.com/yourusername/darktools" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-github" aria-hidden="true"></i>
+                    </a>
+                    <div class="theme-switch-wrapper nav-link">
+                        <label class="theme-switch" for="themeToggle">
+                            <input type="checkbox" id="themeToggle" aria-label="Toggle dark/light theme" />
+                            <div class="slider round">
+                                <i class="fas fa-sun light-icon"></i>
+                                <i class="fas fa-moon dark-icon"></i>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <style>
+        /* Header Styles with Theme Support */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        /* Glass nav styling */
+        .navbar-glass {
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        [data-theme="dark"] .navbar-glass {
+            background-color: rgba(30, 32, 40, 0.85);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        [data-theme="light"] .navbar-glass {
+            background-color: rgba(240, 240, 245, 0.85);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Logo styling */
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.4rem;
+            transition: all 0.3s ease;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .brand-icon {
+            font-size: 1.5rem;
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        [data-theme="dark"] .brand-text {
+            color: rgba(255, 255, 255, 0.95);
+        }
+        
+        [data-theme="light"] .brand-text {
+            color: rgba(30, 32, 40, 0.95);
+        }
+        
+        /* Navigation links */
+        .nav-link {
+            font-weight: 500;
+            padding: 0.6rem 1rem;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            position: relative;
+            margin: 0 3px;
+        }
+        
+        .nav-icon, .menu-icon {
+            width: 22px;
+            text-align: center;
+            margin-right: 8px;
+            transition: all 0.2s ease;
+        }
+        
+        [data-theme="dark"] .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        [data-theme="light"] .nav-link {
+            color: rgba(30, 32, 40, 0.8);
+        }
+        
+        [data-theme="dark"] .nav-link:hover {
+            color: rgba(255, 255, 255, 1);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        [data-theme="light"] .nav-link:hover {
+            color: rgba(30, 32, 40, 1);
+            background-color: rgba(30, 32, 40, 0.07);
+        }
+        
+        [data-theme="dark"] .nav-link.active {
+            color: rgba(255, 255, 255, 1);
+            background-color: rgba(106, 17, 203, 0.2);
+        }
+        
+        [data-theme="light"] .nav-link.active {
+            color: rgba(30, 32, 40, 1);
+            background-color: rgba(106, 17, 203, 0.1);
+        }
+        
+        /* Dropdown styling */
+        .dropdown-menu-glass {
+            border: none;
+            border-radius: 12px;
+            overflow: hidden;
+            padding: 0.5rem;
+            margin-top: 10px;
+        }
+        
+        [data-theme="dark"] .dropdown-menu-glass {
+            background-color: rgba(35, 37, 45, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        [data-theme="light"] .dropdown-menu-glass {
+            background-color: rgba(250, 250, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .dropdown-item {
+            border-radius: 6px;
+            padding: 0.6rem 1rem;
+            transition: all 0.2s ease;
+        }
+        
+        [data-theme="dark"] .dropdown-item {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        [data-theme="light"] .dropdown-item {
+            color: rgba(30, 32, 40, 0.8);
+        }
+        
+        [data-theme="dark"] .dropdown-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 1);
+        }
+        
+        [data-theme="light"] .dropdown-item:hover {
+            background-color: rgba(30, 32, 40, 0.07);
+            color: rgba(30, 32, 40, 1);
+        }
+        
+        [data-theme="dark"] .dropdown-divider {
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        [data-theme="light"] .dropdown-divider {
+            border-color: rgba(0, 0, 0, 0.08);
+        }
+        
+        /* Theme Switch */
+        .theme-switch-wrapper {
+            display: flex;
+            align-items: center;
+            margin-left: 0.5rem;
+        }
+        
+        .theme-switch {
+            display: inline-block;
+            position: relative;
+            width: 50px;
+            height: 24px;
+            margin: 0;
+        }
+        
+        .theme-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5px;
+            transition: .4s;
+        }
+        
+        [data-theme="dark"] .slider {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        [data-theme="light"] .slider {
+            background-color: rgba(30, 32, 40, 0.15);
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            transition: .4s;
+            z-index: 2;
+        }
+        
+        [data-theme="dark"] .slider:before {
+            left: 4px;
+            bottom: 3px;
+            background-color: #6a11cb;
+        }
+        
+        [data-theme="light"] .slider:before {
+            right: 4px;
+            left: auto;
+            bottom: 3px;
+            background-color: #2575fc;
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        .slider.round {
+            border-radius: 34px;
+        }
+        
+        .slider.round:before {
+            border-radius: 50%;
+        }
+        
+        .light-icon, .dark-icon {
+            font-size: 12px;
+            color: white;
+            z-index: 1;
+        }
+        
+        .light-icon {
+            margin-left: 3px;
+        }
+        
+        .dark-icon {
+            margin-right: 3px;
+        }
+        
+        /* Social icons */
+        .nav-social {
+            font-size: 1.2rem;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 991.98px) {
+            .navbar-collapse {
+                padding: 1rem;
+                border-radius: 0.5rem;
+                margin-top: 0.5rem;
+            }
+            
+            [data-theme="dark"] .navbar-collapse {
+                background-color: rgba(35, 37, 45, 0.95);
+            }
+            
+            [data-theme="light"] .navbar-collapse {
+                background-color: rgba(250, 250, 255, 0.95);
+            }
+            
+            .navbar-nav .nav-item {
+                margin: 0.3rem 0;
+            }
+            
+            .navbar-toggler {
+                border: none;
+                padding: 0.5rem;
+            }
+            
+            [data-theme="dark"] .navbar-toggler {
+                color: rgba(255, 255, 255, 0.8);
+            }
+            
+            [data-theme="light"] .navbar-toggler {
+                color: rgba(30, 32, 40, 0.8);
+            }
+            
+            [data-theme="dark"] .navbar-toggler:focus {
+                box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.1);
+            }
+            
+            [data-theme="light"] .navbar-toggler:focus {
+                box-shadow: 0 0 0 0.25rem rgba(30, 32, 40, 0.1);
+            }
+        }
+    </style>
+</header> 

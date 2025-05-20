@@ -1,0 +1,447 @@
+/* Image Resizer Tool Styles */
+
+/* Upload Container */
+.dropzone {
+    border: 2px dashed var(--bs-border-color);
+    border-radius: 8px;
+    background: var(--bs-tertiary-bg);
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dropzone:hover {
+    border-color: var(--bs-primary);
+    background: rgba(var(--bs-primary-rgb), 0.05);
+}
+
+.dropzone .dz-message {
+    text-align: center;
+    padding: 2rem;
+}
+
+.upload-icon {
+    font-size: 3rem;
+    color: var(--bs-primary);
+    opacity: 0.5;
+    transition: all 0.3s ease;
+}
+
+.dropzone:hover .upload-icon {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.dropzone .dz-preview {
+    margin: 1rem;
+}
+
+.dropzone .dz-image {
+    border-radius: 8px;
+    overflow: hidden;
+    width: 120px;
+    height: 120px;
+    position: relative;
+    display: block;
+    z-index: 10;
+}
+
+.dropzone .dz-details {
+    padding: 0.5rem;
+}
+
+/* Image Preview */
+.preview-wrapper {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--bs-tertiary-bg);
+    border: 1px solid var(--bs-border-color);
+}
+
+.preview-image {
+    display: block;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.image-info {
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 8px;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.preview-wrapper:hover .image-info {
+    opacity: 1;
+}
+
+/* Resize Type Selector */
+.resize-type-selector {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.resize-type-option {
+    flex: 1;
+    text-align: center;
+    padding: 12px 8px;
+    background: var(--bs-tertiary-bg);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    border: 1px solid var(--bs-border-color);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.resize-type-option:hover {
+    background: var(--bs-border-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.resize-type-option.active {
+    background: var(--bs-primary);
+    color: white;
+    border-color: var(--bs-primary);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(var(--bs-primary-rgb), 0.2);
+}
+
+.resize-type-option i {
+    display: block;
+    font-size: 22px;
+    margin-bottom: 8px;
+    transition: transform 0.3s ease;
+}
+
+.resize-type-option:hover i,
+.resize-type-option.active i {
+    transform: scale(1.2);
+}
+
+/* Preset Grid */
+.preset-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+
+.preset-button {
+    background: var(--bs-tertiary-bg);
+    border: 1px solid var(--bs-border-color);
+    border-radius: 6px;
+    padding: 8px 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.preset-button:hover {
+    background: rgba(var(--bs-primary-rgb), 0.1);
+    border-color: var(--bs-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.preset-size {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.preset-name {
+    font-size: 12px;
+    color: var(--bs-secondary-color);
+}
+
+/* Batch Processing */
+.batch-file-list {
+    max-height: 350px;
+    overflow-y: auto;
+}
+
+.batch-file-item {
+    display: flex;
+    align-items: center;
+    background: var(--bs-tertiary-bg);
+    border-radius: 6px;
+    padding: 8px;
+    margin-bottom: 8px;
+    transition: all 0.2s ease;
+}
+
+.batch-file-item:hover {
+    background: rgba(var(--bs-primary-rgb), 0.05);
+}
+
+.batch-file-preview {
+    width: 50px;
+    height: 50px;
+    border-radius: 4px;
+    object-fit: cover;
+    margin-right: 12px;
+    border: 1px solid var(--bs-border-color);
+}
+
+.batch-file-info {
+    flex-grow: 1;
+}
+
+.batch-file-name {
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+}
+
+.batch-file-details {
+    font-size: 12px;
+    color: var(--bs-secondary-color);
+}
+
+.batch-file-actions {
+    display: flex;
+    gap: 6px;
+}
+
+/* Compression Selector */
+.compression-selector {
+    display: flex;
+    gap: 8px;
+}
+
+.compression-option {
+    flex: 1;
+    text-align: center;
+    padding: 12px 8px;
+    background: var(--bs-tertiary-bg);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    border: 1px solid var(--bs-border-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.compression-option:hover {
+    background: var(--bs-border-color);
+    transform: translateY(-2px);
+}
+
+.compression-option.active {
+    background: var(--bs-primary);
+    color: white;
+    border-color: var(--bs-primary);
+}
+
+.compression-option i {
+    font-size: 22px;
+    margin-bottom: 6px;
+}
+
+.compression-option span {
+    font-weight: 500;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.compression-option small {
+    font-size: 11px;
+    opacity: 0.8;
+}
+
+/* Compression Results */
+.image-comparison-container {
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid var(--bs-border-color);
+    background: var(--bs-tertiary-bg);
+}
+
+.image-stats {
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 6px;
+    font-size: 12px;
+    font-family: monospace;
+}
+
+.summary-item {
+    background: var(--bs-tertiary-bg);
+    border-radius: 6px;
+    padding: 10px;
+    height: 100%;
+}
+
+.summary-label {
+    font-size: 12px;
+    color: var(--bs-secondary-color);
+    margin-bottom: 4px;
+}
+
+.summary-value {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--bs-primary);
+}
+
+/* Image Comparison Slider */
+.comparison-slider-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 6px;
+    border: 1px solid var(--bs-border-color);
+}
+
+.comparison-slider {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+}
+
+.comparison-before,
+.comparison-after {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.comparison-before {
+    left: 0;
+    z-index: 1;
+}
+
+.comparison-after {
+    right: 0;
+    z-index: 2;
+    width: 50%;
+}
+
+.comparison-before img,
+.comparison-after img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    object-fit: cover;
+    height: 100%;
+}
+
+.comparison-after img {
+    right: 0;
+    left: auto;
+}
+
+.comparison-handle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 40px;
+    margin-left: -20px;
+    z-index: 3;
+    cursor: ew-resize;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.handle-line {
+    position: absolute;
+    width: 2px;
+    top: 0;
+    bottom: 0;
+    background: white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.handle-circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--bs-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 12px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.handle-circle i {
+    margin: 0 1px;
+}
+
+.comparison-label {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    top: 10px;
+}
+
+.comparison-before .comparison-label {
+    left: 10px;
+}
+
+.comparison-after .comparison-label {
+    right: 10px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .preset-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .dropzone {
+        min-height: 150px;
+    }
+    
+    .resize-type-selector,
+    .compression-selector {
+        flex-direction: column;
+    }
+    
+    .preset-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .comparison-slider {
+        height: 200px;
+    }
+}
+
+@media (max-width: 576px) {
+    .preset-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .batch-file-actions {
+        flex-direction: column;
+    }
+} 

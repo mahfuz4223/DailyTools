@@ -1,0 +1,506 @@
+/* Color Palette Tool Styles */
+
+/* Basic Styles */
+.color-block {
+    height: 100px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.color-block:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.color-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 8px;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.color-block:hover .color-info {
+    opacity: 1;
+}
+
+.palette-container {
+    min-height: 150px;
+    border-radius: 8px;
+    border: 2px dashed var(--bs-border-color);
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
+
+/* Gradient Preview and Controls */
+.gradient-preview {
+    height: 300px; /* Increased height for better visibility */
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    background: linear-gradient(90deg, #4C6FFF 0%, #8C6FFF 100%);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.fullscreen-gradient {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1050;
+    height: 100vh;
+    border-radius: 0;
+}
+
+.toggle-fullscreen {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 1051;
+    background: rgba(0, 0, 0, 0.3);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.toggle-fullscreen:hover {
+    background: rgba(0, 0, 0, 0.5);
+    transform: scale(1.1);
+}
+
+.gradient-handle {
+    position: absolute;
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid #333;
+    transform: translateY(-50%);
+    top: 50%;
+    cursor: grab;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.gradient-handle:hover {
+    transform: translateY(-50%) scale(1.2);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.gradient-handle:active {
+    cursor: grabbing;
+}
+
+.gradient-handle-start {
+    left: 0%;
+}
+
+.gradient-handle-end {
+    left: 100%;
+}
+
+.gradient-direction-indicator {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+}
+
+.direction-arrow {
+    width: 20px;
+    height: 2px;
+    background: white;
+    position: relative;
+    transform-origin: left center;
+    transition: transform 0.3s ease;
+}
+
+.direction-arrow:after {
+    content: '';
+    position: absolute;
+    right: -1px;
+    top: -3px;
+    border: 4px solid transparent;
+    border-left-color: white;
+}
+
+/* Color Input Controls */
+.color-input {
+    background: var(--bs-body-bg);
+    border: 1px solid var(--bs-border-color);
+    color: var(--bs-body-color);
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.btn-copy {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 4px;
+    color: white;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.color-block:hover .btn-copy {
+    opacity: 1;
+}
+
+.palette-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.color-picker-wrapper {
+    position: relative;
+    overflow: hidden;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+input[type="color"] {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    cursor: pointer;
+}
+
+/* Enhanced Color Selection UI */
+.color-format-switcher {
+    display: flex;
+    background: var(--bs-tertiary-bg);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-top: 8px;
+    border: 1px solid var(--bs-border-color);
+}
+
+.color-format-option {
+    flex: 1;
+    text-align: center;
+    padding: 6px 8px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+.color-format-option:not(:last-child) {
+    border-right: 1px solid var(--bs-border-color);
+}
+
+.color-format-option:hover {
+    background-color: rgba(var(--bs-primary-rgb), 0.1);
+}
+
+.color-format-option.active {
+    background: var(--bs-primary);
+    color: white;
+    box-shadow: 0 2px 4px rgba(var(--bs-primary-rgb), 0.3);
+}
+
+.color-preview {
+    width: 100%;
+    height: 40px;
+    border-radius: 6px;
+    margin-top: 8px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--bs-border-color);
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+/* Preset Colors */
+.preset-colors {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.preset-color {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+.preset-color:after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 2px;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.2);
+}
+
+.preset-color:hover {
+    transform: scale(1.2);
+    border-color: var(--bs-primary);
+    z-index: 2;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Gradient Controls */
+.gradient-controls {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.gradient-control-item {
+    flex: 1;
+    min-width: 140px;
+    background: var(--bs-tertiary-bg);
+    border-radius: 8px;
+    padding: 12px;
+    border: 1px solid var(--bs-border-color);
+}
+
+.gradient-control-item .form-label {
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.gradient-control-item .text-center {
+    margin-top: 8px;
+    font-weight: 600;
+    color: var(--bs-primary);
+}
+
+/* Gradient Type Selector */
+.gradient-type-selector {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.gradient-type-option {
+    flex: 1;
+    text-align: center;
+    padding: 12px 8px;
+    background: var(--bs-tertiary-bg);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    border: 1px solid var(--bs-border-color);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.gradient-type-option:hover {
+    background: var(--bs-border-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.gradient-type-option.active {
+    background: var(--bs-primary);
+    color: white;
+    border-color: var(--bs-primary);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(var(--bs-primary-rgb), 0.2);
+}
+
+.gradient-type-option i {
+    display: block;
+    font-size: 22px;
+    margin-bottom: 8px;
+    transition: transform 0.3s ease;
+}
+
+.gradient-type-option:hover i,
+.gradient-type-option.active i {
+    transform: scale(1.2);
+}
+
+/* Mini Palettes */
+.mini-palette {
+    display: flex;
+    gap: 4px;
+}
+
+.mini-color {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+}
+
+.saved-palette-card {
+    transition: all 0.3s ease;
+}
+
+.saved-palette-card:hover {
+    transform: translateY(-3px);
+}
+
+.toast-notification {
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Color Wheel for Harmonies */
+.color-wheel-container {
+    position: relative;
+    margin: 0 auto;
+    width: 250px;
+    height: 250px;
+}
+
+.color-wheel-canvas {
+    display: block;
+    margin: 0 auto;
+}
+
+.color-wheel-marker {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    transform: translate(-50%, -50%);
+    z-index: 5;
+}
+
+/* Harmony Type Selector */
+.harmony-type-selector {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.harmony-type-option {
+    text-align: center;
+    padding: 10px 5px;
+    background: var(--bs-tertiary-bg);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    border: 1px solid var(--bs-border-color);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.harmony-type-option i {
+    font-size: 18px;
+    margin-bottom: 6px;
+    transition: transform 0.3s ease;
+}
+
+.harmony-type-option:hover {
+    background: var(--bs-border-color);
+    transform: translateY(-2px);
+}
+
+.harmony-type-option.active {
+    background: var(--bs-primary);
+    color: white;
+    border-color: var(--bs-primary);
+}
+
+/* Harmony Info Cards */
+.harmony-info-card {
+    background: var(--bs-tertiary-bg);
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.harmony-mini-preview {
+    height: 20px;
+    border-radius: 4px;
+    margin: 0 auto 8px;
+    width: 100%;
+}
+
+.complementary-preview {
+    background: linear-gradient(to right, #4C6FFF 50%, #FF5E4A 50%);
+}
+
+.analogous-preview {
+    background: linear-gradient(to right, #347BFF 33.3%, #4C6FFF 33.3%, #4C6FFF 66.6%, #6E5CFF 66.6%);
+}
+
+.triadic-preview {
+    background: linear-gradient(to right, #4C6FFF 33.3%, #FF5E4A 33.3%, #FF5E4A 66.6%, #4AFF8C 66.6%);
+}
+
+.monochromatic-preview {
+    background: linear-gradient(to right, #1A3BA0 20%, #2E54D7 20%, #2E54D7 40%, #4C6FFF 40%, #4C6FFF 60%, #6D87FF 60%, #6D87FF 80%, #8EA3FF 80%);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .color-block {
+        height: 80px;
+    }
+    
+    .gradient-preview {
+        height: 200px;
+    }
+    
+    .harmony-type-selector {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .palette-actions {
+        flex-wrap: wrap;
+    }
+    
+    .gradient-controls {
+        flex-direction: column;
+    }
+    
+    .gradient-preview {
+        height: 150px;
+    }
+} 

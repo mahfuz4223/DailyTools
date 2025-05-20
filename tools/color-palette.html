@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Professional color palette generator with gradient creation and color scheme tools">
+    <title>Color Palette Generator - DarkTools</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Toastify CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" rel="stylesheet">
+    
+    <!-- Dark Tools Core CSS -->
+    <link href="../css/dark-tools.css" rel="stylesheet">
+    
+    <!-- Color Palette Tool Specific CSS -->
+    <link href="css/color-palette.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <div class="theme-toggle-wrapper">
+        <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark/light mode">
+            <i class="fas fa-sun sun-icon"></i>
+            <i class="fas fa-moon moon-icon"></i>
+        </button>
+    </div>
+
+    <!-- Header -->
+    <header id="header"></header>
+
+    <!-- Tool Content -->
+    <main class="container py-5">
+        <!-- Title Section -->
+        <div class="row mb-5">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="mb-3">Color Palette Generator</h1>
+                <p class="lead text-muted">
+                    Create beautiful color palettes, gradients, and harmonious color schemes for your design projects
+                </p>
+            </div>
+        </div>
+        
+        <!-- Tool Tabs -->
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <ul class="nav nav-tabs mb-4" id="colorTools" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="palette-tab" data-bs-toggle="tab" data-bs-target="#palette-content" 
+                                type="button" role="tab" aria-controls="palette-content" aria-selected="true">
+                            <i class="fas fa-palette me-2"></i>Color Palette
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="gradient-tab" data-bs-toggle="tab" data-bs-target="#gradient-content" 
+                                type="button" role="tab" aria-controls="gradient-content" aria-selected="false">
+                            <i class="fas fa-brush me-2"></i>Gradient Generator
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="harmony-tab" data-bs-toggle="tab" data-bs-target="#harmony-content" 
+                                type="button" role="tab" aria-controls="harmony-content" aria-selected="false">
+                            <i class="fas fa-swatchbook me-2"></i>Color Harmonies
+                        </button>
+                    </li>
+                </ul>
+                
+                <div class="tab-content glass-card p-4" id="colorToolsContent">
+                    <!-- Color Palette Tab -->
+                    <div class="tab-pane fade show active" id="palette-content" role="tabpanel" aria-labelledby="palette-tab">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h3 class="mb-3">Generate Color Palette</h3>
+                                
+                                <div class="mb-4">
+                                    <div class="palette-actions">
+                                        <button id="generateRandomPalette" class="btn btn-primary">
+                                            <i class="fas fa-random me-2"></i>Random Palette
+                                        </button>
+                                        <button id="addColorToPalette" class="btn btn-outline-primary">
+                                            <i class="fas fa-plus me-2"></i>Add Color
+                                        </button>
+                                        <div class="color-picker-wrapper ms-2" title="Pick a custom color">
+                                            <input type="color" id="colorPicker" value="#4C6FFF" aria-label="Color picker">
+                                        </div>
+                                    </div>
+
+                                    <div id="currentPalette" class="palette-container">
+                                        <div class="row g-3" id="paletteColors">
+                                            <!-- Palette colors will be generated here -->
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="d-flex justify-content-between mb-4">
+                                    <button id="savePalette" class="btn btn-success">
+                                        <i class="fas fa-save me-2"></i>Save Palette
+                                    </button>
+                                    <button id="exportPalette" class="btn btn-outline-primary">
+                                        <i class="fas fa-download me-2"></i>Export
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <h3 class="mb-3">Saved Palettes</h3>
+                                <div id="savedPalettes" class="saved-palettes-container">
+                                    <!-- Saved palettes will appear here -->
+                                    <div class="text-center text-muted py-5">
+                                        <i class="fas fa-swatchbook fs-1 mb-3 d-block"></i>
+                                        <p>Your saved palettes will appear here</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Gradient Generator Tab -->
+                    <div class="tab-pane fade" id="gradient-content" role="tabpanel" aria-labelledby="gradient-tab">
+                        <h3 class="mb-3">Gradient Generator</h3>
+                        
+                        <div class="row mb-4">
+                            <div class="col-md-8">
+                                <div class="gradient-preview" id="gradientPreview">
+                                    <div class="gradient-handle gradient-handle-start" id="gradientHandleStart" title="Drag to adjust start position"></div>
+                                    <div class="gradient-handle gradient-handle-end" id="gradientHandleEnd" title="Drag to adjust end position"></div>
+                                    <div class="gradient-direction-indicator">
+                                        <div class="direction-arrow" id="directionArrow"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="gradient-type-selector mb-3">
+                                    <div class="gradient-type-option active" data-type="linear">
+                                        <i class="fas fa-grip-lines"></i>
+                                        <span>Linear</span>
+                                    </div>
+                                    <div class="gradient-type-option" data-type="radial">
+                                        <i class="fas fa-circle"></i>
+                                        <span>Radial</span>
+                                    </div>
+                                    <div class="gradient-type-option" data-type="conic">
+                                        <i class="fas fa-asterisk"></i>
+                                        <span>Conic</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="row g-3 mb-4">
+                                    <div class="col-md-6">
+                                        <div class="color-selection-container">
+                                            <label class="form-label d-flex align-items-center">
+                                                <i class="fas fa-palette me-2 text-primary"></i>
+                                                Start Color
+                                            </label>
+                                            <div class="input-group">
+                                                <span class="input-group-text" style="overflow: hidden; padding: 0;">
+                                                    <input type="color" id="gradientStartColorPicker" value="#4C6FFF" aria-label="Start color picker" title="Choose start color" style="margin: 0; border: none; height: 38px; width: 38px;">
+                                                </span>
+                                                <input type="text" class="form-control" id="gradientStartColor" value="#4C6FFF" placeholder="Enter hex color" spellcheck="false" autocomplete="off">
+                                            </div>
+                                            <div class="color-preview" id="startColorPreview" style="background-color: #4C6FFF"></div>
+                                            <div class="color-format-switcher">
+                                                <div class="color-format-option active" data-format="hex">HEX</div>
+                                                <div class="color-format-option" data-format="rgb">RGB</div>
+                                                <div class="color-format-option" data-format="hsl">HSL</div>
+                                            </div>
+                                            <div class="preset-colors" id="startPresetColors">
+                                                <div class="preset-color" style="background-color: #FF5252" data-color="#FF5252" title="Red"></div>
+                                                <div class="preset-color" style="background-color: #FF9800" data-color="#FF9800" title="Orange"></div>
+                                                <div class="preset-color" style="background-color: #FFEB3B" data-color="#FFEB3B" title="Yellow"></div>
+                                                <div class="preset-color" style="background-color: #4CAF50" data-color="#4CAF50" title="Green"></div>
+                                                <div class="preset-color" style="background-color: #2196F3" data-color="#2196F3" title="Blue"></div>
+                                                <div class="preset-color" style="background-color: #9C27B0" data-color="#9C27B0" title="Purple"></div>
+                                                <div class="preset-color" style="background-color: #795548" data-color="#795548" title="Brown"></div>
+                                                <div class="preset-color" style="background-color: #607D8B" data-color="#607D8B" title="Gray"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="color-selection-container">
+                                            <label class="form-label d-flex align-items-center">
+                                                <i class="fas fa-palette me-2 text-primary"></i>
+                                                End Color
+                                            </label>
+                                            <div class="input-group">
+                                                <span class="input-group-text" style="overflow: hidden; padding: 0;">
+                                                    <input type="color" id="gradientEndColorPicker" value="#8C6FFF" aria-label="End color picker" title="Choose end color" style="margin: 0; border: none; height: 38px; width: 38px;">
+                                                </span>
+                                                <input type="text" class="form-control" id="gradientEndColor" value="#8C6FFF" placeholder="Enter hex color" spellcheck="false" autocomplete="off">
+                                            </div>
+                                            <div class="color-preview" id="endColorPreview" style="background-color: #8C6FFF"></div>
+                                            <div class="color-format-switcher">
+                                                <div class="color-format-option active" data-format="hex">HEX</div>
+                                                <div class="color-format-option" data-format="rgb">RGB</div>
+                                                <div class="color-format-option" data-format="hsl">HSL</div>
+                                            </div>
+                                            <div class="preset-colors" id="endPresetColors">
+                                                <div class="preset-color" style="background-color: #FF5252" data-color="#FF5252" title="Red"></div>
+                                                <div class="preset-color" style="background-color: #FF9800" data-color="#FF9800" title="Orange"></div>
+                                                <div class="preset-color" style="background-color: #FFEB3B" data-color="#FFEB3B" title="Yellow"></div>
+                                                <div class="preset-color" style="background-color: #4CAF50" data-color="#4CAF50" title="Green"></div>
+                                                <div class="preset-color" style="background-color: #2196F3" data-color="#2196F3" title="Blue"></div>
+                                                <div class="preset-color" style="background-color: #9C27B0" data-color="#9C27B0" title="Purple"></div>
+                                                <div class="preset-color" style="background-color: #795548" data-color="#795548" title="Brown"></div>
+                                                <div class="preset-color" style="background-color: #607D8B" data-color="#607D8B" title="Gray"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="gradient-controls">
+                                    <div class="gradient-control-item">
+                                        <label for="gradientAngle" class="form-label">Angle (Degrees)</label>
+                                        <input type="range" class="form-range" id="gradientAngle" min="0" max="360" value="90">
+                                        <div class="text-center" id="angleValue">90°</div>
+                                    </div>
+                                    <div class="gradient-control-item">
+                                        <label for="gradientOpacity" class="form-label">Opacity</label>
+                                        <input type="range" class="form-range" id="gradientOpacity" min="0" max="100" value="100">
+                                        <div class="text-center" id="opacityValue">100%</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3 mt-4">
+                                    <label for="gradientCSS" class="form-label d-flex align-items-center">
+                                        <i class="fas fa-code me-2 text-primary"></i>
+                                        CSS Code
+                                    </label>
+                                    <div class="input-group">
+                                        <textarea class="form-control code-area" id="gradientCSS" rows="3" readonly style="font-family: monospace; font-size: 14px; background-color: var(--bs-tertiary-bg);">background: linear-gradient(90deg, #4C6FFF 0%, #8C6FFF 100%);</textarea>
+                                        <button class="btn btn-outline-primary" id="copyGradientCSS" aria-label="Copy CSS code" title="Copy CSS code">
+                                            <i class="fas fa-copy"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <button id="addGradientStop" class="btn btn-outline-primary mb-3">
+                                    <i class="fas fa-plus me-2"></i>Add Color Stop
+                                </button>
+                                
+                                <div id="gradientStops" class="row g-3">
+                                    <!-- Gradient stops will be added here -->
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <div class="glass-card p-3 mb-4">
+                                    <h5 class="mb-3 d-flex align-items-center">
+                                        <i class="fas fa-swatchbook me-2 text-primary"></i>
+                                        Gradient Presets
+                                    </h5>
+                                    <div class="row g-3" id="gradientPresets">
+                                        <div class="col-6">
+                                            <div class="color-block preset-gradient" data-start="#4C6FFF" data-end="#8C6FFF" style="background: linear-gradient(90deg, #4C6FFF 0%, #8C6FFF 100%);">
+                                                <div class="color-info">Blue Purple</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="color-block preset-gradient" data-start="#FF495C" data-end="#FF9F4A" style="background: linear-gradient(90deg, #FF495C 0%, #FF9F4A 100%);">
+                                                <div class="color-info">Red Orange</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="color-block preset-gradient" data-start="#00D097" data-end="#4C6FFF" style="background: linear-gradient(90deg, #00D097 0%, #4C6FFF 100%);">
+                                                <div class="color-info">Teal Blue</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="color-block preset-gradient" data-start="#A239FF" data-end="#FF5DCD" style="background: linear-gradient(90deg, #A239FF 0%, #FF5DCD 100%);">
+                                                <div class="color-info">Purple Pink</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="color-block preset-gradient" data-start="#FF9800" data-end="#FFEB3B" style="background: linear-gradient(90deg, #FF9800 0%, #FFEB3B 100%);">
+                                                <div class="color-info">Orange Yellow</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="color-block preset-gradient" data-start="#4CAF50" data-end="#8BC34A" style="background: linear-gradient(90deg, #4CAF50 0%, #8BC34A 100%);">
+                                                <div class="color-info">Green Lime</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="glass-card p-3">
+                                    <h5 class="mb-3 d-flex align-items-center">
+                                        <i class="fas fa-file-export me-2 text-primary"></i>
+                                        Export Options
+                                    </h5>
+                                    <button id="downloadGradientImage" class="btn btn-outline-primary d-block w-100 mb-3 py-2">
+                                        <i class="fas fa-image me-2"></i>Save as Image
+                                    </button>
+                                    <button id="copyGradientCode" class="btn btn-outline-primary d-block w-100 py-2">
+                                        <i class="fas fa-code me-2"></i>Copy CSS
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Color Harmonies Tab -->
+                    <div class="tab-pane fade" id="harmony-content" role="tabpanel" aria-labelledby="harmony-tab">
+                        <h3 class="mb-3">Color Harmonies</h3>
+                        
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="color-selection-container glass-card p-3 mb-3">
+                                    <label for="baseColor" class="form-label d-flex align-items-center">
+                                        <i class="fas fa-palette me-2 text-primary"></i>
+                                        Base Color
+                                    </label>
+                                    <div class="input-group">
+                                        <span class="input-group-text" style="overflow: hidden; padding: 0;">
+                                            <input type="color" id="harmonyColorPicker" value="#4C6FFF" aria-label="Base color picker" title="Choose base color" style="margin: 0; border: none; height: 38px; width: 38px;">
+                                        </span>
+                                        <input type="text" class="form-control" id="baseColor" value="#4C6FFF" spellcheck="false" autocomplete="off">
+                                    </div>
+                                    <div class="color-preview" id="baseColorPreview" style="background-color: #4C6FFF"></div>
+                                    <div class="color-format-switcher">
+                                        <div class="color-format-option active" data-format="hex">HEX</div>
+                                        <div class="color-format-option" data-format="rgb">RGB</div>
+                                        <div class="color-format-option" data-format="hsl">HSL</div>
+                                    </div>
+                                    <div class="preset-colors mt-3">
+                                        <div class="preset-color" style="background-color: #FF5252" data-color="#FF5252" title="Red"></div>
+                                        <div class="preset-color" style="background-color: #FF9800" data-color="#FF9800" title="Orange"></div>
+                                        <div class="preset-color" style="background-color: #FFEB3B" data-color="#FFEB3B" title="Yellow"></div>
+                                        <div class="preset-color" style="background-color: #4CAF50" data-color="#4CAF50" title="Green"></div>
+                                        <div class="preset-color" style="background-color: #2196F3" data-color="#2196F3" title="Blue"></div>
+                                        <div class="preset-color" style="background-color: #9C27B0" data-color="#9C27B0" title="Purple"></div>
+                                        <div class="preset-color" style="background-color: #607D8B" data-color="#607D8B" title="Gray"></div>
+                                        <div class="preset-color" style="background-color: #212121" data-color="#212121" title="Black"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="harmony-types glass-card p-3 mb-3">
+                                    <label class="form-label d-flex align-items-center">
+                                        <i class="fas fa-swatchbook me-2 text-primary"></i>
+                                        Harmony Type
+                                    </label>
+                                    <div class="harmony-type-selector">
+                                        <div class="harmony-type-option active" data-harmony="complementary">
+                                            <i class="fas fa-circle-half-stroke"></i>
+                                            <span>Complementary</span>
+                                        </div>
+                                        <div class="harmony-type-option" data-harmony="analogous">
+                                            <i class="fas fa-layer-group"></i>
+                                            <span>Analogous</span>
+                                        </div>
+                                        <div class="harmony-type-option" data-harmony="triadic">
+                                            <i class="fas fa-triangle"></i>
+                                            <span>Triadic</span>
+                                        </div>
+                                        <div class="harmony-type-option" data-harmony="tetradic">
+                                            <i class="fas fa-square"></i>
+                                            <span>Tetradic</span>
+                                        </div>
+                                        <div class="harmony-type-option" data-harmony="monochromatic">
+                                            <i class="fas fa-swatchbook"></i>
+                                            <span>Monochromatic</span>
+                                        </div>
+                                        <div class="harmony-type-option" data-harmony="splitComplementary">
+                                            <i class="fas fa-y"></i>
+                                            <span>Split Complementary</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <button id="generateHarmony" class="btn btn-primary mt-3 w-100">
+                                        <i class="fas fa-magic me-2"></i>Generate Harmony
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="glass-card p-3 mb-3">
+                                    <h5 class="mb-3 d-flex align-items-center">
+                                        <i class="fas fa-circle-info me-2 text-primary"></i>
+                                        Color Wheel Visualization
+                                    </h5>
+                                    <div class="color-wheel-container position-relative" style="height: 250px;">
+                                        <canvas id="colorWheelCanvas" width="250" height="250" class="mx-auto d-block"></canvas>
+                                        <div id="colorWheelMarkers" class="position-absolute" style="top: 0; left: 0; right: 0; bottom: 0;"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="glass-card p-3 mb-3">
+                                    <h5 class="mb-3 d-flex align-items-center">
+                                        <i class="fas fa-info-circle me-2 text-primary"></i>
+                                        What are Color Harmonies?
+                                    </h5>
+                                    <p class="small text-muted">
+                                        Color harmonies are combinations of colors based on their positions on the color wheel. They create visually pleasing and balanced color schemes that work well together in design.
+                                    </p>
+                                    <div class="row g-2 text-center small">
+                                        <div class="col-6">
+                                            <div class="harmony-info-card p-2 rounded">
+                                                <div class="badge bg-light text-dark d-block mb-1">Complementary</div>
+                                                <div class="harmony-mini-preview complementary-preview mb-1"></div>
+                                                <p class="small text-muted mb-0">Colors opposite each other on the color wheel</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="harmony-info-card p-2 rounded">
+                                                <div class="badge bg-light text-dark d-block mb-1">Analogous</div>
+                                                <div class="harmony-mini-preview analogous-preview mb-1"></div>
+                                                <p class="small text-muted mb-0">Colors adjacent to each other on the color wheel</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="harmony-info-card p-2 rounded">
+                                                <div class="badge bg-light text-dark d-block mb-1">Triadic</div>
+                                                <div class="harmony-mini-preview triadic-preview mb-1"></div>
+                                                <p class="small text-muted mb-0">Three colors equally spaced on the color wheel</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="harmony-info-card p-2 rounded">
+                                                <div class="badge bg-light text-dark d-block mb-1">Monochromatic</div>
+                                                <div class="harmony-mini-preview monochromatic-preview mb-1"></div>
+                                                <p class="small text-muted mb-0">Different shades of the same color</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="harmony-result glass-card p-4 mb-4">
+                            <h4 class="mb-3 d-flex align-items-center">
+                                <i class="fas fa-swatchbook me-2 text-primary"></i>
+                                Harmony Result
+                            </h4>
+                            <div class="row g-3" id="harmonyColors">
+                                <!-- Harmony colors will be generated here -->
+                                <div class="col-12 text-center text-muted py-5">
+                                    <i class="fas fa-palette fs-1 mb-3 d-block"></i>
+                                    <p>Select a base color and harmony type to generate a color scheme</p>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4 d-flex gap-3">
+                                <button id="saveHarmony" class="btn btn-success flex-grow-1">
+                                    <i class="fas fa-save me-2"></i>Save Harmony
+                                </button>
+                                <button id="copyHarmonyCode" class="btn btn-outline-primary flex-grow-1">
+                                    <i class="fas fa-code me-2"></i>Copy CSS Variables
+                                </button>
+                                <button id="downloadHarmonyPalette" class="btn btn-outline-primary flex-grow-1">
+                                    <i class="fas fa-download me-2"></i>Export as Image
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer"></footer>
+
+    <!-- Required Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/toastify-js"></script>
+    
+    <!-- Component Loader -->
+    <script src="../js/componentLoader.js"></script>
+    
+    <!-- Theme Management -->
+    <script src="../js/dark-tools.js"></script>
+    
+    <!-- Color Palette Tool Specific JS -->
+    <script src="js/color-palette.js"></script>
+</body>
+</html> 

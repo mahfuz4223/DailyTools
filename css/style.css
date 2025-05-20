@@ -1,0 +1,930 @@
+:root {
+    /* Theme Colors - Light Mode */
+    --light-bg: #f8f9fa;
+    --light-surface: #ffffff;
+    --light-surface-variant: #e9ecef;
+    --light-text-primary: #212529;
+    --light-text-secondary: #6c757d;
+    --light-border: #dee2e6;
+    
+    /* Theme Colors - Dark Mode */
+    --dark-bg: #121212;
+    --dark-surface: #1e1e1e;
+    --dark-surface-variant: #2d2d2d;
+    --dark-text-primary: #f8f9fa;
+    --dark-text-secondary: #adb5bd;
+    --dark-border: #343a40;
+    
+    /* Brand Colors */
+    --primary: #4C6FFF;
+    --primary-rgb: 76, 111, 255;
+    --secondary: #8C6FFF;
+    --secondary-rgb: 140, 111, 255;
+    --success: #00D097;
+    --success-rgb: 0, 208, 151;
+    --info: #0DCAF0;
+    --info-rgb: 13, 202, 240;
+    --warning: #FFB43C;
+    --warning-rgb: 255, 180, 60;
+    --danger: #FF495C;
+    --danger-rgb: 255, 73, 92;
+    
+    /* Typography */
+    --font-family-sans-serif: 'Inter', system-ui, -apple-system, sans-serif;
+
+    /* Light Theme Colors */
+    --primary-light: #4A90E2;
+    --secondary-light: #6C757D;
+    --background-light: #F8F9FA;
+    --surface-light: #FFFFFF;
+    --text-primary-light: #212529;
+    --text-secondary-light: #6C757D;
+    --border-light: #DEE2E6;
+    
+    /* Dark Theme Colors */
+    --primary-dark: #61DAFB;
+    --secondary-dark: #A0AEC0;
+    --background-dark: #1A202C;
+    --surface-dark: #2D3748;
+    --text-primary-dark: #F7FAFC;
+    --text-secondary-dark: #A0AEC0;
+    --border-dark: #4A5568;
+    
+    /* Gradient Colors */
+    --gradient-start: #4A90E2;
+    --gradient-end: #61DAFB;
+    
+    /* Glass Effect Colors */
+    --glass-bg-light: rgba(255, 255, 255, 0.1);
+    --glass-bg-dark: rgba(255, 255, 255, 0.05);
+    --glass-border-light: rgba(255, 255, 255, 0.2);
+    --glass-border-dark: rgba(255, 255, 255, 0.1);
+}
+
+/* Dark/Light Theme Variables Application */
+[data-theme="light"] {
+    --bg: var(--light-bg);
+    --surface: var(--light-surface);
+    --surface-variant: var(--light-surface-variant);
+    --text-primary: var(--light-text-primary);
+    --text-secondary: var(--light-text-secondary);
+    --border: var(--light-border);
+    --glow-color: rgba(76, 111, 255, 0.5);
+    --card-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    --gradient-overlay: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 100%);
+    --primary: var(--primary-light);
+    --secondary: var(--secondary-light);
+    --background: var(--background-light);
+    --glass-bg: var(--glass-bg-light);
+    --glass-border: var(--glass-border-light);
+}
+
+[data-theme="dark"] {
+    --bg: var(--dark-bg);
+    --surface: var(--dark-surface);
+    --surface-variant: var(--dark-surface-variant);
+    --text-primary: var(--dark-text-primary);
+    --text-secondary: var(--dark-text-secondary);
+    --border: var(--dark-border);
+    --glow-color: rgba(76, 111, 255, 0.3);
+    --card-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    --gradient-overlay: linear-gradient(180deg, rgba(18, 18, 18, 0) 0%, rgba(18, 18, 18, 0.9) 100%);
+    --primary: var(--primary-dark);
+    --secondary: var(--secondary-dark);
+    --background: var(--background-dark);
+    --glass-bg: var(--glass-bg-dark);
+    --glass-border: var(--glass-border-dark);
+}
+
+/* Global Styles */
+body {
+    font-family: var(--font-family-sans-serif);
+    background-color: var(--bg);
+    color: var(--text-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Theme Toggle */
+.theme-toggle-wrapper {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.theme-toggle {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 2px solid var(--border);
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.theme-toggle:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.theme-toggle .sun-icon {
+    display: none;
+}
+
+.theme-toggle .moon-icon {
+    display: block;
+}
+
+[data-theme="light"] .theme-toggle .sun-icon {
+    display: block;
+}
+
+[data-theme="light"] .theme-toggle .moon-icon {
+    display: none;
+}
+
+/* Text Gradients */
+/* Enhanced Text Gradient that works across browsers */
+.text-gradient {
+    /* Chrome, Safari, Opera */
+    background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+    /* Firefox */
+    background-clip: text;
+    color: transparent;
+    
+    /* Fallback for older browsers */
+    position: relative;
+    display: inline-block;
+}
+
+/* Ensure proper contrast in light mode */
+[data-theme="light"] .text-gradient {
+    background: linear-gradient(90deg, #3558e6 0%, #8048ff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+/* Enhance visibility with subtle text shadow */
+.hero-title .text-gradient {
+    text-shadow: 0px 0px 1px rgba(var(--primary-rgb), 0.05);
+    font-weight: 800;
+}
+
+
+/* Button Gradients */
+.btn-gradient-primary {
+    background: linear-gradient(90deg, var(--primary) 0%, #6A8AFF 100%);
+    border: none;
+    color: white;
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(var(--primary-rgb), 0.35);
+}
+
+.btn-gradient-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(var(--primary-rgb), 0.5);
+}
+
+.btn-gradient-primary:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #3558e6 0%, #5a75ff 100%);
+    border-radius: inherit;
+    z-index: -1;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+}
+
+.btn-gradient-primary:hover:before {
+    opacity: 1;
+}
+
+.btn-gradient-secondary {
+    background: linear-gradient(90deg, var(--secondary) 0%, #A78CFF 100%);
+    border: none;
+    color: white;
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(var(--secondary-rgb), 0.35);
+}
+
+.btn-gradient-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(var(--secondary-rgb), 0.5);
+}
+
+.btn-outline-gradient {
+    background: transparent;
+    border: 2px solid rgba(var(--primary-rgb), 0.5);
+    color: var(--text-primary);
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-gradient:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(var(--primary-rgb), 0.2);
+}
+
+/* Badge Gradients */
+.bg-gradient-primary {
+    background: linear-gradient(90deg, var(--primary) 0%, #6A8AFF 100%);
+}
+
+/* Hero Section */
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+.hero-bg-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.hero-particles {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.hero-gradient-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30%;
+    background: var(--gradient-overlay);
+    z-index: 2;
+}
+
+.hero-title {
+    font-weight: 800;
+}
+
+/* Glass Card */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 1rem;
+    padding: 24px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.glass-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    border-color: rgba(var(--primary-rgb), 0.3);
+}
+
+.card-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: radial-gradient(
+        circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        rgba(255, 255, 255, 0.1) 0%,
+        transparent 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.glass-card:hover .card-glow {
+    opacity: 1;
+}
+
+/* Floating Elements in Hero */
+.hero-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 500px;
+}
+
+.floating-cards {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.tool-preview-card {
+    position: absolute;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    transition: all 0.5s ease;
+}
+
+.tool-preview-card.main-card {
+    top: 50px;
+    right: 0;
+    width: 80%;
+    z-index: 2;
+}
+
+.tool-preview-card.secondary-card {
+    top: 150px;
+    left: 0;
+    width: 70%;
+    z-index: 1;
+}
+
+.floating-elements {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+}
+
+.floating-icon {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    animation: floatingAnimation 6s infinite ease-in-out;
+}
+
+.floating-icon.icon-1 {
+    top: 20%;
+    right: 10%;
+    animation-delay: 0s;
+}
+
+.floating-icon.icon-2 {
+    bottom: 25%;
+    right: 15%;
+    animation-delay: 1.5s;
+}
+
+.floating-icon.icon-3 {
+    top: 15%;
+    left: 10%;
+    animation-delay: 3s;
+}
+
+.floating-icon.icon-4 {
+    bottom: 15%;
+    left: 20%;
+    animation-delay: 4.5s;
+}
+
+@keyframes floatingAnimation {
+    0% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-15px) rotate(5deg);
+    }
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+}
+
+/* Trust Section */
+.trust-logos {
+    filter: grayscale(100%);
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+.trust-logos:hover {
+    filter: grayscale(0%);
+    opacity: 1;
+}
+
+.trust-logo-item {
+    transition: all 0.3s ease;
+}
+
+.trust-logo-item:hover {
+    transform: translateY(-5px);
+}
+
+/* Stats Counter */
+.stat-card {
+    text-align: center;
+}
+
+.stat-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.stat-suffix {
+    font-size: 1rem;
+    color: var(--text-secondary);
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Category Pills */
+.category-pills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 2rem;
+}
+
+.category-pill {
+    padding: 12px 25px;
+    border-radius: 50px;
+    background: var(--surface-variant);
+    color: var(--text-primary);
+    border: none;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.category-pill:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.category-pill.active {
+    background: linear-gradient(90deg, var(--primary) 0%, #6A8AFF 100%);
+    color: white;
+    box-shadow: 0 8px 15px rgba(var(--primary-rgb), 0.3);
+}
+
+/* Tool Cards */
+.tool-card {
+    padding: 30px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.tool-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 20px;
+    border-radius: 18px;
+    background: rgba(var(--primary-rgb), 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    color: var(--primary);
+    transition: all 0.3s ease;
+}
+
+.tool-card:hover .tool-icon {
+    transform: scale(1.1) rotate(-5deg);
+    color: white;
+    background: linear-gradient(135deg, var(--primary) 0%, #6A8AFF 100%);
+    box-shadow: 0 10px 20px rgba(var(--primary-rgb), 0.3);
+}
+
+.tool-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 15px 0 10px;
+    transition: all 0.3s ease;
+}
+
+.tool-description {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+}
+
+.tool-tags {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 25px;
+}
+
+.tool-tag {
+    padding: 4px 10px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.tool-tag.document {
+    background-color: rgba(var(--primary-rgb), 0.1);
+    color: var(--primary);
+}
+
+.tool-tag.image {
+    background-color: rgba(var(--secondary-rgb), 0.1);
+    color: var(--secondary);
+}
+
+.tool-tag.developer {
+    background-color: rgba(var(--info-rgb), 0.1);
+    color: var(--info);
+}
+
+.tool-tag.utility {
+    background-color: rgba(var(--warning-rgb), 0.1);
+    color: var(--warning);
+}
+
+.tool-tag.feature {
+    background-color: rgba(var(--success-rgb), 0.1);
+    color: var(--success);
+}
+
+.btn-tool-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 25px;
+    border-radius: 50px;
+    background: var(--surface-variant);
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-tool-action i {
+    transition: transform 0.3s ease;
+}
+
+.tool-card:hover .btn-tool-action {
+    background: linear-gradient(90deg, var(--primary) 0%, #6A8AFF 100%);
+    color: white;
+    box-shadow: 0 8px 15px rgba(var(--primary-rgb), 0.3);
+}
+
+.tool-card:hover .btn-tool-action i {
+    transform: translateX(5px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .tool-preview-card.main-card {
+        top: 30px;
+        width: 90%;
+    }
+    
+    .tool-preview-card.secondary-card {
+        top: 120px;
+        width: 80%;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        padding-top: 80px;
+    }
+    
+    .hero-image-wrapper {
+        height: 400px;
+        margin-top: 40px;
+    }
+    
+    .floating-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+    
+    .category-pill {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .hero-image-wrapper {
+        height: 300px;
+    }
+    
+    .stat-card {
+        margin-bottom: 20px;
+    }
+    
+    .tool-preview-card.main-card {
+        top: 20px;
+        width: 100%;
+    }
+    
+    .tool-preview-card.secondary-card {
+        top: 100px;
+        width: 85%;
+    }
+}
+
+/* Z-index for proper stacking */
+.z-10 {
+    z-index: 10;
+}
+
+/* Glass Effect Components */
+.glass-nav {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--glass-border);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.glass-footer {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid var(--glass-border);
+}
+
+/* Header Styles */
+.site-header {
+    padding: 1rem 0;
+}
+
+.logo-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.navbar-nav .nav-link {
+    color: var(--text-primary);
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--primary);
+}
+
+.mobile-menu-btn {
+    border: none;
+    background: transparent;
+    color: var(--text-primary);
+}
+
+/* Footer Styles */
+.footer-section {
+    margin-bottom: 2rem;
+}
+
+.footer-title {
+    color: var(--text-primary);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.footer-text {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+.footer-links li {
+    margin-bottom: 0.75rem;
+}
+
+.footer-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+    color: var(--primary);
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-link {
+    color: var(--text-secondary);
+    font-size: 1.25rem;
+    transition: color 0.3s ease;
+}
+
+.social-link:hover {
+    color: var(--primary);
+}
+
+.footer-contact li {
+    color: var(--text-secondary);
+}
+
+.footer-bottom {
+    color: var(--text-secondary);
+    border-top-color: var(--border);
+}
+
+/* Gradient Text */
+.text-gradient {
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+}
+
+/* Animation Classes */
+.fade-in {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Tool Card Styles */
+.tool-card {
+    position: relative;
+    padding: 2rem;
+    height: 100%;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.tool-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary);
+}
+
+.tool-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.tool-description {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+.tool-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.tool-tag {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    background: var(--glass-bg);
+    color: var(--text-secondary);
+}
+
+.btn-tool-action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1.5rem;
+    background: var(--glass-bg);
+    color: var(--text-primary);
+    border-radius: 0.5rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-tool-action:hover {
+    background: var(--primary);
+    color: var(--surface);
+}
+
+/* Category Pills */
+.category-pills {
+    margin-bottom: 2rem;
+}
+
+.category-pill {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 2rem;
+    background: var(--glass-bg);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.category-pill:hover,
+.category-pill.active {
+    background: var(--primary);
+    color: var(--surface);
+    border-color: var(--primary);
+}
+
+/* Theme Toggle */
+.theme-toggle-wrapper {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1010;
+}
+
+.theme-toggle {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+    background: var(--primary);
+    color: var(--surface);
+}
+
+[data-theme="dark"] .sun-icon {
+    display: inline-block;
+}
+
+[data-theme="dark"] .moon-icon {
+    display: none;
+}
+
+[data-theme="light"] .sun-icon {
+    display: none;
+}
+
+[data-theme="light"] .moon-icon {
+    display: inline-block;
+}

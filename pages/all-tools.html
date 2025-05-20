@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore all DarkTools - professional online tools for developers, designers, and digital professionals">
+    <title>All Tools - DarkTools</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Toastify CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" rel="stylesheet">
+    
+    <!-- AOS - Animate On Scroll -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Dark Tools Core CSS -->
+    <link href="../css/dark-tools.css" rel="stylesheet">
+    
+    <style>
+        /* All Tools Page Styles */
+        :root {
+            --card-radius: 12px;
+            --card-hover-transform: translateY(-5px);
+            --card-transition: all 0.3s ease;
+            --card-shadow-dark: 0 10px 25px rgba(0, 0, 0, 0.2);
+            --card-shadow-light: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Main styles */
+        .tools-container {
+            padding: 2rem 0;
+        }
+        
+        /* Tools header section */
+        .tools-header {
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        
+        .tools-title {
+            font-weight: 700;
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+        
+        .tools-subtitle {
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+        }
+        
+        [data-theme="dark"] .tools-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        [data-theme="light"] .tools-subtitle {
+            color: rgba(30, 32, 40, 0.7);
+        }
+        
+        /* Search and filter */
+        .tools-search-container {
+            max-width: 900px;
+            margin: 0 auto 3rem;
+            padding: 1.5rem;
+            border-radius: var(--card-radius);
+            transition: var(--card-transition);
+        }
+        
+        [data-theme="dark"] .tools-search-container {
+            background-color: rgba(40, 45, 60, 0.3);
+            box-shadow: var(--card-shadow-dark);
+        }
+        
+        [data-theme="light"] .tools-search-container {
+            background-color: rgba(240, 240, 245, 0.5);
+            box-shadow: var(--card-shadow-light);
+        }
+        
+        .search-form {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        
+        .search-form .form-control {
+            height: 54px;
+            padding-left: 50px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            transition: var(--card-transition);
+        }
+        
+        [data-theme="dark"] .search-form .form-control {
+            background-color: rgba(30, 35, 50, 0.5);
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        [data-theme="light"] .search-form .form-control {
+            background-color: rgba(255, 255, 255, 0.7);
+            color: rgba(30, 32, 40, 0.9);
+        }
+        
+        [data-theme="dark"] .search-form .form-control:focus {
+            background-color: rgba(30, 35, 50, 0.75);
+            box-shadow: 0 0 0 0.25rem rgba(106, 17, 203, 0.25);
+        }
+        
+        [data-theme="light"] .search-form .form-control:focus {
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 0 0 0.25rem rgba(106, 17, 203, 0.15);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.1rem;
+            z-index: 10;
+        }
+        
+        [data-theme="dark"] .search-icon {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        [data-theme="light"] .search-icon {
+            color: rgba(30, 32, 40, 0.5);
+        }
+        
+        /* Category filters */
+        .category-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+        
+        .category-filter {
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: var(--card-transition);
+            border: 1px solid transparent;
+        }
+        
+        .category-filter:hover {
+            transform: translateY(-2px);
+        }
+        
+        [data-theme="dark"] .category-filter {
+            color: rgba(255, 255, 255, 0.8);
+            background-color: rgba(50, 55, 70, 0.4);
+        }
+        
+        [data-theme="light"] .category-filter {
+            color: rgba(30, 32, 40, 0.8);
+            background-color: rgba(235, 235, 240, 0.7);
+        }
+        
+        [data-theme="dark"] .category-filter:hover,
+        [data-theme="dark"] .category-filter.active {
+            background-color: rgba(106, 17, 203, 0.3);
+            color: rgba(255, 255, 255, 1);
+            border-color: rgba(106, 17, 203, 0.5);
+        }
+        
+        [data-theme="light"] .category-filter:hover,
+        [data-theme="light"] .category-filter.active {
+            background-color: rgba(106, 17, 203, 0.1);
+            color: rgba(30, 32, 40, 1);
+            border-color: rgba(106, 17, 203, 0.3);
+        }
+        
+        /* Tools grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .tool-card {
+            border-radius: var(--card-radius);
+            overflow: hidden;
+            transition: var(--card-transition);
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .tool-card:hover {
+            transform: var(--card-hover-transform);
+        }
+        
+        [data-theme="dark"] .tool-card {
+            background-color: rgba(40, 45, 60, 0.3);
+            box-shadow: var(--card-shadow-dark);
+        }
+        
+        [data-theme="light"] .tool-card {
+            background-color: rgba(255, 255, 255, 0.6);
+            box-shadow: var(--card-shadow-light);
+        }
+        
+        .tool-card-header {
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .tool-icon-wrapper {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            font-size: 1.5rem;
+            transition: var(--card-transition);
+        }
+        
+        [data-theme="dark"] .tool-icon-wrapper {
+            background-color: rgba(50, 55, 70, 0.5);
+        }
+        
+        [data-theme="light"] .tool-icon-wrapper {
+            background-color: rgba(240, 240, 245, 0.7);
+        }
+        
+        .tool-card:hover .tool-icon-wrapper {
+            transform: scale(1.1);
+        }
+        
+        .tool-info {
+            flex-grow: 1;
+        }
+        
+        .tool-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        [data-theme="dark"] .tool-title {
+            color: rgba(255, 255, 255, 0.95);
+        }
+        
+        [data-theme="light"] .tool-title {
+            color: rgba(30, 32, 40, 0.95);
+        }
+        
+        .tool-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            padding: 0.1rem 0.5rem;
+            border-radius: 20px;
+            margin-left: 0.5rem;
+            font-weight: 500;
+            vertical-align: middle;
+        }
+        
+        .badge-new {
+            background: linear-gradient(45deg, #11cba5, #25c4fc);
+            color: white;
+        }
+        
+        .badge-popular {
+            background: linear-gradient(45deg, #fc466b, #fca25d);
+            color: white;
+        }
+        
+        .tool-description {
+            padding: 0 1.5rem;
+            font-size: 0.9rem;
+            flex-grow: 1;
+        }
+        
+        [data-theme="dark"] .tool-description {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        [data-theme="light"] .tool-description {
+            color: rgba(30, 32, 40, 0.7);
+        }
+        
+        .tool-card-footer {
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+        
+        .tool-category {
+            font-size: 0.8rem;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+        
+        [data-theme="dark"] .tool-category {
+            background-color: rgba(50, 55, 70, 0.5);
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        [data-theme="light"] .tool-category {
+            background-color: rgba(235, 235, 240, 0.7);
+            color: rgba(30, 32, 40, 0.8);
+        }
+        
+        .tool-category.development {
+            color: #25c4fc;
+            border: 1px solid rgba(37, 196, 252, 0.3);
+        }
+        
+        .tool-category.design {
+            color: #fc466b;
+            border: 1px solid rgba(252, 70, 107, 0.3);
+        }
+        
+        .tool-category.security {
+            color: #11cba5;
+            border: 1px solid rgba(17, 203, 165, 0.3);
+        }
+        
+        .tool-category.utility {
+            color: #fca25d;
+            border: 1px solid rgba(252, 162, 93, 0.3);
+        }
+        
+        .tool-category.file {
+            color: #6a11cb;
+            border: 1px solid rgba(106, 17, 203, 0.3);
+        }
+        
+        .tool-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            padding: 0.5rem 0.8rem;
+            border-radius: 6px;
+            transition: var(--card-transition);
+        }
+        
+        [data-theme="dark"] .tool-link {
+            background-color: rgba(106, 17, 203, 0.2);
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        [data-theme="light"] .tool-link {
+            background-color: rgba(106, 17, 203, 0.1);
+            color: rgba(30, 32, 40, 0.9);
+        }
+        
+        [data-theme="dark"] .tool-link:hover {
+            background-color: rgba(106, 17, 203, 0.4);
+            color: rgba(255, 255, 255, 1);
+        }
+        
+        [data-theme="light"] .tool-link:hover {
+            background-color: rgba(106, 17, 203, 0.2);
+            color: rgba(30, 32, 40, 1);
+        }
+        
+        /* No results */
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            grid-column: 1 / -1;
+        }
+        
+        .no-results-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+        
+        [data-theme="dark"] .no-results-icon {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        [data-theme="light"] .no-results-icon {
+            color: rgba(30, 32, 40, 0.5);
+        }
+        
+        .no-results-text {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        [data-theme="dark"] .no-results-text {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        [data-theme="light"] .no-results-text {
+            color: rgba(30, 32, 40, 0.7);
+        }
+        
+        /* Category colors for tool icons */
+        .icon-development {
+            color: #25c4fc;
+        }
+        
+        .icon-design {
+            color: #fc466b;
+        }
+        
+        .icon-security {
+            color: #11cba5;
+        }
+        
+        .icon-utility {
+            color: #fca25d;
+        }
+        
+        .icon-file {
+            color: #6a11cb;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 767.98px) {
+            .tools-title {
+                font-size: 2rem;
+            }
+            
+            .tools-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .category-filters {
+                gap: 0.3rem;
+            }
+            
+            .category-filter {
+                padding: 0.3rem 0.8rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- The standalone theme toggle previously here has been removed. -->
+    <!-- The theme toggle is now expected to be loaded as part of the header component. -->
+
+    <!-- Header: Populated by componentLoader.js -->
+    <header id="header"></header>
+
+    <!-- Main Content -->
+    <main class="container tools-container">
+        <!-- Tools Header -->
+        <div class="tools-header">
+            <h1 class="tools-title" data-aos="fade-up">All Tools</h1>
+            <p class="tools-subtitle" data-aos="fade-up" data-aos-delay="100">
+                Discover our complete collection of professional tools designed to enhance your productivity. 
+                All tools are completely free and process your data locally in your browser for maximum privacy.
+            </p>
+        </div>
+        
+        <!-- Search & Filter -->
+        <div class="tools-search-container" data-aos="fade-up" data-aos-delay="200">
+            <div class="search-form">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="form-control" id="toolSearch" placeholder="Search for tools..." aria-label="Search for tools">
+            </div>
+            <div class="category-filters">
+                <div class="category-filter active" data-category="all">All Tools</div>
+                <div class="category-filter" data-category="development">Development</div>
+                <div class="category-filter" data-category="design">Design</div>
+                <div class="category-filter" data-category="security">Security</div>
+                <div class="category-filter" data-category="utility">Utility</div>
+                <div class="category-filter" data-category="file">File Tools</div>
+            </div>
+        </div>
+        
+        <!-- Tools Grid -->
+        <div class="tools-grid" id="toolsGrid">
+            <!-- PDF Tools -->
+            <div class="tool-card" data-aos="fade-up" data-category="file">
+                <div class="tool-card-header">
+                    <div class="tool-icon-wrapper">
+                        <i class="fas fa-file-pdf icon-file"></i>
+                    </div>
+                    <div class="tool-info">
+                        <h3 class="tool-title">PDF Tools <span class="tool-badge badge-popular">Popular</span></h3>
+                    </div>
+                </div>
+                <div class="tool-description">
+                    <p>Comprehensive PDF toolkit including merge, split, compress, convert and other essential PDF operations.</p>
+                </div>
+                <div class="tool-card-footer">
+                    <span class="tool-category file">File</span>
+                    <a href="../tools/pdf-tools.html" class="tool-link">
+                        Open Tool <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Password Generator -->
+            <div class="tool-card" data-aos="fade-up" data-aos-delay="100" data-category="security">
+                <div class="tool-card-header">
+                    <div class="tool-icon-wrapper">
+                        <i class="fas fa-key icon-security"></i>
+                    </div>
+                    <div class="tool-info">
+                        <h3 class="tool-title">Password Generator</h3>
+                    </div>
+                </div>
+                <div class="tool-description">
+                    <p>Generate strong, secure passwords with customizable options for length, complexity, and character sets.</p>
+                </div>
+                <div class="tool-card-footer">
+                    <span class="tool-category security">Security</span>
+                    <a href="../tools/password-generator.html" class="tool-link">
+                        Open Tool <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Color Palette Generator -->
+            <div class="tool-card" data-aos="fade-up" data-aos-delay="200" data-category="design">
+                <div class="tool-card-header">
+                    <div class="tool-icon-wrapper">
+                        <i class="fas fa-palette icon-design"></i>
+                    </div>
+                    <div class="tool-info">
+                        <h3 class="tool-title">Color Palette <span class="tool-badge badge-new">New</span></h3>
+                    </div>
+                </div>
+                <div class="tool-description">
+                    <p>Create beautiful color palettes, explore color harmonies, and generate gradients for your design projects.</p>
+                </div>
+                <div class="tool-card-footer">
+                    <span class="tool-category design">Design</span>
+                    <a href="../tools/color-palette.html" class="tool-link">
+                        Open Tool <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Hash Generator -->
+            <div class="tool-card" data-aos="fade-up" data-aos-delay="150" data-category="security">
+                <div class="tool-card-header">
+                    <div class="tool-icon-wrapper">
+                        <i class="fas fa-hashtag icon-security"></i>
+                    </div>
+                    <div class="tool-info">
+                        <h3 class="tool-title">Hash Generator</h3>
+                    </div>
+                </div>
+                <div class="tool-description">
+                    <p>Generate and verify various hash functions including MD5, SHA-1, SHA-256, and more with instant comparison.</p>
+                </div>
+                <div class="tool-card-footer">
+                    <span class="tool-category security">Security</span>
+                    <a href="../tools/hash-generator.html" class="tool-link">
+                        Open Tool <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- QR Code Generator -->
+            <div class="tool-card" data-aos="fade-up" data-aos-delay="250" data-category="utility">
+                <div class="tool-card-header">
+                    <div class="tool-icon-wrapper">
+                        <i class="fas fa-qrcode icon-utility"></i>
+                    </div>
+                    <div class="tool-info">
+                        <h3 class="tool-title">QR Code Generator</h3>
+                    </div>
+                </div>
+                <div class="tool-description">
+                    <p>Create customizable QR codes for URLs, text, contact information, and more with options for colors and sizes.</p>
+                </div>
+                <div class="tool-card-footer">
+                    <span class="tool-category utility">Utility</span>
+                    <a href="../tools/qr-generator.html" class="tool-link">
+                        Open Tool <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- JSON Formatter -->
+            <div class="tool-card" data-aos="fade-up" data-aos-delay="300" data-category="development">
+                <div class="tool-card-header">
+                    <div class="tool-icon-wrapper">
+                        <i class="fas fa-code icon-development"></i>
+                    </div>
+                    <div class="tool-info">
+                        <h3 class="tool-title">JSON Formatter</h3>
+                    </div>
+                </div>
+                <div class="tool-description">
+                    <p>Format, validate, and beautify JSON data with syntax highlighting and structure visualization.</p>
+                </div>
+                <div class="tool-card-footer">
+                    <span class="tool-category development">Development</span>
+                    <a href="../tools/json-formatter.html" class="tool-link">
+                        Open Tool <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Base64 Encoder/Decoder -->
+            <div class="tool-card" data-aos="fade-up" data-aos-delay="350" data-category="development">
+                <div class="tool-card-header">
+                    <div class="tool-icon-wrapper">
+                        <i class="fas fa-exchange-alt icon-development"></i>
+                    </div>
+                    <div class="tool-info">
+                        <h3 class="tool-title">Base64 Converter</h3>
+                    </div>
+                </div>
+                <div class="tool-description">
+                    <p>Encode and decode Base64 data with support for text, images, and files with instant preview.</p>
+                </div>
+                <div class="tool-card-footer">
+                    <span class="tool-category development">Development</span>
+                    <a href="../tools/base64.html" class="tool-link">
+                        Open Tool <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Text Case Converter -->
+            <div class="tool-card" data-aos="fade-up" data-aos-delay="400" data-category="utility">
+                <div class="tool-card-header">
+                    <div class="tool-icon-wrapper">
+                        <i class="fas fa-font icon-utility"></i>
+                    </div>
+                    <div class="tool-info">
+                        <h3 class="tool-title">Text Case Converter</h3>
+                    </div>
+                </div>
+                <div class="tool-description">
+                    <p>Convert text between different case formats including camelCase, snake_case, PascalCase, and more.</p>
+                </div>
+                <div class="tool-card-footer">
+                    <span class="tool-category utility">Utility</span>
+                    <a href="../tools/text-case-converter.html" class="tool-link">
+                        Open Tool <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Image Compressor -->
+            <div class="tool-card" data-aos="fade-up" data-aos-delay="450" data-category="file">
+                <div class="tool-card-header">
+                    <div class="tool-icon-wrapper">
+                        <i class="fas fa-compress-arrows-alt icon-file"></i>
+                    </div>
+                    <div class="tool-info">
+                        <h3 class="tool-title">Image Compressor</h3>
+                    </div>
+                </div>
+                <div class="tool-description">
+                    <p>Compress and optimize images to reduce file size without significant quality loss, supporting multiple formats.</p>
+                </div>
+                <div class="tool-card-footer">
+                    <span class="tool-category file">File</span>
+                    <a href="../tools/image-compressor.html" class="tool-link">
+                        Open Tool <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Encryption Tool -->
+            <div class="tool-card" data-aos="fade-up" data-aos-delay="200" data-category="security">
+                <div class="tool-card-header">
+                    <div class="tool-icon-wrapper">
+                        <i class="fas fa-lock icon-security"></i>
+                    </div>
+                    <div class="tool-info">
+                        <h3 class="tool-title">Encryption Tool</h3>
+                    </div>
+                </div>
+                <div class="tool-description">
+                    <p>Encrypt and decrypt text using AES, RSA, and other secure algorithms with password protection.</p>
+                </div>
+                <div class="tool-card-footer">
+                    <span class="tool-category security">Security</span>
+                    <a href="../tools/encryption.html" class="tool-link">
+                        Open Tool <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- CSS Gradient Generator -->
+            <div class="tool-card" data-aos="fade-up" data-aos-delay="250" data-category="design">
+                <div class="tool-card-header">
+                    <div class="tool-icon-wrapper">
+                        <i class="fas fa-brush icon-design"></i>
+                    </div>
+                    <div class="tool-info">
+                        <h3 class="tool-title">Gradient Generator</h3>
+                    </div>
+                </div>
+                <div class="tool-description">
+                    <p>Create beautiful CSS gradients with interactive controls, live previews, and ready-to-use code snippets.</p>
+                </div>
+                <div class="tool-card-footer">
+                    <span class="tool-category design">Design</span>
+                    <a href="../tools/gradient-generator.html" class="tool-link">
+                        Open Tool <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Lorem Ipsum Generator -->
+            <div class="tool-card" data-aos="fade-up" data-aos-delay="300" data-category="design">
+                <div class="tool-card-header">
+                    <div class="tool-icon-wrapper">
+                        <i class="fas fa-align-left icon-design"></i>
+                    </div>
+                    <div class="tool-info">
+                        <h3 class="tool-title">Lorem Ipsum Generator</h3>
+                    </div>
+                </div>
+                <div class="tool-description">
+                    <p>Generate dummy text for design mockups with customizable length, format, and language options.</p>
+                </div>
+                <div class="tool-card-footer">
+                    <span class="tool-category design">Design</span>
+                    <a href="../tools/lorem-ipsum.html" class="tool-link">
+                        Open Tool <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- No Results Placeholder (initially hidden) -->
+            <div class="no-results" id="noResults" style="display: none;">
+                <div class="no-results-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h3 class="no-results-text">No tools found matching your search</h3>
+                <p>Try different keywords or browse categories</p>
+            </div>
+            
+            <!-- New Tools - Document & Text Category -->
+            
+            <!-- Markdown Editor -->
+            <div class="tool-card" data-aos="fade-up" data-category="development">
+                <div class="tool-card-header">
+                    <div class="tool-icon-wrapper">
+                        <i class="fas fa-markdown icon-development"></i>
+                    </div>
+                    <div class="tool-info">
+                        <h3 class="tool-title">Markdown Editor <span class="tool-badge badge-new">New</span></h3>
+                    </div>
+                </div>
+                <div class="tool-description">
+                    <p>Live preview markdown editor with split-screen, syntax highlighting, and export to HTML or PDF features.</p>
+                </div>
+                <div class="tool-card-footer">
+                    <span class="tool-category development">Development</span>
+                    <a href="../tools/markdown-editor.html" class="tool-link">
+                        Open Tool <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Barcode Generator -->
+            <div class="tool-card" data-aos="fade-up" data-category="utility">
+                <div class="tool-card-header">
+                    <div class="tool-icon-wrapper">
+                        <i class="fas fa-barcode icon-utility"></i>
+                    </div>
+                    <div class="tool-info">
+                        <h3 class="tool-title">Barcode Generator <span class="tool-badge badge-new">New</span></h3>
+                    </div>
+                </div>
+                <div class="tool-description">
+                    <p>Create various barcode formats (UPC-A, EAN-13, Code 39, Code 128) with customizable size and resolution.</p>
+                </div>
+                <div class="tool-card-footer">
+                    <span class="tool-category utility">Utility</span>
+                    <a href="../tools/barcode-generator.html" class="tool-link">
+                        Open Tool <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- New Tools - Image Tools Category -->
+            
+            <!-- Image Background Remover -->
+            <div class="tool-card" data-aos="fade-up" data-category="design">
+                <div class="tool-card-header">
+                    <div class="tool-icon-wrapper">
+                        <i class="fas fa-crop-alt icon-design"></i>
+                    </div>
+                    <div class="tool-info">
+                        <h3 class="tool-title">Background Remover <span class="tool-badge badge-new">New</span></h3>
+                    </div>
+                </div>
+                <div class="tool-description">
+                    <p>AI-powered background removal for images with adjustable precision settings and transparent background support.</p>
+                </div>
+                <div class="tool-card-footer">
+                    <span class="tool-category design">Design</span>
+                    <a href="../tools/background-remover.html" class="tool-link">
+                        Open Tool <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Image Format Converter -->
+            <div class="tool-card" data-aos="fade-up" data-category="file">
+                <div class="tool-card-header">
+                    <div class="tool-icon-wrapper">
+                        <i class="fas fa-exchange-alt icon-file"></i>
+                    </div>
+                    <div class="tool-info">
+                        <h3 class="tool-title">Image Converter <span class="tool-badge badge-new">New</span></h3>
+                    </div>
+                </div>
+                <div class="tool-description">
+                    <p>Convert images between common formats (JPG, PNG, WEBP, GIF) with batch processing and metadata preservation options.</p>
+                </div>
+                <div class="tool-card-footer">
+                    <span class="tool-category file">File</span>
+                    <a href="../tools/image-converter.html" class="tool-link">
+                        Open Tool <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Image Resizer -->
+            <div class="tool-card" data-aos="fade-up" data-category="design">
+                <div class="tool-card-header">
+                    <div class="tool-icon-wrapper">
+                        <i class="fas fa-expand-arrows-alt icon-design"></i>
+                    </div>
+                    <div class="tool-info">
+                        <h3 class="tool-title">Image Resizer <span class="tool-badge badge-new">New</span></h3>
+                    </div>
+                </div>
+                <div class="tool-description">
+                    <p>Resize images by dimensions or percentage with aspect ratio preservation and batch processing capabilities.</p>
+                </div>
+                <div class="tool-card-footer">
+                    <span class="tool-category design">Design</span>
+                    <a href="../tools/image-resizer.html" class="tool-link">
+                        Open Tool <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- OCR Tool -->
+            <div class="tool-card" data-aos="fade-up" data-category="utility">
+                <div class="tool-card-header">
+                    <div class="tool-icon-wrapper">
+                        <i class="fas fa-file-alt icon-utility"></i>
+                    </div>
+                    <div class="tool-info">
+                        <h3 class="tool-title">OCR Tool <span class="tool-badge badge-new">New</span></h3>
+                    </div>
+                </div>
+                <div class="tool-description">
+                    <p>Extract text from images and PDFs with support for multiple languages and text formatting preservation.</p>
+                </div>
+                <div class="tool-card-footer">
+                    <span class="tool-category utility">Utility</span>
+                    <a href="../tools/ocr-tool.html" class="tool-link">
+                        Open Tool <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Color Palette Generator -->
+            <div class="tool-card" data-aos="fade-up" data-category="design">
+                <div class="tool-card-header">
+                    <div class="tool-icon-wrapper">
+                        <i class="fas fa-swatchbook icon-design"></i>
+                    </div>
+                    <div class="tool-info">
+                        <h3 class="tool-title">Color Palette Generator <span class="tool-badge badge-new">New</span></h3>
+                    </div>
+                </div>
+                <div class="tool-description">
+                    <p>Generate harmonious color schemes with various modes and extract palettes from images with multiple export formats.</p>
+                </div>
+                <div class="tool-card-footer">
+                    <span class="tool-category design">Design</span>
+                    <a href="../tools/color-palette-generator.html" class="tool-link">
+                        Open Tool <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Favicon Generator -->
+            <div class="tool-card" data-aos="fade-up" data-category="design">
+                <div class="tool-card-header">
+                    <div class="tool-icon-wrapper">
+                        <i class="fas fa-satellite icon-design"></i>
+                    </div>
+                    <div class="tool-info">
+                        <h3 class="tool-title">Favicon Generator <span class="tool-badge badge-new">New</span></h3>
+                    </div>
+                </div>
+                <div class="tool-description">
+                    <p>Create favicons from uploaded images with multiple sizes for different devices and download as .ico or package.</p>
+                </div>
+                <div class="tool-card-footer">
+                    <span class="tool-category design">Design</span>
+                    <a href="../tools/favicon-generator.html" class="tool-link">
+                        Open Tool <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- New Tools - Developer Tools Category -->
+            
+            <!-- Code Beautifier -->
+            <div class="tool-card" data-aos="fade-up" data-category="development">
+                <div class="tool-card-header">
+                    <div class="tool-icon-wrapper">
+                        <i class="fas fa-code icon-development"></i>
+                    </div>
+                    <div class="tool-info">
+                        <h3 class="tool-title">Code Beautifier <span class="tool-badge badge-new">New</span></h3>
+                    </div>
+                </div>
+                <div class="tool-description">
+                    <p>Format and beautify HTML, CSS, JavaScript with syntax highlighting, adjustable indentation, and minify options.</p>
+                </div>
+                <div class="tool-card-footer">
+                    <span class="tool-category development">Development</span>
+                    <a href="../tools/code-beautifier.html" class="tool-link">
+                        Open Tool <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- HTML Entity Encoder/Decoder -->
+            <div class="tool-card" data-aos="fade-up" data-category="development">
+                <div class="tool-card-header">
+                    <div class="tool-icon-wrapper">
+                        <i class="fas fa-greater-than-equal icon-development"></i>
+                    </div>
+                    <div class="tool-info">
+                        <h3 class="tool-title">HTML Entity Converter <span class="tool-badge badge-new">New</span></h3>
+                    </div>
+                </div>
+                <div class="tool-description">
+                    <p>Convert special characters to HTML entities and vice versa with support for all common entities.</p>
+                </div>
+                <div class="tool-card-footer">
+                    <span class="tool-category development">Development</span>
+                    <a href="../tools/html-entity-converter.html" class="tool-link">
+                        Open Tool <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- URL Encoder/Decoder -->
+            <div class="tool-card" data-aos="fade-up" data-category="development">
+                <div class="tool-card-header">
+                    <div class="tool-icon-wrapper">
+                        <i class="fas fa-link icon-development"></i>
+                    </div>
+                    <div class="tool-info">
+                        <h3 class="tool-title">URL Encoder/Decoder <span class="tool-badge badge-new">New</span></h3>
+                    </div>
+                </div>
+                <div class="tool-description">
+                    <p>Encode and decode URLs with batch processing and support for special characters.</p>
+                </div>
+                <div class="tool-card-footer">
+                    <span class="tool-category development">Development</span>
+                    <a href="../tools/url-encoder-decoder.html" class="tool-link">
+                        Open Tool <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- New Tools - Utility Tools Category -->
+            
+            <!-- Unit Converter -->
+            <div class="tool-card" data-aos="fade-up" data-category="utility">
+                <div class="tool-card-header">
+                    <div class="tool-icon-wrapper">
+                        <i class="fas fa-ruler-combined icon-utility"></i>
+                    </div>
+                    <div class="tool-info">
+                        <h3 class="tool-title">Unit Converter <span class="tool-badge badge-new">New</span></h3>
+                    </div>
+                </div>
+                <div class="tool-description">
+                    <p>Convert between length, weight, volume, temperature, time, speed units and common currency conversions.</p>
+                </div>
+                <div class="tool-card-footer">
+                    <span class="tool-category utility">Utility</span>
+                    <a href="../tools/unit-converter.html" class="tool-link">
+                        Open Tool <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- File Compressor -->
+            <div class="tool-card" data-aos="fade-up" data-category="file">
+                <div class="tool-card-header">
+                    <div class="tool-icon-wrapper">
+                        <i class="fas fa-file-archive icon-file"></i>
+                    </div>
+                    <div class="tool-info">
+                        <h3 class="tool-title">File Compressor <span class="tool-badge badge-new">New</span></h3>
+                    </div>
+                </div>
+                <div class="tool-description">
+                    <p>Compress images, PDFs, and other files with adjustable quality/compression level and size comparison.</p>
+                </div>
+                <div class="tool-card-footer">
+                    <span class="tool-category file">File</span>
+                    <a href="../tools/file-compressor.html" class="tool-link">
+                        Open Tool <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- CSV to JSON Converter -->
+            <div class="tool-card" data-aos="fade-up" data-category="development">
+                <div class="tool-card-header">
+                    <div class="tool-icon-wrapper">
+                        <i class="fas fa-table icon-development"></i>
+                    </div>
+                    <div class="tool-info">
+                        <h3 class="tool-title">CSV to JSON Converter <span class="tool-badge badge-new">New</span></h3>
+                    </div>
+                </div>
+                <div class="tool-description">
+                    <p>Convert CSV data to JSON format with custom delimiter options and preview functionality.</p>
+                </div>
+                <div class="tool-card-footer">
+                    <span class="tool-category development">Development</span>
+                    <a href="../tools/csv-to-json.html" class="tool-link">
+                        Open Tool <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Note Taking Tool -->
+            <div class="tool-card" data-aos="fade-up" data-category="utility">
+                <div class="tool-card-header">
+                    <div class="tool-icon-wrapper">
+                        <i class="fas fa-sticky-note icon-utility"></i>
+                    </div>
+                    <div class="tool-info">
+                        <h3 class="tool-title">Note Taking Tool <span class="tool-badge badge-new">New</span></h3>
+                    </div>
+                </div>
+                <div class="tool-description">
+                    <p>Rich text note editor with auto-save functionality and local storage for persistence.</p>
+                </div>
+                <div class="tool-card-footer">
+                    <span class="tool-category utility">Utility</span>
+                    <a href="../tools/note-taking.html" class="tool-link">
+                        Open Tool <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Random Data Generator -->
+            <div class="tool-card" data-aos="fade-up" data-category="development">
+                <div class="tool-card-header">
+                    <div class="tool-icon-wrapper">
+                        <i class="fas fa-random icon-development"></i>
+                    </div>
+                    <div class="tool-info">
+                        <h3 class="tool-title">Random Data Generator <span class="tool-badge badge-new">New</span></h3>
+                    </div>
+                </div>
+                <div class="tool-description">
+                    <p>Generate random names, addresses, phone numbers, emails with custom format options and export capabilities.</p>
+                </div>
+                <div class="tool-card-footer">
+                    <span class="tool-category development">Development</span>
+                    <a href="../tools/random-data-generator.html" class="tool-link">
+                        Open Tool <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer: Populated by componentLoader.js -->
+    <footer id="footer"></footer>
+
+    <!-- Required Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/toastify-js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Component Loader: Responsible for loading header.html and footer.html -->
+    <script src="../js/componentLoader.js"></script>
+    
+    <!-- Theme Management: Handles theme state and toggle interaction -->
+    <script src="../js/dark-tools.js"></script>
+
+    <!-- Component Adapter: Adjusts nav links and sets active states -->
+    <script src="../js/componentAdapter.js"></script>
+    
+    <script>
+        // Function to initialize the page content and behaviors 
+        // AFTER header and footer components are loaded.
+        function initializePage() {
+            // Initialize AOS animations
+            AOS.init({
+                duration: 800,
+                easing: 'ease-out',
+                once: true
+            });
+            
+            // Ensure theme toggle (from loaded header) is connected and interactive
+            if (window.themeManager && typeof window.themeManager.ensureThemeToggleConnected === 'function') {
+                window.themeManager.ensureThemeToggleConnected();
+            }
+
+            // Adapt navigation links (path correction, active state)
+            if (typeof adaptNavigation === 'function') {
+                adaptNavigation();
+            }
+
+            // Search and filter functionality for tools (existing logic)
+            const toolSearch = document.getElementById('toolSearch');
+            const categoryFilters = document.querySelectorAll('.category-filter');
+            const toolsGrid = document.getElementById('toolsGrid');
+            const toolCards = document.querySelectorAll('.tool-card');
+            const noResults = document.getElementById('noResults');
+            
+            function filterTools() {
+                const searchTerm = toolSearch.value.toLowerCase();
+                const activeCategory = document.querySelector('.category-filter.active').getAttribute('data-category');
+                let visibleCount = 0;
+                
+                toolCards.forEach(card => {
+                    const cardTitle = card.querySelector('.tool-title').textContent.toLowerCase();
+                    const cardDescription = card.querySelector('.tool-description').textContent.toLowerCase();
+                    const cardCategory = card.getAttribute('data-category');
+                    
+                    const matchesSearch = cardTitle.includes(searchTerm) || cardDescription.includes(searchTerm);
+                    const matchesCategory = activeCategory === 'all' || cardCategory === activeCategory;
+                    
+                    if (matchesSearch && matchesCategory) {
+                        card.style.display = 'flex';
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                if (visibleCount === 0) {
+                    noResults.style.display = 'block';
+                } else {
+                    noResults.style.display = 'none';
+                }
+            }
+            
+            if (toolSearch) {
+                toolSearch.addEventListener('input', filterTools);
+            }
+            
+            categoryFilters.forEach(filter => {
+                filter.addEventListener('click', function() {
+                    categoryFilters.forEach(f => f.classList.remove('active'));
+                    this.classList.add('active');
+                    filterTools();
+                });
+            });
+            
+            if (toolCards.length > 0) {
+                 filterTools();
+            }
+        }
+
+        // CRITICAL: componentLoader.js MUST call initializePage() after it has loaded
+        // the header and footer HTML into the DOM.
+        // Below are ways to attempt this if componentLoader.js structure is unknown,
+        // but an explicit call from componentLoader.js is the most reliable method.
+
+        // Option 1: If componentLoader.js dispatches a custom event named 'componentsLoaded'
+        document.addEventListener('componentsLoaded', initializePage);
+
+        // Option 2: If componentLoader.js is promise-based (adjust .load or .loadComponents as needed)
+        document.addEventListener('DOMContentLoaded', () => {
+            let componentsLoadedPromise;
+            if (window.componentLoader) {
+                if (typeof window.componentLoader.loadComponents === 'function') {
+                    componentsLoadedPromise = Promise.resolve(window.componentLoader.loadComponents(['header', 'footer'])); // Example args
+                } else if (typeof window.componentLoader.load === 'function') {
+                    componentsLoadedPromise = Promise.resolve(window.componentLoader.load(['header', 'footer'])); // Example args
+                }
+            }
+
+            if (componentsLoadedPromise) {
+                componentsLoadedPromise
+                    .then(() => {
+                        console.log('ComponentLoader finished, calling initializePage.');
+                        initializePage();
+                    })
+                    .catch(error => {
+                        console.error('ComponentLoader promise failed:', error, 'Still attempting to initialize page.');
+                        initializePage(); // Call anyway for non-component dependent parts
+                    });
+            } else if (!document.querySelector('#header').innerHTML) {
+                // Fallback if componentLoader isn't promise-based and hasn't dispatched 'componentsLoaded' yet.
+                // This is less reliable and assumes componentLoader might run after DOMContentLoaded but before this script block ends.
+                console.warn('ComponentLoader did not provide a clear signal. initializePage() will run, but header/footer features might not be ready if components load later.');
+                initializePage();
+            }
+            // If componentLoader runs *before* DOMContentLoaded and does not use events/promises,
+            // then the 'componentsLoaded' event listener or a direct call from componentLoader is necessary.
+        });
+    </script>
+</body>
+</html> 

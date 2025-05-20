@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator - ToolsDark</title>
+    
+    <!-- Bootstrap 5.3.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome 6.0.0 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Pickr Color Picker -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/nano.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/qr-generator.css">
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <div class="theme-toggle-wrapper">
+        <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark/light mode">
+            <i class="fas fa-sun sun-icon"></i>
+            <i class="fas fa-moon moon-icon"></i>
+        </button>
+    </div>
+
+    <!-- Header -->
+    <header id="header"></header>
+
+    <!-- Main Content -->
+    <main class="py-5 mt-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <!-- Tool Header -->
+                    <div class="text-center mb-5">
+                        <h1 class="display-4 fw-bold mb-3">QR Code <span class="text-gradient">Generator</span></h1>
+                        <p class="lead text-secondary mb-0">Create beautiful QR codes instantly with real-time preview</p>
+                    </div>
+
+                    <!-- QR Code Generator Card -->
+                    <div class="glass-card mb-4">
+                        <div class="row g-4">
+                            <!-- QR Code Preview -->
+                            <div class="col-lg-5">
+                                <div class="qr-preview-wrapper text-center sticky-top" style="top: 2rem;">
+                                    <div class="preview-container mb-4 position-relative">
+                                        <div id="qrPreview" class="qr-preview"></div>
+                                        <div class="preview-overlay d-none">
+                                            <div class="spinner-border text-primary" role="status">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Action Buttons -->
+                                    <div class="action-buttons">
+                                        <div class="btn-group mb-3 w-100">
+                                            <button class="btn btn-gradient-primary" id="downloadBtn">
+                                                <i class="fas fa-download me-2"></i>Download
+                                            </button>
+                                            <button class="btn btn-gradient-primary" id="shareBtn">
+                                                <i class="fas fa-share-alt me-2"></i>Share
+                                            </button>
+                                        </div>
+                                        <div class="download-options btn-group w-100">
+                                            <button class="btn btn-outline-primary" data-format="png">PNG</button>
+                                            <button class="btn btn-outline-primary" data-format="svg">SVG</button>
+                                            <button class="btn btn-outline-primary" data-format="webp">WebP</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- QR Code Options -->
+                            <div class="col-lg-7">
+                                <!-- Content Type Selection -->
+                                <div class="content-type-selector mb-4">
+                                    <h3 class="h5 mb-3">Content Type</h3>
+                                    <div class="type-grid">
+                                        <input type="radio" class="btn-check" name="contentType" id="urlType" value="url" checked>
+                                        <label class="type-option" for="urlType">
+                                            <i class="fas fa-link"></i>
+                                            <span>URL</span>
+                                        </label>
+
+                                        <input type="radio" class="btn-check" name="contentType" id="textType" value="text">
+                                        <label class="type-option" for="textType">
+                                            <i class="fas fa-font"></i>
+                                            <span>Text</span>
+                                        </label>
+
+                                        <input type="radio" class="btn-check" name="contentType" id="wifiType" value="wifi">
+                                        <label class="type-option" for="wifiType">
+                                            <i class="fas fa-wifi"></i>
+                                            <span>WiFi</span>
+                                        </label>
+
+                                        <input type="radio" class="btn-check" name="contentType" id="contactType" value="contact">
+                                        <label class="type-option" for="contactType">
+                                            <i class="fas fa-address-card"></i>
+                                            <span>Contact</span>
+                                        </label>
+
+                                        <input type="radio" class="btn-check" name="contentType" id="emailType" value="email">
+                                        <label class="type-option" for="emailType">
+                                            <i class="fas fa-envelope"></i>
+                                            <span>Email</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Dynamic Input Fields -->
+                                <div id="inputFields" class="mb-4">
+                                    <!-- Will be populated by JavaScript -->
+                                </div>
+
+                                <!-- Style Options -->
+                                <div class="style-options mb-4">
+                                    <div class="accordion" id="styleAccordion">
+                                        <!-- Colors Section -->
+                                        <div class="accordion-item glass-card border-0 mb-3">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#colorsCollapse">
+                                                    <i class="fas fa-palette me-2"></i>Colors & Style
+                                                </button>
+                                            </h2>
+                                            <div id="colorsCollapse" class="accordion-collapse collapse show" data-bs-parent="#styleAccordion">
+                                                <div class="accordion-body">
+                                                    <div class="row g-3">
+                                                        <div class="col-md-6">
+                                                            <label for="foregroundColor" class="form-label">Foreground Color</label>
+                                                            <div class="color-picker-wrapper">
+                                                                <div id="foregroundColor" class="color-picker" title="Choose foreground color"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label for="backgroundColor" class="form-label">Background Color</label>
+                                                            <div class="color-picker-wrapper">
+                                                                <div id="backgroundColor" class="color-picker" title="Choose background color"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="form-check mt-3">
+                                                        <input class="form-check-input" type="checkbox" id="useGradient">
+                                                        <label class="form-check-label" for="useGradient">
+                                                            Use Gradient
+                                                        </label>
+                                                    </div>
+                                                    
+                                                    <div id="gradientOptions" class="row g-3 mt-2 d-none">
+                                                        <div class="col-md-6">
+                                                            <label for="gradientStart" class="form-label">Gradient Start</label>
+                                                            <div class="color-picker-wrapper">
+                                                                <div id="gradientStart" class="color-picker" title="Choose gradient start color"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label for="gradientEnd" class="form-label">Gradient End</label>
+                                                            <div class="color-picker-wrapper">
+                                                                <div id="gradientEnd" class="color-picker" title="Choose gradient end color"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row g-3 mt-3">
+                                                        <div class="col-md-6">
+                                                            <label for="dotStyle" class="form-label">Dot Style</label>
+                                                            <select class="form-select" id="dotStyle" title="Select dot style for QR code" placeholder="Select dot style">
+                                                                <option value="square">Square</option>
+                                                                <option value="dots">Dots</option>
+                                                                <option value="rounded">Rounded</option>
+                                                                <option value="extra-rounded">Extra Rounded</option>
+                                                                <option value="classy">Classy</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label for="cornerStyle" class="form-label">Corner Style</label>
+                                                            <select class="form-select" id="cornerStyle" title="Select corner style for QR code" placeholder="Select corner style">
+                                                                <option value="square">Square</option>
+                                                                <option value="dot">Dot</option>
+                                                                <option value="extra-rounded">Extra Rounded</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Logo Section -->
+                                        <div class="accordion-item glass-card border-0 mb-3">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#logoCollapse">
+                                                    <i class="fas fa-image me-2"></i>Logo
+                                                </button>
+                                            </h2>
+                                            <div id="logoCollapse" class="accordion-collapse collapse" data-bs-parent="#styleAccordion">
+                                                <div class="accordion-body">
+                                                    <div class="mb-3">
+                                                        <label for="logoUpload" class="form-label">Upload Logo</label>
+                                                        <div class="logo-upload-wrapper">
+                                                            <input type="file" class="form-control" id="logoUpload" accept="image/*">
+                                                            <div class="logo-preview" id="logoPreview"></div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="mb-3">
+                                                        <label class="form-label d-block">Logo Library</label>
+                                                        <div class="logo-library" id="logoLibrary">
+                                                            <!-- Will be populated by JavaScript -->
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="logo-settings">
+                                                        <div class="mb-3">
+                                                            <label for="logoSize" class="form-label">Logo Size</label>
+                                                            <input type="range" class="form-range" id="logoSize" min="0.1" max="0.3" step="0.01" value="0.2" 
+                                                                title="Adjust logo size" placeholder="0.2">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="logoMargin" class="form-label">Logo Margin</label>
+                                                            <input type="range" class="form-range" id="logoMargin" min="0" max="10" value="5" 
+                                                                title="Adjust logo margin" placeholder="5">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Frame Section -->
+                                        <div class="accordion-item glass-card border-0">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#frameCollapse">
+                                                    <i class="fas fa-vector-square me-2"></i>Frame
+                                                </button>
+                                            </h2>
+                                            <div id="frameCollapse" class="accordion-collapse collapse" data-bs-parent="#styleAccordion">
+                                                <div class="accordion-body">
+                                                    <div class="mb-3">
+                                                        <label for="frameStyle" class="form-label">Frame Style</label>
+                                                        <select class="form-select" id="frameStyle" title="Select frame style">
+                                                            <option value="none">No Frame</option>
+                                                            <option value="square">Square Frame</option>
+                                                            <option value="rounded">Rounded Frame</option>
+                                                            <option value="extra-rounded">Extra Rounded Frame</option>
+                                                            <option value="dot">Dot Frame</option>
+                                                        </select>
+                                                    </div>
+                                                    
+                                                    <div id="frameOptions" class="d-none">
+                                                        <div class="mb-3">
+                                                            <label for="frameText" class="form-label">Frame Text</label>
+                                                            <input type="text" class="form-control" id="frameText" placeholder="Enter frame text">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="frameColor" class="form-label">Frame Color</label>
+                                                            <div class="color-picker-wrapper">
+                                                                <div id="frameColor" class="color-picker" title="Choose frame color"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Generate Button -->
+                                <div class="generate-btn-wrapper sticky-bottom py-4 bg-surface">
+                                    <div class="container-fluid px-0">
+                                        <button id="generateQRBtn" class="btn btn-gradient-primary btn-lg w-100 position-relative overflow-hidden" type="button">
+                                            <span class="btn-content d-flex align-items-center justify-content-center">
+                                                <i class="fas fa-qrcode me-2"></i>
+                                                <span class="btn-text">Generate QR Code</span>
+                                                <span class="spinner-border spinner-border-sm ms-2 d-none" role="status">
+                                                    <span class="visually-hidden">Loading...</span>
+                                                </span>
+                                            </span>
+                                            <div class="btn-feedback position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
+                                                <i class="fas fa-check text-white me-2"></i>
+                                                <span>Generated!</span>
+                                            </div>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- QR Code Scanner -->
+                    <div class="glass-card">
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <h3 class="h5 mb-0">
+                                <i class="fas fa-qrcode me-2"></i>QR Code Scanner
+                            </h3>
+                            <button class="btn btn-sm btn-outline-primary" id="toggleScanner">
+                                <i class="fas fa-camera me-2"></i>Start Scanner
+                            </button>
+                        </div>
+                        
+                        <div class="row g-4">
+                            <div class="col-lg-6">
+                                <div id="reader" class="scanner-container"></div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div id="scanResult" class="scan-result glass-card p-3">
+                                    <div class="placeholder-content text-center py-4">
+                                        <i class="fas fa-qrcode fa-3x mb-3 text-secondary"></i>
+                                        <p class="mb-0">Scan a QR code to see its contents here</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer"></footer>
+
+    <!-- Share Modal -->
+    <div class="modal fade" id="shareModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content glass-card">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title">Share QR Code</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="share-options">
+                        <button class="share-btn" onclick="shareViaEmail()" aria-label="Share via Email">
+                            <i class="fas fa-envelope"></i>
+                            <span>Email</span>
+                        </button>
+                        <button class="share-btn" onclick="shareViaTwitter()" aria-label="Share on Twitter">
+                            <i class="fab fa-twitter"></i>
+                            <span>Twitter</span>
+                        </button>
+                        <button class="share-btn" onclick="shareViaFacebook()" aria-label="Share on Facebook">
+                            <i class="fab fa-facebook"></i>
+                            <span>Facebook</span>
+                        </button>
+                        <button class="share-btn" onclick="shareViaLinkedin()" aria-label="Share on LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                            <span>LinkedIn</span>
+                        </button>
+                        <button class="share-btn copy-link" onclick="copyShareLink()" aria-label="Copy Link">
+                            <i class="fas fa-link"></i>
+                            <span>Copy Link</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- QR Code Library -->
+    <script src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+    
+    <!-- Color Picker -->
+    <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
+    
+    <!-- QR Code Scanner -->
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    
+    <!-- Component Loader -->
+    <script src="../js/componentLoader.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="../js/qr-generator.js"></script>
+</body>
+</html> 

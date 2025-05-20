@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToolsDark - Professional Online Tools Suite</title>
+    
+    <!-- Bootstrap 5.3.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome 6.0.0 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- AOS Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- GSAP Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <div class="theme-toggle-wrapper">
+        <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark/light mode">
+            <i class="fas fa-sun sun-icon"></i>
+            <i class="fas fa-moon moon-icon"></i>
+        </button>
+    </div>
+
+    <!-- Header -->
+    <header id="header"></header>
+
+    <!-- Hero Section -->
+    <section class="hero-section position-relative overflow-hidden">
+        <div class="hero-bg-wrapper">
+            <!-- Background image will be applied via CSS -->
+            <div class="hero-particles" id="particles-js"></div>
+            <div class="hero-gradient-overlay"></div>
+        </div>
+        
+        <div class="container position-relative z-10 py-5">
+            <div class="row align-items-center min-vh-100">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <div class="badge-wrapper mb-3" data-aos="fade-up" data-aos-delay="100">
+                        <span class="badge bg-gradient-primary text-white px-4 py-2 rounded-pill">
+                            <i class="fas fa-tools me-2"></i>20+ Professional Tools
+                        </span>
+                    </div>
+                    
+                    <h1 class="hero-title display-3 fw-bold mb-3" data-aos="fade-up" data-aos-delay="200">
+                        Transform Your <span class="text-gradient">Digital Workflow</span>
+                    </h1>
+                    
+                    <p class="lead mb-4 opacity-90" data-aos="fade-up" data-aos-delay="300">
+                        Experience the next generation of online tools. Process your data securely in your browser with advanced features and modern design.
+                    </p>
+                    
+                    <div class="d-flex flex-wrap gap-3 mb-5" data-aos="fade-up" data-aos-delay="400">
+                        <a href="#tools-grid" class="btn btn-gradient-primary btn-lg rounded-pill">
+                            <i class="fas fa-rocket me-2"></i> Get Started
+                        </a>
+                        <a href="#popular" class="btn btn-outline-gradient btn-lg rounded-pill">
+                            <i class="fas fa-star me-2"></i> Popular Tools
+                        </a>
+                    </div>
+                    
+                    <!-- Trust Indicators -->
+                    <div class="trust-section mt-5" data-aos="fade-up" data-aos-delay="500">
+                        <div class="trust-header d-flex align-items-center mb-4">
+                            <div class="trust-icon me-3">
+                                <i class="fas fa-shield-alt text-gradient-primary h3 mb-0"></i>
+                            </div>
+                            <h6 class="mb-0">Trusted by Industry Leaders</h6>
+                        </div>
+                        
+                        <div class="trust-logos d-flex flex-wrap align-items-center gap-4">
+                            <div class="trust-logo-item" data-aos="zoom-in" data-aos-delay="600">
+                                <img src="assets/images/trust/google.svg" alt="Google" class="trust-logo" height="28">
+                            </div>
+                            <div class="trust-logo-item" data-aos="zoom-in" data-aos-delay="700">
+                                <img src="assets/images/trust/microsoft.svg" alt="Microsoft" class="trust-logo" height="28">
+                            </div>
+                            <div class="trust-logo-item" data-aos="zoom-in" data-aos-delay="800">
+                                <img src="assets/images/trust/adobe.svg" alt="Adobe" class="trust-logo" height="28">
+                            </div>
+                            <div class="trust-logo-item" data-aos="zoom-in" data-aos-delay="900">
+                                <img src="assets/images/trust/ibm.svg" alt="IBM" class="trust-logo" height="28">
+                            </div>
+                            <div class="trust-logo-item" data-aos="zoom-in" data-aos-delay="1000">
+                                <img src="assets/images/trust/stanford.svg" alt="Stanford" class="trust-logo" height="28">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Stats Cards -->
+                    <div class="stats-grid mt-5" data-aos="fade-up" data-aos-delay="600">
+                        <div class="row g-4">
+                            <div class="col-md-4">
+                                <div class="stat-card glass-card p-4 rounded-4">
+                                    <div class="stat-icon mb-3">
+                                        <i class="fas fa-users text-gradient-primary h3"></i>
+                                    </div>
+                                    <h3 class="stat-value counter mb-1" data-count="2">0</h3>
+                                    <p class="stat-suffix mb-1">Million+</p>
+                                    <p class="stat-label mb-0">Active Users</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="stat-card glass-card p-4 rounded-4">
+                                    <div class="stat-icon mb-3">
+                                        <i class="fas fa-file-alt text-gradient-success h3"></i>
+                                    </div>
+                                    <h3 class="stat-value counter mb-1" data-count="50">0</h3>
+                                    <p class="stat-suffix mb-1">Million+</p>
+                                    <p class="stat-label mb-0">Files Processed</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="stat-card glass-card p-4 rounded-4">
+                                    <div class="stat-icon mb-3">
+                                        <i class="fas fa-star text-gradient-warning h3"></i>
+                                    </div>
+                                    <h3 class="stat-value mb-1"><span class="counter" data-count="4.9">0</span>/5</h3>
+                                    <p class="stat-suffix mb-1">&nbsp;</p>
+                                    <p class="stat-label mb-0">User Rating</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Hero Right Section -->
+                <div class="col-lg-6 position-relative" data-aos="fade-up">
+                    <div class="hero-image-wrapper">
+                        <div class="floating-cards">
+                            <!-- Main Tool Preview Card -->
+                            <div class="tool-preview-card main-card" data-aos="fade-left" data-aos-delay="200">
+                                <img src="assets/images/aitools.png" alt="Tool Preview" class="img-fluid rounded-4 shadow-lg">
+                                <div class="card-glow"></div>
+                            </div>
+                            
+                            <!-- Secondary Tool Preview Card -->
+                            <div class="tool-preview-card secondary-card" data-aos="fade-left" data-aos-delay="400">
+                                <img src="assets/images/bg-pattern.svg" alt="Tool Preview" class="img-fluid rounded-4 shadow-lg">
+                                <div class="card-glow"></div>
+                            </div>
+                            
+                            <!-- Floating Tool Icons -->
+                            <div class="floating-elements">
+                                <div class="floating-icon icon-1" data-aos="zoom-in" data-aos-delay="600">
+                                    <i class="fas fa-magic text-gradient-primary"></i>
+                                </div>
+                                <div class="floating-icon icon-2" data-aos="zoom-in" data-aos-delay="700">
+                                    <i class="fas fa-bolt text-gradient-warning"></i>
+                                </div>
+                                <div class="floating-icon icon-3" data-aos="zoom-in" data-aos-delay="800">
+                                    <i class="fas fa-image text-gradient-info"></i>
+                                </div>
+                                <div class="floating-icon icon-4" data-aos="zoom-in" data-aos-delay="900">
+                                    <i class="fas fa-code text-gradient-success"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tools Grid Section -->
+    <section id="tools-grid" class="py-5">
+        <div class="container">
+            <div class="section-header text-center mb-5">
+                <h2 class="fw-bold mb-3" data-aos="fade-up">Explore Our <span class="text-gradient">Tools</span></h2>
+                <p class="lead opacity-75 mx-auto" style="max-width: 600px;" data-aos="fade-up" data-aos-delay="100">
+                    20+ essential tools designed to simplify your daily digital workflow
+                </p>
+            </div>
+            
+            <!-- Category Filter Buttons -->
+            <div class="filter-container text-center mb-5" data-aos="fade-up" data-aos-delay="200">
+                <div class="category-pills d-inline-flex flex-wrap justify-content-center gap-2">
+                    <button type="button" class="category-pill active" data-filter="all">
+                        <i class="fas fa-layer-group me-2"></i>All Tools
+                    </button>
+                    <button type="button" class="category-pill" data-filter="document">
+                        <i class="fas fa-file-alt me-2"></i>Document & Text
+                    </button>
+                    <button type="button" class="category-pill" data-filter="image">
+                        <i class="fas fa-image me-2"></i>Image Tools
+                    </button>
+                    <button type="button" class="category-pill" data-filter="developer">
+                        <i class="fas fa-code me-2"></i>Developer
+                    </button>
+                    <button type="button" class="category-pill" data-filter="utility">
+                        <i class="fas fa-cogs me-2"></i>Utilities
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Tools Grid -->
+            <div class="row g-4" id="tools-container">
+                <!-- Document & Text Tools -->
+                <div class="col-xl-3 col-lg-4 col-md-6 tool-item document" data-aos="fade-up">
+                    <div class="tool-card glass-card h-100">
+                        <div class="card-glow"></div>
+                        <div class="tool-icon">
+                            <i class="fas fa-qrcode"></i>
+                        </div>
+                        <h3 class="tool-title">QR Code Generator</h3>
+                        <p class="tool-description">Create custom QR codes for URLs, text, WiFi, and more.</p>
+                        <div class="tool-tags">
+                            <span class="tool-tag document">Document</span>
+                            <span class="tool-tag feature">Downloadable</span>
+                        </div>
+                        <a href="tools/qr-code-generator.html" class="btn-tool-action">
+                            <span>Open Tool</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col-xl-3 col-lg-4 col-md-6 tool-item document" data-aos="fade-up" data-aos-delay="100">
+                    <div class="tool-card glass-card h-100">
+                        <div class="card-glow"></div>
+                        <div class="tool-icon">
+                            <i class="fas fa-barcode"></i>
+                        </div>
+                        <h3 class="tool-title">Barcode Generator</h3>
+                        <p class="tool-description">Generate multiple barcode formats for product labeling.</p>
+                        <div class="tool-tags">
+                            <span class="tool-tag document">Document</span>
+                            <span class="tool-tag feature">Downloadable</span>
+                        </div>
+                        <a href="tools/barcode-generator.html" class="btn-tool-action">
+                            <span>Open Tool</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col-xl-3 col-lg-4 col-md-6 tool-item document" data-aos="fade-up" data-aos-delay="200">
+                    <div class="tool-card glass-card h-100">
+                        <div class="card-glow"></div>
+                        <div class="tool-icon">
+                            <i class="fas fa-key"></i>
+                        </div>
+                        <h3 class="tool-title">Password Generator</h3>
+                        <p class="tool-description">Create strong, secure passwords with custom settings.</p>
+                        <div class="tool-tags">
+                            <span class="tool-tag document">Document</span>
+                            <span class="tool-tag feature">Secure</span>
+                        </div>
+                        <a href="tools/password-generator.html" class="btn-tool-action">
+                            <span>Open Tool</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Image Tools -->
+                <div class="col-xl-3 col-lg-4 col-md-6 tool-item image" data-aos="fade-up">
+                    <div class="tool-card glass-card h-100">
+                        <div class="card-glow"></div>
+                        <div class="tool-icon">
+                            <i class="fas fa-eraser"></i>
+                        </div>
+                        <h3 class="tool-title">Background Remover</h3>
+                        <p class="tool-description">Remove image backgrounds with AI-powered precision.</p>
+                        <div class="tool-tags">
+                            <span class="tool-tag image">Image</span>
+                            <span class="tool-tag feature">AI-Powered</span>
+                        </div>
+                        <a href="tools/background-remover.html" class="btn-tool-action">
+                            <span>Open Tool</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col-xl-3 col-lg-4 col-md-6 tool-item image" data-aos="fade-up" data-aos-delay="100">
+                    <div class="tool-card glass-card h-100">
+                        <div class="card-glow"></div>
+                        <div class="tool-icon">
+                            <i class="fas fa-expand"></i>
+                        </div>
+                        <h3 class="tool-title">Image Resizer</h3>
+                        <p class="tool-description">Resize images while maintaining quality and aspect ratio.</p>
+                        <div class="tool-tags">
+                            <span class="tool-tag image">Image</span>
+                            <span class="tool-tag feature">Fast</span>
+                        </div>
+                        <a href="tools/image-resizer.html" class="btn-tool-action">
+                            <span>Open Tool</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Color Palette Generator -->
+                <div class="col-xl-3 col-lg-4 col-md-6 tool-item image developer" data-aos="fade-up" data-aos-delay="200">
+                    <div class="tool-card glass-card h-100">
+                        <div class="card-glow"></div>
+                        <div class="tool-icon">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <h3 class="tool-title">Color Palette</h3>
+                        <p class="tool-description">Create harmonious color schemes or extract from images.</p>
+                        <div class="tool-tags">
+                            <span class="tool-tag image">Image</span>
+                            <span class="tool-tag developer">Developer</span>
+                        </div>
+                        <a href="tools/color-palette.html" class="btn-tool-action">
+                            <span>Open Tool</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Developer Tools -->
+                <div class="col-xl-3 col-lg-4 col-md-6 tool-item developer" data-aos="fade-up">
+                    <div class="tool-card glass-card h-100">
+                        <div class="card-glow"></div>
+                        <div class="tool-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3 class="tool-title">JSON Formatter</h3>
+                        <p class="tool-description">Format, validate and beautify JSON data.</p>
+                        <div class="tool-tags">
+                            <span class="tool-tag developer">Developer</span>
+                            <span class="tool-tag feature">Validator</span>
+                        </div>
+                        <a href="tools/json-formatter.html" class="btn-tool-action">
+                            <span>Open Tool</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Utility Tools -->
+                <div class="col-xl-3 col-lg-4 col-md-6 tool-item utility" data-aos="fade-up" data-aos-delay="100">
+                    <div class="tool-card glass-card h-100">
+                        <div class="card-glow"></div>
+                        <div class="tool-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <h3 class="tool-title">PDF Tools</h3>
+                        <p class="tool-description">Merge, split, compress and convert PDF files.</p>
+                        <div class="tool-tags">
+                            <span class="tool-tag utility">Utility</span>
+                            <span class="tool-tag feature">Privacy</span>
+                        </div>
+                        <a href="tools/pdf-tools.html" class="btn-tool-action">
+                            <span>Open Tool</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- View More Tools Button -->
+            <div class="text-center mt-5">
+                <a href="pages/all-tools.html" class="btn btn-gradient-secondary btn-lg rounded-pill" data-aos="fade-up">
+                    <i class="fas fa-th-large me-2"></i> View All 20+ Tools
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer"></footer>
+
+    <!-- Required Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    
+    <!-- Component Loader -->
+    <script src="js/componentLoader.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="js/main.js"></script>
+</body>
+</html>

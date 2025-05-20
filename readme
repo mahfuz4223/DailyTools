@@ -1,0 +1,143 @@
+# ToolsDark - Professional Online Tools Suite
+
+ToolsDark is a modern, feature-rich web application that provides a collection of online tools for digital professionals. Built with Bootstrap 5, it offers a beautiful dark theme and a responsive design.
+
+## 🌟 Features
+
+- **Modern Dark Theme**: Professional dark mode design optimized for long hours of work
+- **50+ Professional Tools**: Including:
+  - Password Generator
+  - Hash Generator
+  - QR Code Generator
+  - Image Tools
+  - Document Converters
+  - AI-powered Tools
+- **Responsive Design**: Works perfectly on all devices
+- **Interactive UI**: Smooth animations and transitions
+- **Category Filtering**: Easy tool discovery
+- **Performance Optimized**: Fast loading and smooth interactions
+## 🛠️ Built With
+
+- HTML5
+- CSS3
+- JavaScript (ES6+)
+- [Bootstrap 5.3.3](https://getbootstrap.com/)
+- [Font Awesome 6.0.0](https://fontawesome.com/)
+- [AOS - Animate On Scroll](https://michalsnik.github.io/aos/)
+- [Inter Font](https://fonts.google.com/specimen/Inter)
+
+## 📁 Project Structure
+
+```
+toolsdark/
+├── index.html
+├── css/
+│   └── style.css
+├── js/
+│   └── main.js
+├── components/
+│   ├── header.html
+│   ├── footer.html
+│   └── hero.html
+└── README.md
+```
+
+## 🎨 Customization
+
+### Colors
+The main color scheme can be customized in `css/style.css`:
+```css
+:root {
+    --primary-dark: #2C3E50;
+    --primary-accent: #1ABC9C;
+    --secondary-accent: #F39C12;
+    /* ... other color variables ... */
+}
+```
+
+### Components
+Each component is modular and can be customized independently:
+- `header.html`: Navigation and announcement bar
+- `hero.html`: Hero section with animated background
+- `footer.html`: Footer with newsletter and links
+
+## 🚀 Running Locally
+
+To run DarkTools locally without encountering CORS issues, it's recommended to use a local web server.
+
+### Method 1: Using Python (easiest)
+
+If you have Python installed:
+
+```bash
+# Navigate to the DarkTools folder
+cd path/to/DarkTools
+
+# If you have Python 3:
+python -m http.server 8000
+
+# If you have Python 2:
+python -m SimpleHTTPServer 8000
+```
+
+Then open your browser and visit: http://localhost:8000/
+
+### Method 2: Using Node.js
+
+If you have Node.js installed:
+
+```bash
+# Install http-server globally if you haven't already
+npm install -g http-server
+
+# Navigate to the DarkTools folder
+cd path/to/DarkTools
+
+# Run the server
+http-server
+
+# Or specify a port
+http-server -p 8080
+```
+
+Then open your browser and visit: http://localhost:8080/
+
+### Why Use a Local Server?
+
+Running DarkTools from a local server (rather than opening files directly) ensures:
+- CORS restrictions won't block component loading
+- All features work properly
+- Proper testing of service workers
+- A more realistic production environment
+
+## 🔧 Browser Support
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+- Opera (latest)
+
+## 📝 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📧 Contact
+
+Your Name - [@yourtwitter](https://twitter.com/yourtwitter)
+Project Link: [https://github.com/yourusername/toolsdark](https://github.com/yourusername/toolsdark)
+
+## 🙏 Acknowledgments
+
+- [Bootstrap](https://getbootstrap.com/)
+- [Font Awesome](https://fontawesome.com/)
+- [Google Fonts](https://fonts.google.com/)
+- [AOS Library](https://michalsnik.github.io/aos/) 
