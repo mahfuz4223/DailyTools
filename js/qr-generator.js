@@ -68,6 +68,7 @@ class QRCodeGenerator {
         this.initGenerateButton();
         this.initDownloadHandlers();
         this.initShareHandlers();
+        this.initScanner(); // Added scanner initialization
     }
 
     initQRCode() {
@@ -822,4 +823,175 @@ class QRCodeGenerator {
     }
 
     // ... rest of the class implementation ...
+
+    // Scanner Functionality
+    initScanner() {
+        const toggleBtn = document.getElementById('toggleScanner');
+        const readerEl = document.getElementById('reader'); // Renamed to avoid conflict with class property
+        const resultEl = document.getElementById('scanResult'); // Renamed for clarity
+
+        if (!toggleBtn || !readerEl || !resultEl) {
+            console.warn('Scanner UI elements not found. QR Scanner functionality will be disabled.');
+            return;
+        }
+
+        // Ensure this.scanner and this.isScanning are initialized (should be in constructor)
+        if (typeof this.isScanning === 'undefined') this.isScanning = false;
+        if (typeof this.scanner === 'undefined') this.scanner = null;
+
+
+        toggleBtn.addEventListener('click', () => {
+            if (this.isScanning) {
+                this.stopScanner();
+                toggleBtn.innerHTML = '<i class="fas fa-camera me-2"></i>Start Scanner';
+            } else {
+                // Clear previous results before starting
+                resultEl.innerHTML = `
+                    <div class="placeholder-content text-center py-4">
+                        <i class="fas fa-qrcode fa-3x mb-3 text-secondary"></i>
+                        <p class="mb-0">Place a QR code in front of the camera</p>
+                    </div>`;
+                this.startScanner();
+                toggleBtn.innerHTML = '<i class="fas fa-stop me-2"></i>Stop Scanner';
+            }
+        });
+    }
+
+    startScanner() {
+        const readerEl = document.getElementById('reader');
+        const resultEl = document.getElementById('scanResult');
+
+        if (!readerEl || !resultEl) return; // Should have been caught by initScanner
+
+        if (!this.scanner) {
+            this.scanner = new Html5Qrcode('reader');
+        }
+
+        // Make sure the reader element is visible (it should be by default)
+        readerEl.style.display = 'block';
+
+        this.scanner.start(
+            { facingMode: 'environment' }, // Prefer rear camera
+            {
+                fps: 10,
+                qrbox: (viewfinderWidth, viewfinderHeight) => {
+                    // Calculate size, ensuring it's not too large for the viewfinder
+                    // and not too small for effective scanning.
+                    // Example: 70% of the smaller dimension of the viewfinder.
+                    const minDimension = Math.min(viewfinderWidth, viewfinderHeight);
+                    const qrBoxSize = Math.floor(minDimension * 0.7);
+                    return { width: qrBoxSize, height: qrBoxSize };
+                },
+                rememberLastUsedCamera: true // Good for UX
+            },
+            (decodedText, decodedResult) => {
+                // Handle successful scan
+                resultEl.innerHTML = `
+                    <div class="alert alert-success mb-3">
+                        <h6 class="alert-heading mb-1">QR Code Detected!</h6>
+                        <p class="mb-0 text-break" style="word-wrap: break-word;">${this.escapeHTML(decodedText)}</p>
+                    </div>
+                    <div class="d-grid">
+                        <button class="btn btn-primary copy-scan-result-btn">
+                            <i class="fas fa-copy me-2"></i>Copy Content
+                        </button>
+                    </div>
+                `;
+                // Add event listener for the new copy button
+                const copyScanButton = resultEl.querySelector('.copy-scan-result-btn');
+                if (copyScanButton) {
+                    copyScanButton.addEventListener('click', () => this.copyToClipboard(decodedText, copyScanButton));
+                }
+
+                // Optionally stop scanning after a successful scan
+                // this.stopScanner();
+                // const toggleBtn = document.getElementById('toggleScanner');
+                // if (toggleBtn) toggleBtn.innerHTML = '<i class="fas fa-camera me-2"></i>Start Scanner';
+            },
+            (errorMessage) => {
+                // This callback is called for non-critical errors, like QR not found.
+                // console.debug('QR Code scanning error (non-critical):', errorMessage);
+                // resultEl.innerHTML = `<div class="alert alert-warning">No QR Code found. Try repositioning.</div>`;
+            }
+        ).then(() => {
+            this.isScanning = true;
+        }).catch((err) => {
+            console.error('Error starting QR Code scanner:', err);
+            resultEl.innerHTML = `<div class="alert alert-danger">Error starting scanner: ${this.escapeHTML(err.message || err)}</div>`;
+            this.isScanning = false; // Ensure isScanning is false if start fails
+            const toggleBtn = document.getElementById('toggleScanner');
+            if (toggleBtn) toggleBtn.innerHTML = '<i class="fas fa-camera me-2"></i>Start Scanner';
+        });
+    }
+
+    stopScanner() {
+        const readerEl = document.getElementById('reader');
+        if (this.scanner && this.isScanning) {
+            this.scanner.stop()
+                .then(() => {
+                    this.isScanning = false;
+                    if (readerEl) readerEl.style.display = 'none'; // Hide reader on stop
+                    console.log('QR Code scanner stopped.');
+                })
+                .catch((err) => {
+                    console.error('Error stopping QR Code scanner:', err);
+                    // Potentially update UI or state here as well
+                });
+        }
+    }
+
+    // Helper to escape HTML to prevent XSS from scanned content
+    escapeHTML(str) {
+        const p = document.createElement('p');
+        p.appendChild(document.createTextNode(str));
+        return p.innerHTML;
+    }
+
+    // Helper function to copy scanned content to clipboard
+    // Added 'buttonEl' parameter for feedback on the specific button clicked
+    async copyToClipboard(text, buttonEl) {
+        try {
+            await navigator.clipboard.writeText(text);
+            
+            if (buttonEl) {
+                const originalHtml = buttonEl.innerHTML;
+                buttonEl.innerHTML = '<i class="fas fa-check me-2"></i>Copied!';
+                buttonEl.classList.remove('btn-primary');
+                buttonEl.classList.add('btn-success');
+                buttonEl.disabled = true;
+                
+                setTimeout(() => {
+                    buttonEl.innerHTML = originalHtml;
+                    buttonEl.classList.remove('btn-success');
+                    buttonEl.classList.add('btn-primary');
+                    buttonEl.disabled = false;
+                }, 2000);
+            } else {
+                // Fallback or general notification if buttonEl is not provided
+                console.log('Content copied to clipboard!'); 
+            }
+        } catch (err) {
+            console.error('Failed to copy text:', err);
+            if (buttonEl) {
+                const originalHtml = buttonEl.innerHTML;
+                buttonEl.innerHTML = '<i class="fas fa-times me-2"></i>Copy Failed';
+                buttonEl.classList.remove('btn-primary');
+                buttonEl.classList.add('btn-danger');
+                
+                setTimeout(() => {
+                    buttonEl.innerHTML = originalHtml;
+                    buttonEl.classList.remove('btn-danger');
+                    buttonEl.classList.add('btn-primary');
+                }, 2000);
+            }
+        }
+    }
 }
+
+// Making copyToClipboard globally accessible if it's ONLY used by dynamically generated HTML
+// However, it's better to attach event listeners dynamically as done above.
+// If for some reason it needs to be global (e.g. onclick="copyToClipboard(...)"):
+// window.copyToClipboard = (text) => {
+//     const instance = new QRCodeGenerator(); // This is not ideal, instance methods are better
+//     instance.copyToClipboard(text, null); // Pass null or a generic selector for button
+// };

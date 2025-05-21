@@ -49,7 +49,7 @@
                         <div class="row g-4">
                             <!-- QR Code Preview -->
                             <div class="col-lg-5">
-                                <div class="qr-preview-wrapper text-center sticky-top" style="top: 2rem;">
+                                <div class="qr-preview-wrapper text-center sticky-top">
                                     <div class="preview-container mb-4 position-relative">
                                         <div id="qrPreview" class="qr-preview"></div>
                                         <div class="preview-overlay d-none">
@@ -173,7 +173,8 @@
                                                     <div class="row g-3 mt-3">
                                                         <div class="col-md-6">
                                                             <label for="dotStyle" class="form-label">Dot Style</label>
-                                                            <select class="form-select" id="dotStyle" title="Select dot style for QR code" placeholder="Select dot style">
+                                                            <select class="form-select" id="dotStyle" title="Select dot style for QR code">
+                                                                <option value="" disabled selected>Select dot style</option>
                                                                 <option value="square">Square</option>
                                                                 <option value="dots">Dots</option>
                                                                 <option value="rounded">Rounded</option>
@@ -183,7 +184,8 @@
                                                         </div>
                                                         <div class="col-md-6">
                                                             <label for="cornerStyle" class="form-label">Corner Style</label>
-                                                            <select class="form-select" id="cornerStyle" title="Select corner style for QR code" placeholder="Select corner style">
+                                                            <select class="form-select" id="cornerStyle" title="Select corner style for QR code">
+                                                                <option value="" disabled selected>Select corner style</option>
                                                                 <option value="square">Square</option>
                                                                 <option value="dot">Dot</option>
                                                                 <option value="extra-rounded">Extra Rounded</option>
@@ -246,6 +248,7 @@
                                                     <div class="mb-3">
                                                         <label for="frameStyle" class="form-label">Frame Style</label>
                                                         <select class="form-select" id="frameStyle" title="Select frame style">
+                                                            <option value="" disabled selected>Select frame style</option>
                                                             <option value="none">No Frame</option>
                                                             <option value="square">Square Frame</option>
                                                             <option value="rounded">Rounded Frame</option>
