@@ -1,18 +1,16 @@
 /* QR Generator Specific Styles */
 
 /* Tool Header */
-.tool-header .badge {
-    padding: 0.5rem 1rem;
-    font-size: 0.9rem;
-}
+/* Removed duplicate .tool-header .badge styles, assumed to be covered by general styles or bootstrap */
 
 /* Glass Card */
+/* Updated to use theme variables from style.css */
 .glass-card {
-    background: rgba(255, 255, 255, 0.05);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    background: var(--glass-bg);
+    -webkit-backdrop-filter: blur(10px); /* Standard blur effect */
+    backdrop-filter: blur(10px); /* Standard blur effect */
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); /* Retained existing shadow as it's not theme-dependent */
 }
 
 /* Color Picker Styles */
@@ -59,8 +57,9 @@
 }
 
 /* Style Options */
+/* Ensure accordion styles are correctly themed */
 .style-options .accordion-button {
-    background: var(--surface-variant);
+    background: var(--surface-variant); /* Uses theme variable */
     color: var(--text-primary);
     border: none;
 }
@@ -72,50 +71,85 @@
 }
 
 .style-options .accordion-body {
-    background: var(--surface);
-    border-top: 1px solid var(--border);
+    background: var(--surface); /* Uses theme variable */
+    border-top: 1px solid var(--border); /* Uses theme variable */
 }
 
 /* Form Controls in Style Section */
 .style-options .form-control,
 .style-options .form-select {
-    background: var(--surface-variant);
-    border-color: var(--border);
-    color: var(--text-primary);
+    background: var(--surface-variant); /* Uses theme variable */
+    border-color: var(--border); /* Uses theme variable */
+    color: var(--text-primary); /* Uses theme variable */
 }
 
 .style-options .form-control:focus,
 .style-options .form-select:focus {
-    border-color: var(--primary);
-    box-shadow: 0 0 0 0.25rem rgba(var(--primary-rgb), 0.25);
+    border-color: var(--primary); /* Uses theme variable */
+    box-shadow: 0 0 0 0.25rem rgba(var(--primary-rgb, 76, 111, 255), 0.25); /* Added fallback for --primary-rgb */
 }
 
 .style-options .form-check-input:checked {
-    background-color: var(--primary);
-    border-color: var(--primary);
+    background-color: var(--primary); /* Uses theme variable */
+    border-color: var(--primary); /* Uses theme variable */
 }
 
-/* QR Preview */
+/* QR Preview Section */
 .qr-preview-wrapper {
     padding: 1.5rem;
-    background: rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-    margin-bottom: 1.5rem;
+    background: var(--surface-variant); /* Updated to use theme variable */
+    border-radius: 1rem; /* Standardized from 12px to 1rem */
+    margin-bottom: 1.5rem; /* Kept from original */
 }
 
-#qrPreview {
-    min-height: 200px;
+/* Added style for sticky preview wrapper from HTML */
+.qr-preview-wrapper.sticky-top {
+    top: 2rem;
+}
+
+.preview-container {
+    aspect-ratio: 1;
     display: flex;
     align-items: center;
     justify-content: center;
+    /* background: white; Defaulting to white for QR readability, library compatibility. Theming might affect scannability. */
+    background: var(--qr-preview-bg, white); /* Use CSS variable, fallback to white if not defined. Define --qr-preview-bg in style.css themes. */
+    border-radius: 0.5rem;
+    overflow: hidden;
+    position: relative; /* For preview-overlay */
 }
 
-#qrPreview img {
+#qrPreview { /* This is the direct container for the QR code image/canvas */
+    min-height: 200px; /* Kept from original */
+    display: flex; /* Kept from original */
+    align-items: center; /* Kept from original */
+    justify-content: center; /* Kept from original */
+}
+
+#qrPreview img, 
+#qrPreview canvas { /* Ensuring canvas (used by qr-code-styling) is also responsive */
     max-width: 100%;
     height: auto;
+    display: block; /* Fixes potential extra space below canvas/img */
 }
 
-/* Frame Selector */
+.preview-overlay { /* Styles for loading spinner overlay */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-backdrop-filter: blur(4px); /* Backdrop blur effect */
+    backdrop-filter: blur(4px); /* Backdrop blur effect */
+    /* d-none class will toggle visibility */
+}
+
+
+/* Frame Selector - Unchanged from original */
 .frame-selector {
     overflow-x: auto;
     padding: 0.5rem;
@@ -172,40 +206,73 @@
     border: none;
 }
 
+/* Updated to use theme variables from style.css for consistency */
 .btn-gradient-primary {
-    background: linear-gradient(45deg, var(--bs-primary), var(--bs-info));
+    background: linear-gradient(45deg, var(--primary), var(--secondary)); /* Uses theme primary/secondary */
     border: none;
-    color: white;
+    color: white; /* Standard for gradient buttons */
 }
 
 .btn-gradient-primary:hover {
-    background: linear-gradient(45deg, var(--bs-primary), var(--bs-info));
-    opacity: 0.9;
-    color: white;
+    background: linear-gradient(45deg, var(--primary), var(--secondary)); /* Uses theme primary/secondary */
+    opacity: 0.9; /* Standard hover effect */
+    color: white; /* Standard for gradient buttons */
+    /* The pulse animation is applied below */
 }
 
-/* Responsive Adjustments */
+/* Responsive Adjustments - Merged and reviewed from multiple sections */
 @media (max-width: 768px) {
     .btn-group {
         flex-wrap: wrap;
     }
     
-    .btn-group .btn {
-        flex: 1 1 calc(33.333% - 4px);
-        margin: 2px;
+    .btn-group .btn { /* For download format buttons */
+        flex: 1 1 calc(33.333% - 4px); /* Allows three buttons per row with small gap */
+        margin: 2px; /* Small gap */
+    }
+
+    .share-options { /* For share modal buttons */
+        grid-template-columns: repeat(2, 1fr); /* Two buttons per row */
+    }
+
+    .action-buttons .btn-group { /* For Download/Share main buttons */
+        flex-direction: column; /* Stack them vertically */
+    }
+
+    .action-buttons .btn {
+        width: 100%;
+        margin-right: 0 !important; /* Override Bootstrap if necessary. Let's try without !important first. */
+        margin-right: 0; 
+        margin-bottom: 0.5rem; /* Space between stacked buttons */
+    }
+    .action-buttons .btn:last-child {
+        margin-bottom: 0; /* No margin for the last button */
+    }
+
+    .download-options { /* For PNG/SVG/WebP buttons */
+        flex-direction: column; /* Stack them vertically */
+    }
+    .download-options .btn {
+         width: 100%; /* Make them full width when stacked */
+    }
+
+    .generate-btn-wrapper { /* Sticky generate button wrapper */
+        margin: 0 -0.5rem; /* Adjust negative margins for smaller padding */
+        padding-left: 0.5rem !important; /* Using !important if necessary to override */
+        padding-right: 0.5rem !important;
+    }
+
+    #generateQRBtn { /* Generate button itself */
+        min-height: 3rem;
+        font-size: 1rem;
     }
 }
 
 /* Dark Theme Adjustments */
-[data-theme="dark"] .glass-card {
-    background: rgba(0, 0, 0, 0.2);
-}
+/* .glass-card dark theme is handled by var(--glass-bg) from style.css */
+/* .qr-preview-wrapper dark theme is handled by var(--surface-variant) */
 
-[data-theme="dark"] .qr-preview-wrapper {
-    background: rgba(0, 0, 0, 0.3);
-}
-
-/* Animations */
+/* Animations - Kept from original */
 @keyframes pulse {
     0% { transform: scale(1); }
     50% { transform: scale(1.05); }
@@ -282,9 +349,7 @@
     visibility: visible;
 }
 
-/* QR Code Generator Specific Styles */
-
-/* Content Type Selector */
+/* Content Type Selector - Kept from original, looks good */
 .content-type-selector {
     margin-bottom: 2rem;
 }
@@ -301,9 +366,9 @@
     align-items: center;
     justify-content: center;
     padding: 1rem;
-    background: var(--surface-variant);
+    background: var(--surface-variant); /* Uses theme variable */
     border-radius: 1rem;
-    border: 1px solid var(--border);
+    border: 1px solid var(--border); /* Uses theme variable */
     cursor: pointer;
     transition: all 0.3s ease;
 }
@@ -311,68 +376,62 @@
 .type-option i {
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
-    color: var(--text-secondary);
+    color: var(--text-secondary); /* Uses theme variable */
     transition: all 0.3s ease;
 }
 
 .type-option span {
     font-size: 0.875rem;
-    color: var(--text-secondary);
+    color: var(--text-secondary); /* Uses theme variable */
     transition: all 0.3s ease;
 }
 
 .btn-check:checked + .type-option {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-    border-color: var(--primary);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); /* Uses theme variables */
+    border-color: var(--primary); /* Uses theme variable */
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(var(--primary-rgb), 0.3);
+    box-shadow: 0 4px 15px rgba(var(--primary-rgb, 76, 111, 255), 0.3); /* Added fallback for --primary-rgb */
 }
 
 .btn-check:checked + .type-option i,
 .btn-check:checked + .type-option span {
-    color: white;
+    color: white; /* Standard for active state */
 }
 
-/* QR Preview */
-.qr-preview-wrapper {
-    padding: 1.5rem;
-    border-radius: 1rem;
-    background: var(--surface-variant);
-}
-
-.preview-container {
-    aspect-ratio: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: white;
-    border-radius: 0.5rem;
-    overflow: hidden;
-}
-
-.preview-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    -webkit-backdrop-filter: blur(4px);
-    backdrop-filter: blur(4px);
-}
-
-/* Action Buttons */
+/* Action Buttons - Merged and Rationalized */
 .action-buttons {
     margin-top: 1.5rem;
 }
 
-.download-options {
+.action-buttons .btn-group { /* For Download/Share main buttons */
+    gap: 0.5rem; /* Space between buttons if they are side-by-side */
+}
+
+.action-buttons .btn {
+    border-radius: 0.5rem; /* Removed !important, specificity should handle it. If not, re-add with comment. */
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+}
+
+.action-buttons .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(var(--primary-rgb, 76, 111, 255), 0.2); /* Added fallback for --primary-rgb */
+}
+
+.action-buttons .btn i {
+    transition: all 0.3s ease;
+}
+
+.action-buttons .btn:hover i {
+    transform: scale(1.1);
+}
+
+.download-options { /* For PNG/SVG/WebP buttons */
     display: flex;
     gap: 0.5rem;
-    margin-top: 0.5rem;
+    margin-top: 0.5rem; /* Space above this specific group */
 }
 
 .download-options button {
@@ -384,12 +443,12 @@
 
 .download-options button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(var(--primary-rgb), 0.2);
+    box-shadow: 0 4px 15px rgba(var(--primary-rgb, 76, 111, 255), 0.2); /* Added fallback for --primary-rgb */
 }
 
 .download-options button.btn-success,
 .download-options button.btn-danger {
-    color: white;
+    color: white; /* Standard for success/danger states */
 }
 
 /* Logo Upload */
@@ -402,7 +461,7 @@
     width: 100px;
     height: 100px;
     border-radius: 0.5rem;
-    background: var(--surface-variant);
+    background: var(--surface-variant); /* Uses theme variable */
     margin-top: 1rem;
     display: flex;
     align-items: center;
@@ -427,7 +486,7 @@
 .logo-item {
     aspect-ratio: 1;
     border-radius: 0.5rem;
-    background: var(--surface-variant);
+    background: var(--surface-variant); /* Uses theme variable */
     padding: 0.5rem;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -435,11 +494,11 @@
 
 .logo-item:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(var(--primary-rgb), 0.2);
+    box-shadow: 0 4px 15px rgba(var(--primary-rgb, 76, 111, 255), 0.2); /* Added fallback for --primary-rgb */
 }
 
 .logo-item.active {
-    border: 2px solid var(--primary);
+    border: 2px solid var(--primary); /* Uses theme variable */
 }
 
 .logo-item img {
@@ -461,7 +520,7 @@
     width: 1rem;
     height: 1rem;
     border-radius: 50%;
-    background: var(--primary);
+    background: var(--primary); /* Uses theme variable */
     cursor: pointer;
     transition: all 0.2s ease;
 }
@@ -473,17 +532,17 @@
 .form-range::-webkit-slider-runnable-track {
     width: 100%;
     height: 0.25rem;
-    background: var(--surface-variant);
+    background: var(--surface-variant); /* Uses theme variable */
     border-radius: 0.25rem;
     cursor: pointer;
 }
 
-/* Scanner */
+/* Scanner - Kept from original, looks good */
 .scanner-container {
     aspect-ratio: 4/3;
-    background: var(--surface-variant);
+    background: var(--surface-variant); /* Uses theme variable */
     border-radius: 1rem;
-    overflow: hidden;
+    overflow: hidden; /* Ensures video feed is contained */
 }
 
 .scan-result {
@@ -509,26 +568,26 @@
     align-items: center;
     gap: 0.5rem;
     padding: 1rem;
-    background: var(--surface-variant);
-    border: 1px solid var(--border);
+    background: var(--surface-variant); /* Uses theme variable */
+    border: 1px solid var(--border); /* Uses theme variable */
     border-radius: 1rem;
-    color: var(--text-primary);
+    color: var(--text-primary); /* Uses theme variable */
     transition: all 0.3s ease;
     cursor: pointer;
 }
 
 .share-btn:hover {
     transform: translateY(-2px);
-    background: var(--primary);
-    color: white;
-    border-color: var(--primary);
-    box-shadow: 0 4px 15px rgba(var(--primary-rgb), 0.3);
+    background: var(--primary); /* Uses theme variable */
+    color: white; /* Standard for active state */
+    border-color: var(--primary); /* Uses theme variable */
+    box-shadow: 0 4px 15px rgba(var(--primary-rgb, 76, 111, 255), 0.3); /* Added fallback for --primary-rgb */
 }
 
 .share-btn.btn-success {
-    background: var(--success);
-    color: white;
-    border-color: var(--success);
+    background: var(--success); /* Uses theme variable */
+    color: white; /* Standard for success state */
+    border-color: var(--success); /* Uses theme variable */
 }
 
 .share-btn i {
@@ -542,62 +601,13 @@
 
 /* Action Buttons */
 .action-buttons {
-    margin-top: 1.5rem;
-}
-
-.action-buttons .btn-group {
-    gap: 0.5rem;
-}
-
-.action-buttons .btn {
-    border-radius: 0.5rem !important;
-    padding: 0.75rem 1.5rem;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    transition: all 0.3s ease;
-}
-
-.action-buttons .btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(var(--primary-rgb), 0.2);
-}
-
-.action-buttons .btn i {
-    transition: all 0.3s ease;
-}
-
-.action-buttons .btn:hover i {
-    transform: scale(1.1);
-}
-
-/* Dark Theme Adjustments */
+/* Dark Theme Adjustments for Share Buttons */
 [data-theme="dark"] .share-btn {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.05); /* Specific dark theme look for share buttons */
 }
 
 [data-theme="dark"] .share-btn:hover {
-    background: var(--primary);
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-    .share-options {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .action-buttons .btn-group {
-        flex-direction: column;
-    }
-
-    .action-buttons .btn {
-        width: 100%;
-        margin-right: 0 !important;
-        margin-bottom: 0.5rem;
-    }
-
-    .download-options {
-        flex-direction: column;
-    }
+    background: var(--primary); /* Uses theme variable */
 }
 
 /* Generate Button Styles */
@@ -611,27 +621,28 @@
     -webkit-backdrop-filter: blur(10px);
     border-top: 1px solid var(--border);
     margin: 0 -1rem;
-    padding-left: 1rem !important;
+    padding-left: 1rem !important; /* Overriding existing padding if necessary, common for sticky elements */
     padding-right: 1rem !important;
 }
 
-.bg-surface {
-    background: rgba(var(--surface-rgb), 0.95) !important;
+.bg-surface { /* Used by .generate-btn-wrapper */
+    /* !important might be needed if Bootstrap utility classes with high specificity are used elsewhere on the element. */
+    background: rgba(var(--surface-rgb, 255, 255, 255), 0.95) !important; /* Added fallback for --surface-rgb */
 }
 
-#generateQRBtn {
+#generateQRBtn { /* Generate Button itself */
     min-height: 3.5rem;
     font-size: 1.1rem;
     font-weight: 600;
     letter-spacing: 0.5px;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     border: none;
-    box-shadow: 0 4px 15px rgba(var(--primary-rgb), 0.2);
+    box-shadow: 0 4px 15px rgba(var(--primary-rgb, 76, 111, 255), 0.2); /* Added fallback for --primary-rgb */
 }
 
 #generateQRBtn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(var(--primary-rgb), 0.3);
+    box-shadow: 0 8px 25px rgba(var(--primary-rgb, 76, 111, 255), 0.3); /* Added fallback for --primary-rgb */
 }
 
 #generateQRBtn:active {
@@ -660,11 +671,12 @@
 }
 
 #generateQRBtn.btn-danger {
-    background: var(--danger) !important;
+    /* !important is used here to ensure the danger color overrides the button's default gradient background on error. */
+    background: var(--danger) !important; /* Uses theme variable */
     animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
 }
 
-@keyframes shake {
+@keyframes shake { /* Shake animation for error state - Kept from original */
     10%, 90% { transform: translate3d(-1px, 0, 0); }
     20%, 80% { transform: translate3d(2px, 0, 0); }
     30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
@@ -695,22 +707,10 @@
     animation: successPulse 0.5s ease;
 }
 
-/* Dark Theme Adjustments */
+/* Dark Theme Adjustments for Generate Button Wrapper */
 [data-theme="dark"] .generate-btn-wrapper {
-    background: rgba(0, 0, 0, 0.95);
+    /* Fallback for --dark-bg-rgb in case it's not defined in style.css */
+    background: rgba(var(--dark-bg-rgb, 18, 18, 18), 0.95); /* Uses theme variable (assuming --dark-bg-rgb is defined e.g. 18,18,18) */
 }
 
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-    .generate-btn-wrapper {
-        margin: 0 -0.5rem;
-        padding-left: 0.5rem !important;
-        padding-right: 0.5rem !important;
-    }
-
-    #generateQRBtn {
-        min-height: 3rem;
-        font-size: 1rem;
-    }
-} 
-} 
+/* Extraneous closing brace removed from the end of the file */
