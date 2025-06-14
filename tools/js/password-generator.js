@@ -77,11 +77,12 @@ class PasswordGenerator {
                 memoryAid: document.getElementById('memoryAid'),
                 
                 // Theme toggle
-                themeToggle: document.getElementById('themeToggle')
+                // themeToggle: document.getElementById('themeToggle') // Removed, ThemeManager handles this
             };
 
             // Validate required elements
-            const requiredElements = ['passwordDisplay', 'generateBtn', 'copyBtn', 'lengthSlider', 'themeToggle'];
+            // const requiredElements = ['passwordDisplay', 'generateBtn', 'copyBtn', 'lengthSlider', 'themeToggle'];
+            const requiredElements = ['passwordDisplay', 'generateBtn', 'copyBtn', 'lengthSlider']; // themeToggle removed
             for (const elementName of requiredElements) {
                 if (!this.elements[elementName]) {
                     throw new Error(`Required element "${elementName}" not found`);
@@ -146,12 +147,7 @@ class PasswordGenerator {
                 });
             }
 
-            // Theme toggle
-            if (this.elements.themeToggle) {
-                this.elements.themeToggle.addEventListener('click', () => this.toggleTheme());
-                // Initialize theme from localStorage
-                this.initializeTheme();
-            }
+            // Theme toggle is handled by global ThemeManager from dark-tools.js
         } catch (error) {
             console.error('Error initializing event listeners:', error);
             this.showToast('Error setting up event handlers. Some features may not work.', 'error');
@@ -1079,63 +1075,8 @@ class PasswordGenerator {
     }
 
     // Initialize theme from localStorage
-    initializeTheme() {
-        try {
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme) {
-                document.documentElement.setAttribute('data-theme', savedTheme);
-                this.updateThemeIcon(savedTheme);
-            } else {
-                // Check system preference
-                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                const theme = prefersDark ? 'dark' : 'light';
-                document.documentElement.setAttribute('data-theme', theme);
-                localStorage.setItem('theme', theme);
-                this.updateThemeIcon(theme);
-            }
-        } catch (error) {
-            console.error('Error initializing theme:', error);
-        }
-    }
-
-    // Toggle theme between light and dark
-    toggleTheme() {
-        try {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            
-            this.updateThemeIcon(newTheme);
-            
-            // Add transition class for smooth color changes
-            document.documentElement.classList.add('theme-transition');
-            setTimeout(() => {
-                document.documentElement.classList.remove('theme-transition');
-            }, 300);
-
-        } catch (error) {
-            console.error('Error toggling theme:', error);
-            this.showToast('Failed to toggle theme', 'error');
-        }
-    }
-
-    // Update theme toggle icon
-    updateThemeIcon(theme) {
-        if (!this.elements.themeToggle) return;
-        
-        const sunIcon = this.elements.themeToggle.querySelector('.sun-icon');
-        const moonIcon = this.elements.themeToggle.querySelector('.moon-icon');
-        
-        if (theme === 'dark') {
-            sunIcon.style.display = 'block';
-            moonIcon.style.display = 'none';
-        } else {
-            sunIcon.style.display = 'none';
-            moonIcon.style.display = 'block';
-        }
-    }
+    // initializeTheme, toggleTheme, and updateThemeIcon methods removed.
+    // Theme management is now handled by ThemeManager in js/dark-tools.js
 }
 
 // Initialize the password generator when the DOM is loaded

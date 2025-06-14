@@ -422,10 +422,12 @@ class BarcodeGenerator {
                     // Create download link
                     const link = document.createElement('a');
                     if (format === 'svg') {
-                        // Convert canvas to SVG
-                        const svgData = canvas.toDataURL('image/svg+xml');
-                        link.href = svgData;
-                        link.download = 'barcode.svg';
+                        // SVG Download is marked as "Coming Soon"
+                        alert('SVG download feature is coming soon and is currently not available.');
+                        button.disabled = false; // Re-enable button
+                        button.innerHTML = 'SVG (Coming Soon)'; // Restore text
+                        // Do not proceed with download logic for SVG
+                        return;
                     } else if (format === 'webp') {
                         const webpData = canvas.toDataURL('image/webp');
                         link.href = webpData;
@@ -588,19 +590,41 @@ class BarcodeGenerator {
                 qrbox: { width: 250, height: 250 }
             },
             (decodedText, decodedResult) => {
-                const result = document.getElementById('scanResult');
-                if (result) {
-                    result.innerHTML = `
-                        <div class="alert alert-success mb-3">
-                            <h6 class="alert-heading mb-1">Barcode Detected!</h6>
-                            <p class="mb-0">Content: ${decodedText}</p>
-                        </div>
-                        <div class="d-grid">
-                            <button class="btn btn-primary" onclick="copyToClipboard('${decodedText}')">
-                                <i class="fas fa-copy me-2"></i>Copy Content
-                            </button>
-                        </div>
-                    `;
+                const resultContainer = document.getElementById('scanResult');
+                if (resultContainer) {
+                    // Clear previous results
+                    resultContainer.innerHTML = '';
+
+                    // Create alert div
+                    const alertDiv = document.createElement('div');
+                    alertDiv.className = 'alert alert-success mb-3';
+
+                    // Create heading
+                    const heading = document.createElement('h6');
+                    heading.className = 'alert-heading mb-1';
+                    heading.textContent = 'Barcode Detected!';
+                    alertDiv.appendChild(heading);
+
+                    // Create paragraph for content - Use textContent to prevent XSS
+                    const contentParagraph = document.createElement('p');
+                    contentParagraph.className = 'mb-0';
+                    contentParagraph.textContent = `Content: ${decodedText}`;
+                    alertDiv.appendChild(contentParagraph);
+
+                    resultContainer.appendChild(alertDiv);
+
+                    // Create button container
+                    const buttonContainer = document.createElement('div');
+                    buttonContainer.className = 'd-grid';
+
+                    // Create copy button
+                    const copyButton = document.createElement('button');
+                    copyButton.className = 'btn btn-primary';
+                    copyButton.innerHTML = '<i class="fas fa-copy me-2"></i>Copy Content'; // Icon is safe HTML here
+                    copyButton.addEventListener('click', () => copyToClipboard(decodedText));
+                    buttonContainer.appendChild(copyButton);
+
+                    resultContainer.appendChild(buttonContainer);
                 }
             },
             (errorMessage) => {

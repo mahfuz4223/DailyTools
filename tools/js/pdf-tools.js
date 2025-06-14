@@ -466,70 +466,71 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Load preview of merged PDF (actual rendering)
     document.getElementById('mergePdfs').addEventListener('click', function() {
-        this.disabled = true;
+        alert('Merge PDF functionality is under development and not yet available.');
+        // this.disabled = true; // Button is already disabled in HTML
         
         // Show loading spinner
-        document.getElementById('mergeSpinner').classList.remove('d-none');
-        document.getElementById('mergeStatus').textContent = 'Merging PDF files...';
+        // document.getElementById('mergeSpinner').classList.remove('d-none');
+        // document.getElementById('mergeStatus').textContent = 'Merging PDF files...';
         
         // Simulate processing with progress updates
-        simulatePdfProcessing(
-            () => {
-                // After processing complete
-                document.getElementById('mergeSpinner').classList.add('d-none');
-                document.getElementById('mergeStatus').textContent = 'PDF files merged successfully!';
-                document.getElementById('mergePreview').classList.remove('d-none');
+        // simulatePdfProcessing(
+        //     () => {
+        //         // After processing complete
+        //         document.getElementById('mergeSpinner').classList.add('d-none');
+        //         document.getElementById('mergeStatus').textContent = 'PDF files merged successfully!';
+        //         document.getElementById('mergePreview').classList.remove('d-none');
                 
-                // Show success toast
-                showToast('PDF files merged successfully!', 'success');
+        //         // Show success toast
+        //         showToast('PDF files merged successfully!', 'success');
                 
-                // In a real implementation, we would load the actual merged PDF here
-                // For demo purposes, we'll use first uploaded PDF as preview
-                if (mergeDropzone.files.length > 0) {
-                    const file = mergeDropzone.files[0];
-                    const fileReader = new FileReader();
+        //         // In a real implementation, we would load the actual merged PDF here
+        //         // For demo purposes, we'll use first uploaded PDF as preview
+        //         if (mergeDropzone.files.length > 0) {
+        //             const file = mergeDropzone.files[0];
+        //             const fileReader = new FileReader();
                     
-                    fileReader.onload = function() {
-                        const typedarray = new Uint8Array(this.result);
+        //             fileReader.onload = function() {
+        //                 const typedarray = new Uint8Array(this.result);
                         
-                        pdfjsLib.getDocument(typedarray).promise.then(function(pdf) {
-                            pdf.getPage(1).then(function(page) {
-                                const canvas = document.getElementById('pdfPreviewCanvas');
-                                const ctx = canvas.getContext('2d');
+        //                 pdfjsLib.getDocument(typedarray).promise.then(function(pdf) {
+        //                     pdf.getPage(1).then(function(page) {
+        //                         const canvas = document.getElementById('pdfPreviewCanvas');
+        //                         const ctx = canvas.getContext('2d');
                                 
-                                const viewport = page.getViewport({ scale: 1.0 });
-                                const scale = Math.min(
-                                    canvas.width / viewport.width,
-                                    canvas.height / viewport.height
-                                ) * 0.9;
+        //                         const viewport = page.getViewport({ scale: 1.0 });
+        //                         const scale = Math.min(
+        //                             canvas.width / viewport.width,
+        //                             canvas.height / viewport.height
+        //                         ) * 0.9;
                                 
-                                const scaledViewport = page.getViewport({ scale: scale });
+        //                         const scaledViewport = page.getViewport({ scale: scale });
                                 
-                                canvas.width = scaledViewport.width;
-                                canvas.height = scaledViewport.height;
+        //                         canvas.width = scaledViewport.width;
+        //                         canvas.height = scaledViewport.height;
                                 
-                                const renderContext = {
-                                    canvasContext: ctx,
-                                    viewport: scaledViewport
-                                };
+        //                         const renderContext = {
+        //                             canvasContext: ctx,
+        //                             viewport: scaledViewport
+        //                         };
                                 
-                                page.render(renderContext).promise.then(function() {
-                                    // Create a blob URL for download
-                                    const blob = new Blob([file], { type: 'application/pdf' });
-                                    const blobUrl = URL.createObjectURL(blob);
-                                    document.getElementById('downloadMergedPdf').setAttribute('data-blob-url', blobUrl);
-                                    document.getElementById('downloadMergedPdf').removeAttribute('disabled');
-                                });
-                            });
-                        }).catch(function(error) {
-                            console.error('Error loading preview PDF:', error);
-                        });
-                    };
+        //                         page.render(renderContext).promise.then(function() {
+        //                             // Create a blob URL for download
+        //                             const blob = new Blob([file], { type: 'application/pdf' });
+        //                             const blobUrl = URL.createObjectURL(blob);
+        //                             document.getElementById('downloadMergedPdf').setAttribute('data-blob-url', blobUrl);
+        //                             document.getElementById('downloadMergedPdf').removeAttribute('disabled');
+        //                         });
+        //                     });
+        //                 }).catch(function(error) {
+        //                     console.error('Error loading preview PDF:', error);
+        //                 });
+        //             };
                     
-                    fileReader.readAsArrayBuffer(file);
-                }
-            }
-        );
+        //             fileReader.readAsArrayBuffer(file);
+        //         }
+        //     }
+        // );
     });
     
     // Password toggle for merge PDF
@@ -553,142 +554,143 @@ document.addEventListener('DOMContentLoaded', function() {
     const splitPdfButton = document.getElementById('splitPdf');
     if (splitPdfButton) {
         splitPdfButton.addEventListener('click', function() {
-            this.disabled = true;
+            alert('Split PDF functionality is under development and not yet available.');
+            // this.disabled = true; // Button is already disabled in HTML
             
             // Show loading spinner
-            const splitSpinner = document.getElementById('splitSpinner');
-            const splitStatus = document.getElementById('splitStatus');
-            const splitFilesList = document.getElementById('splitFilesList');
-            const downloadAllSplit = document.getElementById('downloadAllSplit');
+            // const splitSpinner = document.getElementById('splitSpinner');
+            // const splitStatus = document.getElementById('splitStatus');
+            // const splitFilesList = document.getElementById('splitFilesList');
+            // const downloadAllSplit = document.getElementById('downloadAllSplit');
             
-            if (splitSpinner) splitSpinner.classList.remove('d-none');
-            if (splitStatus) splitStatus.textContent = 'Splitting PDF...';
+            // if (splitSpinner) splitSpinner.classList.remove('d-none');
+            // if (splitStatus) splitStatus.textContent = 'Splitting PDF...';
             
             // Get the PDF file and verification
-            const pdfFile = splitDropzone.files[0];
-            if (!pdfFile || !pdfDoc) {
-                showToast('Error: No valid PDF loaded', 'error');
-                if (splitSpinner) splitSpinner.classList.add('d-none');
-                if (splitStatus) splitStatus.textContent = 'Error: No valid PDF to split';
-                this.disabled = false;
-                return;
-            }
+            // const pdfFile = splitDropzone.files[0];
+            // if (!pdfFile || !pdfDoc) {
+            //     showToast('Error: No valid PDF loaded', 'error');
+            //     if (splitSpinner) splitSpinner.classList.add('d-none');
+            //     if (splitStatus) splitStatus.textContent = 'Error: No valid PDF to split';
+            //     this.disabled = false;
+            //     return;
+            // }
             
             // Simulate processing
-            simulatePdfProcessing(
-                () => {
-                    // After processing complete
-                    if (splitSpinner) splitSpinner.classList.add('d-none');
-                    if (splitStatus) {
-                        splitStatus.classList.add('d-none');
-                    }
-                    if (splitFilesList) {
-                        splitFilesList.classList.remove('d-none');
-                    }
+            // simulatePdfProcessing(
+            //     () => {
+            //         // After processing complete
+            //         if (splitSpinner) splitSpinner.classList.add('d-none');
+            //         if (splitStatus) {
+            //             splitStatus.classList.add('d-none');
+            //         }
+            //         if (splitFilesList) {
+            //             splitFilesList.classList.remove('d-none');
+            //         }
                     
-                    // Show success toast
-                    showToast('PDF split successfully!', 'success');
+            //         // Show success toast
+            //         showToast('PDF split successfully!', 'success');
                     
-                    // Get the actual PDF file
-                    if (!pdfFile) {
-                        showToast('Error: No PDF file found', 'error');
-                        return;
-                    }
+            //         // Get the actual PDF file
+            //         if (!pdfFile) {
+            //             showToast('Error: No PDF file found', 'error');
+            //             return;
+            //         }
                     
-                    // Create sample split results with actual PDF data
-                    if (splitFilesList) {
-                        splitFilesList.innerHTML = '';
+            //         // Create sample split results with actual PDF data
+            //         if (splitFilesList) {
+            //             splitFilesList.innerHTML = '';
                         
-                        const filePrefix = document.getElementById('splitFilePrefix').value || 'split_';
-                        const splitMethod = document.querySelector('input[name="splitMethod"]:checked').id;
-                        let numOutputFiles = 3; // Default for demo
+            //             const filePrefix = document.getElementById('splitFilePrefix').value || 'split_';
+            //             const splitMethod = document.querySelector('input[name="splitMethod"]:checked').id;
+            //             let numOutputFiles = 3; // Default for demo
                         
-                        if (splitMethod === 'splitEach' && pdfDoc) {
-                            numOutputFiles = Math.min(pdfDoc.numPages, 5); // Limit to 5 for demo
-                        } else if (splitMethod === 'splitEvery') {
-                            const pagesPerPdf = parseInt(document.getElementById('splitNPages').value) || 1;
-                            numOutputFiles = Math.ceil(pdfDoc.numPages / pagesPerPdf);
-                            numOutputFiles = Math.min(numOutputFiles, 5); // Limit to 5 for demo
-                        } else if (splitMethod === 'splitRange') {
-                            const pageRangesInput = document.getElementById('pageRanges').value;
-                            if (pageRangesInput.trim()) {
-                                const ranges = pageRangesInput.split(',');
-                                numOutputFiles = Math.min(ranges.length, 5); // Limit to 5 for demo
-                            }
-                        }
+            //             if (splitMethod === 'splitEach' && pdfDoc) {
+            //                 numOutputFiles = Math.min(pdfDoc.numPages, 5); // Limit to 5 for demo
+            //             } else if (splitMethod === 'splitEvery') {
+            //                 const pagesPerPdf = parseInt(document.getElementById('splitNPages').value) || 1;
+            //                 numOutputFiles = Math.ceil(pdfDoc.numPages / pagesPerPdf);
+            //                 numOutputFiles = Math.min(numOutputFiles, 5); // Limit to 5 for demo
+            //             } else if (splitMethod === 'splitRange') {
+            //                 const pageRangesInput = document.getElementById('pageRanges').value;
+            //                 if (pageRangesInput.trim()) {
+            //                     const ranges = pageRangesInput.split(',');
+            //                     numOutputFiles = Math.min(ranges.length, 5); // Limit to 5 for demo
+            //                 }
+            //             }
                         
-                        const splitPdfBlobs = [];
+            //             const splitPdfBlobs = [];
                         
-                        for (let i = 1; i <= numOutputFiles; i++) {
-                            // Create a blob for each split file (using the original file for demo)
-                            const blob = new Blob([pdfFile], { type: 'application/pdf' });
-                            const blobUrl = URL.createObjectURL(blob);
-                            splitPdfBlobs.push(blobUrl);
+            //             for (let i = 1; i <= numOutputFiles; i++) {
+            //                 // Create a blob for each split file (using the original file for demo)
+            //                 const blob = new Blob([pdfFile], { type: 'application/pdf' });
+            //                 const blobUrl = URL.createObjectURL(blob);
+            //                 splitPdfBlobs.push(blobUrl);
                             
-                            // Calculate the page range information for display
-                            let pageInfo = '';
-                            if (splitMethod === 'splitEach') {
-                                pageInfo = `Page ${i}`;
-                            } else if (splitMethod === 'splitEvery') {
-                                const pagesPerPdf = parseInt(document.getElementById('splitNPages').value) || 1;
-                                const startPage = ((i - 1) * pagesPerPdf) + 1;
-                                const endPage = Math.min(i * pagesPerPdf, pdfDoc.numPages);
-                                pageInfo = `Pages ${startPage}-${endPage}`;
-                            } else if (splitMethod === 'splitRange') {
-                                const pageRangesInput = document.getElementById('pageRanges').value;
-                                if (pageRangesInput.trim()) {
-                                    const ranges = pageRangesInput.split(',');
-                                    if (i <= ranges.length) {
-                                        pageInfo = `Range: ${ranges[i-1].trim()}`;
-                                    } else {
-                                        pageInfo = `Split ${i}`;
-                                    }
-                                } else {
-                                    pageInfo = `Split ${i}`;
-                                }
-                            }
+            //                 // Calculate the page range information for display
+            //                 let pageInfo = '';
+            //                 if (splitMethod === 'splitEach') {
+            //                     pageInfo = `Page ${i}`;
+            //                 } else if (splitMethod === 'splitEvery') {
+            //                     const pagesPerPdf = parseInt(document.getElementById('splitNPages').value) || 1;
+            //                     const startPage = ((i - 1) * pagesPerPdf) + 1;
+            //                     const endPage = Math.min(i * pagesPerPdf, pdfDoc.numPages);
+            //                     pageInfo = `Pages ${startPage}-${endPage}`;
+            //                 } else if (splitMethod === 'splitRange') {
+            //                     const pageRangesInput = document.getElementById('pageRanges').value;
+            //                     if (pageRangesInput.trim()) {
+            //                         const ranges = pageRangesInput.split(',');
+            //                         if (i <= ranges.length) {
+            //                             pageInfo = `Range: ${ranges[i-1].trim()}`;
+            //                         } else {
+            //                             pageInfo = `Split ${i}`;
+            //                         }
+            //                     } else {
+            //                         pageInfo = `Split ${i}`;
+            //                     }
+            //                 }
                             
-                            const div = document.createElement('div');
-                            div.className = 'split-file-item mb-2 p-2 border rounded d-flex align-items-center';
-                            div.innerHTML = `
-                                <div class="split-file-icon me-2">
-                                    <i class="fas fa-file-pdf text-primary"></i>
-                                </div>
-                                <div class="split-file-info flex-grow-1">
-                                    <div class="split-file-name">${filePrefix}${i}.pdf</div>
-                                    <div class="split-file-info text-muted small">${pageInfo} • ${formatFileSize(Math.floor(pdfFile.size / numOutputFiles))}</div>
-                                </div>
-                                <div class="split-file-actions">
-                                    <button class="btn btn-sm btn-outline-primary me-1 download-split-file" data-blob-url="${blobUrl}" data-filename="${filePrefix}${i}.pdf">
-                                        <i class="fas fa-download"></i>
-                                    </button>
-                                </div>
-                            `;
-                            splitFilesList.appendChild(div);
+            //                 const div = document.createElement('div');
+            //                 div.className = 'split-file-item mb-2 p-2 border rounded d-flex align-items-center';
+            //                 div.innerHTML = `
+            //                     <div class="split-file-icon me-2">
+            //                         <i class="fas fa-file-pdf text-primary"></i>
+            //                     </div>
+            //                     <div class="split-file-info flex-grow-1">
+            //                         <div class="split-file-name">${filePrefix}${i}.pdf</div>
+            //                         <div class="split-file-info text-muted small">${pageInfo} • ${formatFileSize(Math.floor(pdfFile.size / numOutputFiles))}</div>
+            //                     </div>
+            //                     <div class="split-file-actions">
+            //                         <button class="btn btn-sm btn-outline-primary me-1 download-split-file" data-blob-url="${blobUrl}" data-filename="${filePrefix}${i}.pdf">
+            //                             <i class="fas fa-download"></i>
+            //                         </button>
+            //                     </div>
+            //                 `;
+            //                 splitFilesList.appendChild(div);
                             
-                            // Add appear animation
-                            setTimeout(() => {
-                                div.classList.add('file-appear');
-                            }, i * 200);
-                        }
+            //                 // Add appear animation
+            //                 setTimeout(() => {
+            //                     div.classList.add('file-appear');
+            //                 }, i * 200);
+            //             }
                         
-                        // Save all blob URLs for the "Download All" button
-                        if (downloadAllSplit) {
-                            downloadAllSplit.setAttribute('data-blob-urls', JSON.stringify(splitPdfBlobs));
-                            downloadAllSplit.removeAttribute('disabled');
-                        }
+            //             // Save all blob URLs for the "Download All" button
+            //             if (downloadAllSplit) {
+            //                 downloadAllSplit.setAttribute('data-blob-urls', JSON.stringify(splitPdfBlobs));
+            //                 downloadAllSplit.removeAttribute('disabled');
+            //             }
                         
-                        // Add event listeners for individual download buttons
-                        document.querySelectorAll('.download-split-file').forEach(button => {
-                            button.addEventListener('click', function() {
-                                const blobUrl = this.getAttribute('data-blob-url');
-                                const filename = this.getAttribute('data-filename');
-                                downloadFile(blobUrl, filename);
-                            });
-                        });
-                    }
-                }
-            );
+            //             // Add event listeners for individual download buttons
+            //             document.querySelectorAll('.download-split-file').forEach(button => {
+            //                 button.addEventListener('click', function() {
+            //                     const blobUrl = this.getAttribute('data-blob-url');
+            //                     const filename = this.getAttribute('data-filename');
+            //                     downloadFile(blobUrl, filename);
+            //                 });
+            //             });
+            //         }
+            //     }
+            // );
         });
     }
     
@@ -712,75 +714,76 @@ document.addEventListener('DOMContentLoaded', function() {
     const compressPdfButton = document.getElementById('compressPdf');
     if (compressPdfButton) {
         compressPdfButton.addEventListener('click', function() {
-            this.disabled = true;
+            alert('Compress PDF functionality is under development and not yet available.');
+            // this.disabled = true; // Button is already disabled in HTML
             
             // Show loading spinner
-            const compressionSpinner = document.getElementById('compressionSpinner');
-            const noCompressionResults = document.getElementById('noCompressionResults');
-            const compressionResults = document.getElementById('compressionResults');
+            // const compressionSpinner = document.getElementById('compressionSpinner');
+            // const noCompressionResults = document.getElementById('noCompressionResults');
+            // const compressionResults = document.getElementById('compressionResults');
             
-            if (compressionSpinner) compressionSpinner.classList.remove('d-none');
-            if (noCompressionResults) noCompressionResults.classList.add('processing');
+            // if (compressionSpinner) compressionSpinner.classList.remove('d-none');
+            // if (noCompressionResults) noCompressionResults.classList.add('processing');
             
             // Simulate processing
-            simulatePdfProcessing(
-                () => {
-                    // After processing complete
-                    if (compressionSpinner) compressionSpinner.classList.add('d-none');
-                    if (noCompressionResults) noCompressionResults.classList.add('d-none');
-                    if (compressionResults) {
-                        compressionResults.classList.remove('d-none');
-                        compressionResults.classList.add('results-appear');
-                    }
+            // simulatePdfProcessing(
+            //     () => {
+            //         // After processing complete
+            //         if (compressionSpinner) compressionSpinner.classList.add('d-none');
+            //         if (noCompressionResults) noCompressionResults.classList.add('d-none');
+            //         if (compressionResults) {
+            //             compressionResults.classList.remove('d-none');
+            //             compressionResults.classList.add('results-appear');
+            //         }
                     
-                    // Show success toast
-                    showToast('PDF compressed successfully!', 'success');
+            //         // Show success toast
+            //         showToast('PDF compressed successfully!', 'success');
                     
-                    // Show compression results
-                    const originalSize = Math.floor(Math.random() * 5000000) + 1000000;
-                    const compressionLevelElement = document.querySelector('.compression-option.active');
-                    const compressionLevel = compressionLevelElement ? compressionLevelElement.getAttribute('data-level') : 'medium';
+            //         // Show compression results
+            //         const originalSize = Math.floor(Math.random() * 5000000) + 1000000;
+            //         const compressionLevelElement = document.querySelector('.compression-option.active');
+            //         const compressionLevel = compressionLevelElement ? compressionLevelElement.getAttribute('data-level') : 'medium';
                     
-                    let reduction;
-                    switch(compressionLevel) {
-                        case 'low': reduction = 0.2; break;
-                        case 'medium': reduction = 0.5; break;
-                        case 'high': reduction = 0.8; break;
-                        default: reduction = 0.5;
-                    }
+            //         let reduction;
+            //         switch(compressionLevel) {
+            //             case 'low': reduction = 0.2; break;
+            //             case 'medium': reduction = 0.5; break;
+            //             case 'high': reduction = 0.8; break;
+            //             default: reduction = 0.5;
+            //         }
                     
-                    const compressedSize = Math.floor(originalSize * (1 - reduction));
-                    const savedSize = originalSize - compressedSize;
+            //         const compressedSize = Math.floor(originalSize * (1 - reduction));
+            //         const savedSize = originalSize - compressedSize;
                     
-                    const originalPdfStats = document.getElementById('originalPdfStats');
-                    const compressedPdfStats = document.getElementById('compressedPdfStats');
-                    const sizeReduction = document.getElementById('sizeReduction');
-                    const compressionRatio = document.getElementById('compressionRatio');
-                    const spaceSaved = document.getElementById('spaceSaved');
+            //         const originalPdfStats = document.getElementById('originalPdfStats');
+            //         const compressedPdfStats = document.getElementById('compressedPdfStats');
+            //         const sizeReduction = document.getElementById('sizeReduction');
+            //         const compressionRatio = document.getElementById('compressionRatio');
+            //         const spaceSaved = document.getElementById('spaceSaved');
                     
-                    if (originalPdfStats) {
-                        originalPdfStats.innerHTML = `
-                            <div><strong>Size:</strong> ${formatFileSize(originalSize)}</div>
-                            <div><strong>Pages:</strong> 5</div>
-                        `;
-                    }
+            //         if (originalPdfStats) {
+            //             originalPdfStats.innerHTML = `
+            //                 <div><strong>Size:</strong> ${formatFileSize(originalSize)}</div>
+            //                 <div><strong>Pages:</strong> 5</div>
+            //             `;
+            //         }
                     
-                    if (compressedPdfStats) {
-                        compressedPdfStats.innerHTML = `
-                            <div><strong>Size:</strong> ${formatFileSize(compressedSize)}</div>
-                            <div><strong>Pages:</strong> 5</div>
-                        `;
-                    }
+            //         if (compressedPdfStats) {
+            //             compressedPdfStats.innerHTML = `
+            //                 <div><strong>Size:</strong> ${formatFileSize(compressedSize)}</div>
+            //                 <div><strong>Pages:</strong> 5</div>
+            //             `;
+            //         }
                     
-                    if (sizeReduction) sizeReduction.textContent = `${Math.floor(reduction * 100)}%`;
-                    if (compressionRatio) compressionRatio.textContent = `${(1/(1-reduction)).toFixed(1)}x`;
-                    if (spaceSaved) spaceSaved.textContent = formatFileSize(savedSize);
+            //         if (sizeReduction) sizeReduction.textContent = `${Math.floor(reduction * 100)}%`;
+            //         if (compressionRatio) compressionRatio.textContent = `${(1/(1-reduction)).toFixed(1)}x`;
+            //         if (spaceSaved) spaceSaved.textContent = formatFileSize(savedSize);
                     
-                    // Draw placeholder previews
-                    drawPlaceholderPreview('originalPdfPreview');
-                    drawPlaceholderPreview('compressedPdfPreview');
-                }
-            );
+            //         // Draw placeholder previews
+            //         drawPlaceholderPreview('originalPdfPreview');
+            //         drawPlaceholderPreview('compressedPdfPreview');
+            //     }
+            // );
         });
     }
     
@@ -897,6 +900,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 case 'svg':
                                     // SVG conversion is more complex and would require additional libraries
                                     // Using PNG as fallback for demo
+                                    showToast('SVG conversion is under development. Exporting as PNG instead.', 'warning');
                                     dataUrl = canvas.toDataURL('image/png');
                                     mimeType = 'image/png';
                                     extension = 'png';
@@ -904,7 +908,8 @@ document.addEventListener('DOMContentLoaded', function() {
                                 case 'text':
                                     // Text extraction would require additional processing
                                     // Using placeholder text
-                                    dataUrl = 'data:text/plain;charset=utf-8,' + encodeURIComponent('Sample text content from page ' + pageNum);
+                                    showToast('Text extraction is under development. Displaying placeholder.', 'warning');
+                                    dataUrl = 'data:text/plain;charset=utf-8,' + encodeURIComponent('Sample text content from page ' + pageNum + ' (Actual text extraction coming soon)');
                                     mimeType = 'text/plain';
                                     extension = 'txt';
                                     break;

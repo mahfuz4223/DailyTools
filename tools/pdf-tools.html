@@ -7,7 +7,7 @@
     <title>PDF Tools - DarkTools</title>
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png">
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -31,7 +31,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
     
     <!-- Dark Tools Core CSS -->
-    <link href="../css/dark-tools.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
     
     <!-- PDF Tools Specific CSS -->
     <link href="css/pdf-tools.css" rel="stylesheet">
@@ -167,12 +167,13 @@
                                         </div>
                                     </div>
                                     
-                                    <button id="mergePdfs" class="btn btn-primary w-100 py-2" disabled data-bs-toggle="tooltip" data-bs-placement="top" title="Combine multiple PDF files into one document">
-                                        <i class="fas fa-object-group me-2"></i>Merge PDF Files
+                                    <button id="mergePdfs" class="btn btn-primary w-100 py-2" disabled data-bs-toggle="tooltip" data-bs-placement="top" title="This feature is under development">
+                                        <i class="fas fa-object-group me-2"></i>Merge PDF Files (Coming Soon)
                                     </button>
+                                    <p class="small text-muted mt-2 text-center">Merge PDF functionality is under development. Please check back later.</p>
                                 </div>
                                 
-                                <div class="glass-card p-3 mb-4" id="mergeResult">
+                                <div class="glass-card p-3 mb-4 d-none" id="mergeResult">
                                     <h4 class="mb-3">
                                         <i class="fas fa-file-pdf me-2"></i>Output PDF
                                         <div class="spinner-border spinner-border-sm text-primary ms-2 d-none" id="mergeSpinner" role="status">
@@ -291,12 +292,13 @@
                                         <small class="form-text text-muted">Will be added before each output filename</small>
                                     </div>
                                     
-                                    <button id="splitPdf" class="btn btn-primary w-100 py-2" disabled data-bs-toggle="tooltip" data-bs-placement="top" title="Extract pages or split PDF into multiple files">
-                                        <i class="fas fa-cut me-2"></i>Split PDF
+                                    <button id="splitPdf" class="btn btn-primary w-100 py-2" disabled data-bs-toggle="tooltip" data-bs-placement="top" title="This feature is under development">
+                                        <i class="fas fa-cut me-2"></i>Split PDF (Coming Soon)
                                     </button>
+                                    <p class="small text-muted mt-2 text-center">Split PDF functionality is under development. Please check back later.</p>
                                 </div>
                                 
-                                <div class="glass-card p-3 mb-4" id="splitResult">
+                                <div class="glass-card p-3 mb-4 d-none" id="splitResult">
                                     <h4 class="mb-3">
                                         <i class="fas fa-tasks me-2"></i>Split Results
                                         <div class="spinner-border spinner-border-sm text-primary ms-2 d-none" id="splitSpinner" role="status">
@@ -400,13 +402,15 @@
                                     </div>
                                     
                                     <div class="mt-4">
-                                        <button id="compressPdf" class="btn btn-primary w-100 py-2" disabled data-bs-toggle="tooltip" data-bs-placement="top" title="Reduce PDF file size while maintaining quality">
-                                            <i class="fas fa-compress me-2"></i>Compress PDF
+                                        <button id="compressPdf" class="btn btn-primary w-100 py-2" disabled data-bs-toggle="tooltip" data-bs-placement="top" title="This feature is under development">
+                                            <i class="fas fa-compress me-2"></i>Compress PDF (Coming Soon)
                                         </button>
+                                        <p class="small text-muted mt-2 text-center">Compress PDF functionality is under development. Please check back later.</p>
                                     </div>
                                 </div>
                                 
-                                <div class="glass-card p-3">
+                                <!-- Hiding the tips for compression as the main feature is coming soon -->
+                                <div class="glass-card p-3 d-none">
                                     <h4 class="mb-3">Compression Tips</h4>
                                     <div class="compression-tips">
                                         <ul class="list-unstyled">
@@ -536,14 +540,14 @@
                                                 <span>JPG</span>
                                                 <div class="format-badge">Compressed</div>
                                             </div>
-                                            <div class="conversion-option" data-format="svg" data-bs-toggle="tooltip" title="Vector format, best for scalable graphics">
+                                            <div class="conversion-option" data-format="svg" data-bs-toggle="tooltip" title="This feature is under development">
                                                 <i class="fas fa-file-image"></i>
-                                                <span>SVG</span>
+                                                <span>SVG (Coming Soon)</span>
                                                 <div class="format-badge">Vector</div>
                                             </div>
-                                            <div class="conversion-option" data-format="text" data-bs-toggle="tooltip" title="Extract all text from PDF">
+                                            <div class="conversion-option" data-format="text" data-bs-toggle="tooltip" title="This feature is under development">
                                                 <i class="fas fa-file-alt"></i>
-                                                <span>Text</span>
+                                                <span>Text (Coming Soon)</span>
                                                 <div class="format-badge">Content</div>
                                             </div>
                                         </div>
@@ -573,6 +577,7 @@
                                     <button id="convertPdf" class="btn btn-primary w-100 py-2" disabled data-bs-toggle="tooltip" data-bs-placement="top" title="Convert your PDF to images or text">
                                         <i class="fas fa-exchange-alt me-2"></i>Convert PDF
                                     </button>
+                                    <p class="small text-muted mt-2 text-center">SVG and Text conversion are under development. PNG/JPG conversion is functional.</p>
                                 </div>
                             </div>
                             
@@ -630,12 +635,12 @@
                                                 <strong>JPG:</strong> Ideal for photographs and color-rich documents
                                             </li>
                                             <li class="mb-2">
-                                                <i class="fas fa-check-circle text-success me-2"></i>
-                                                <strong>SVG:</strong> Perfect for graphics that need to be scaled
+                                                <i class="fas fa-info-circle text-warning me-2"></i>
+                                                <strong>SVG:</strong> (Coming Soon) Perfect for graphics that need to be scaled
                                             </li>
                                             <li class="mb-2">
-                                                <i class="fas fa-check-circle text-success me-2"></i>
-                                                <strong>Text:</strong> Extract all text content from your PDF
+                                                <i class="fas fa-info-circle text-warning me-2"></i>
+                                                <strong>Text:</strong> (Coming Soon) Extract all text content from your PDF
                                             </li>
                                         </ul>
                                     </div>

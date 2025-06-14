@@ -1,9 +1,10 @@
+// IMPORTANT: API key has been removed from client-side code for security.
+// This tool now requires a backend proxy to handle API requests securely.
+// The backend proxy should manage the API key and make requests to the actual background removal service.
+
 // Background Remover Class
 class BackgroundRemover {
     constructor() {
-        // API Key
-        this.API_KEY = "4EsbZjKKCqTJLcYDwncFihre";
-
         // Initialize state
         this.state = {
             isProcessing: false,
@@ -263,14 +264,21 @@ class BackgroundRemover {
             formData.append('enhance_details', 'true');
         }
         
-        // Make API request
+        // IMPORTANT: This function now needs to call a backend proxy.
+        // The backend proxy will handle the actual API call to the background removal service using a secure API key.
+        alert('Background removal feature is under maintenance. Please try again later. API call to proxy is not implemented in this version.');
+        this.resetProcessButton(); // Reset button state
+
+        // Placeholder for backend proxy call
+        // Make API request to your backend proxy
+        /*
         axios({
             method: 'post',
-            url: 'https://api.remove.bg/v1.0/removebg',
+            url: '/api/remove-background-proxy', // Placeholder URL for your backend proxy
             data: formData,
             responseType: 'arraybuffer',
             headers: {
-                'X-Api-Key': this.API_KEY,
+                // No API key needed here; backend handles it.
                 'Content-Type': 'multipart/form-data',
             },
         })

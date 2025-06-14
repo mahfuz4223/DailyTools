@@ -4,8 +4,7 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize theme management
-    initThemeManagement();
+    // Theme management is handled by js/dark-tools.js (ThemeManager)
     
     // ===============================
     // Color Palette Generator
@@ -1116,48 +1115,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return luminance > 0.5 ? '#000000' : '#FFFFFF';
     };
     
-    // ===============================
-    // Theme Management
-    // ===============================
-    function initThemeManagement() {
-        const themeToggle = document.getElementById('themeToggle');
-        
-        if (!themeToggle) return;
-        
-        // Check for saved theme preference or use default
-        const savedTheme = localStorage.getItem('theme') || 'dark';
-        document.documentElement.setAttribute('data-theme', savedTheme);
-        
-        // Initialize the theme toggle appearance based on current theme
-        updateThemeToggleAppearance(savedTheme);
-        
-        // Add event listener to toggle theme
-        themeToggle.addEventListener('click', () => {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
-            // Update the theme
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            
-            // Update theme toggle appearance
-            updateThemeToggleAppearance(newTheme);
-        });
-    }
-    
-    // Update theme toggle button appearance based on current theme
-    function updateThemeToggleAppearance(theme) {
-        const themeToggle = document.getElementById('themeToggle');
-        if (!themeToggle) return;
-        
-        if (theme === 'dark') {
-            themeToggle.setAttribute('title', 'Switch to light mode');
-            themeToggle.setAttribute('aria-label', 'Switch to light mode');
-        } else {
-            themeToggle.setAttribute('title', 'Switch to dark mode');
-            themeToggle.setAttribute('aria-label', 'Switch to dark mode');
-        }
-    }
+    // Theme Management functions (initThemeManagement, updateThemeToggleAppearance) removed.
+    // This is now handled by ThemeManager in js/dark-tools.js
     
     // ===============================
     // Utility Functions

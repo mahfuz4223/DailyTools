@@ -68,6 +68,7 @@ class QRCodeGenerator {
         this.initGenerateButton();
         this.initDownloadHandlers();
         this.initShareHandlers();
+        this.initScannerPlaceholder(); // Placeholder for scanner
     }
 
     initQRCode() {
@@ -705,10 +706,14 @@ class QRCodeGenerator {
                     button.innerHTML = '<span class="spinner-border spinner-border-sm" role="status"></span>';
 
                     // Download the QR code
+                    // Download the QR code
                     if (format === 'svg') {
-                        await this.qrCode.download({
-                            extension: 'svg'
-                        });
+                        // SVG Download is marked as "Coming Soon"
+                        alert('SVG download feature is coming soon and is currently not available.');
+                        button.disabled = false; // Re-enable button
+                        button.innerHTML = 'SVG (Coming Soon)'; // Restore text
+                        // Do not proceed with download logic for SVG
+                        return;
                     } else if (format === 'webp') {
                         await this.qrCode.download({
                             extension: 'webp'
@@ -819,6 +824,17 @@ class QRCodeGenerator {
                 console.error('Error copying link:', error);
             }
         };
+    }
+
+    initScannerPlaceholder() {
+        const toggleBtn = document.getElementById('toggleScanner');
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', () => {
+                alert('QR Code Scanner feature is coming soon and is currently not available.');
+            });
+        }
+        // Note: The actual scanner initialization (Html5Qrcode) is omitted
+        // as the feature is marked as coming soon.
     }
 
     // ... rest of the class implementation ...
